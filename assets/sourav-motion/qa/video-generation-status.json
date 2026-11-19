@@ -1,0 +1,10 @@
+{
+  "status": "blocked",
+  "provider": "ZenMux",
+  "model": "minimax/minimax-h3",
+  "httpStatus": 403,
+  "errorCode": "access_denied",
+  "summary": "Configured credential lacks access to the video generation endpoint. No model or constraint was silently changed. No motion master was produced.",
+  "currentDelivery": "Three illustrated comic poses with scroll-controlled cuts and geometric panel motion. This is not continuous video.",
+  "nextAction": "Enable the requested video endpoint for the user-managed credential, then rerun the saved keyframe-constrained prompt and complete compile/QA pipeline."
+}
