@@ -6,12 +6,12 @@ test('homepage navigation, projects, and concept disclosures', async ({
 }) => {
   await page.goto('/')
   await expect(
-    page.getByRole('heading', { name: /The builder’s adventures!/ }),
+    page.getByRole('heading', { name: /Ideas into real products./ }),
   ).toBeVisible()
   await page.getByRole('link', { name: 'Explore the work', exact: true }).click()
   await expect(page).toHaveURL(/#work/)
   await page
-    .getByRole('link', { name: /^Read Check Your Deals case study/ })
+    .getByRole('link', { name: /^Read case study for Check Your Deals/ })
     .click()
   await expect(
     page.getByRole('heading', {
@@ -143,7 +143,7 @@ test('adventure cover, live project panels and finale match the approved flow', 
   const errors = []
   page.on('pageerror', (error) => errors.push(error.message))
   await page.goto('/')
-  await expect(page.getByRole('heading', { level: 1, name: /The builder’s adventures!/ })).toBeVisible()
+  await expect(page.getByRole('heading', { level: 1, name: /Ideas into real products./ })).toBeVisible()
   await expect.poll(() => page.locator('.cover-picture img').evaluate(img => img.complete && img.naturalWidth > 0)).toBeTruthy()
   await page.screenshot({ path: 'test-results/adventure-desktop-hero.png' })
   await page.getByRole('button', { name: /INK MODE/ }).click()
@@ -197,7 +197,7 @@ test('desktop reduced-motion page and case-study artwork are accessible', async 
   await page.evaluate(() => window.scrollTo({ top: 0, behavior: 'instant' }))
   await page.screenshot({ path: 'test-results/adventure-full-page.png', fullPage: true })
   await page.goto('/work/day-one-crm')
-  await expect.poll(() => page.locator('.project-art img').evaluate(img => img.complete && img.naturalWidth > 0)).toBeTruthy()
+  await expect.poll(() => page.locator('.case-facts > img').evaluate(img => img.complete && img.naturalWidth > 0)).toBeTruthy()
   const caseResults = await new AxeBuilder({ page }).analyze()
   expect(caseResults.violations).toEqual([])
   await page.screenshot({ path: 'test-results/adventure-case-study.png', fullPage: true })
@@ -216,4 +216,81 @@ test('desktop reduced-motion page and case-study artwork are accessible', async 
     await expect(page.locator('.contact-cta')).toBeVisible()
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBeTruthy()
   }
+})
+
+test('visitor narrative leads with value and proof, and direct questions open the assistant', async ({ page }) => {
+  await page.goto('/')
+  await expect(page.locator('.cover-intro')).toContainText('I’m Sourav.')
+  await expect(page.locator('.profile-evidence')).toContainText('Day One Venture Studio')
+  await expect(page.locator('.project-feature-cyd .project-info')).toContainText('deal discovery platform')
+  await expect(page.locator('.project-feature-crm .project-info')).toContainText('My contribution')
+  const ids = await page.locator('main section[id]').evaluateAll(nodes => nodes.map(node => node.id))
+  expect(ids.indexOf('work')).toBeLessThan(ids.indexOf('about'))
+  expect(ids.indexOf('about')).toBeLessThan(ids.indexOf('toolkit'))
+  expect(ids.indexOf('toolkit')).toBeLessThan(ids.indexOf('workspace'))
+  await page.locator('.cover-ask').click()
+  await expect(page).toHaveURL(/mode=chat#workspace/)
+  await expect(page.getByRole('button', { name: 'Ask AI', exact: true })).toHaveAttribute('aria-pressed', 'true')
+  await expect(page.getByLabel('Ask about my work', { exact: true })).toBeVisible()
+  await page.locator('#workspace').getByRole('button', { name: 'Explore', exact: true }).click()
+  await page.locator('.portrait-caption').getByRole('link', { name: 'Ask about my work' }).click()
+  await expect(page.getByLabel('Ask about my work', { exact: true })).toBeVisible()
+  await page.reload()
+  await expect(page.getByRole('button', { name: 'Ask AI', exact: true })).toHaveAttribute('aria-pressed', 'true')
+})
+
+test('project maps explain real workflows and case-study chapters remain navigable', async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: 'reduce' })
+  await page.goto('/#work')
+  const deals = page.locator('.work-feature.project-feature-cyd')
+  await deals.getByRole('button', { name: 'Connect', exact: true }).click()
+  await expect(deals.getByRole('button', { name: 'Connect', exact: true })).toHaveAttribute('aria-pressed', 'true')
+  await expect(deals.locator('.map-canvas')).toContainText('Further discovery and update automation is planned.')
+  const crm = page.locator('.work-feature.project-feature-crm')
+  await crm.getByRole('button', { name: 'Progress', exact: true }).click()
+  await expect(crm.locator('.map-canvas')).toContainText('Weekly tracking')
+  await page.screenshot({ path: 'test-results/work-index-desktop.png', fullPage: true })
+  await deals.getByRole('link', { name: 'Read case study for Check Your Deals', exact: true }).click()
+  await page.getByRole('navigation', { name: 'Case study sections' }).getByRole('link', { name: 'Inside the product', exact: true }).click()
+  await expect(page).toHaveURL(/check-your-deals#system/)
+  await page.locator('#system').getByRole('button', { name: 'Explore', exact: true }).click()
+  await expect(page.locator('#system .map-canvas')).toContainText('Product detail pages')
+  await page.getByRole('navigation', { name: 'Case study sections' }).getByRole('link', { name: 'Built scope', exact: true }).click()
+  await expect(page.locator('#scope')).toBeFocused()
+  await page.getByRole('link', { name: 'Day One CRM', exact: true }).click()
+  await expect(page.getByRole('heading', { level: 1, name: 'Day One CRM' })).toBeVisible()
+  await page.setViewportSize({ width: 320, height: 800 })
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBeTruthy()
+  const results = await new AxeBuilder({ page }).analyze()
+  expect(results.violations).toEqual([])
+  await page.screenshot({ path: 'test-results/work-case-mobile.png', fullPage: true })
+})
+
+test('Marvel comic intro bumper and Vice City synthwave radio audio controls', async ({ page }) => {
+  await page.goto('/')
+  const introBtn = page.getByRole('button', { name: /MARVEL INTRO/ }).first()
+  await expect(introBtn).toBeVisible()
+  await introBtn.click()
+  const introDialog = page.getByRole('dialog', { name: 'Cinematic comic introduction' })
+  await expect(introDialog).toBeVisible()
+  await expect(page.getByRole('button', { name: 'Skip cinematic introduction' })).toBeVisible()
+  await page.keyboard.press('Escape')
+  await expect(introDialog).not.toBeVisible()
+
+  const radio = page.getByRole('region', { name: 'Audio controls' })
+  await expect(radio).toBeVisible()
+  // Intro completion automatically starts the Vice City synthwave BGM
+  const pauseBtn = radio.getByRole('button', { name: /Pause Vice City synth BGM/ })
+  await expect(pauseBtn).toBeVisible()
+  await expect(radio.locator('.eq-bar.active')).toHaveCount(5)
+  // Clicking pause stops the BGM
+  await pauseBtn.click()
+  const playBtn = radio.getByRole('button', { name: /Play Vice City synth BGM/ })
+  await expect(playBtn).toBeVisible()
+  // Mute toggle
+  const muteBtn = radio.getByRole('button', { name: /Mute sound/ })
+  await muteBtn.click()
+  await expect(radio.getByRole('button', { name: /Unmute sound/ })).toBeVisible()
+  const axeResults = await new AxeBuilder({ page }).include('.vice-city-radio-bar').analyze()
+  expect(axeResults.violations).toEqual([])
 })

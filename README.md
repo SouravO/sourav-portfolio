@@ -21,7 +21,7 @@ npx playwright install chromium
 npm run test:e2e
 ```
 
-Eight browser tests cover cover navigation and ink mode, responsive artwork at phone/tablet/desktop sizes, direct case studies, concept disclosures, curated perspectives, terminal commands, mocked chat success/cancellation, unconfigured AI, email copy, and reduced motion. Mobile, desktop, and case-study axe accessibility scans run in the suite. API unit tests exercise endpoint validation, model request boundaries, safe sources, quotas, and error behavior. Live model accuracy and live Redis remain release checks.
+Ten browser tests cover cover navigation and ink mode, responsive artwork at phone/tablet/desktop sizes, direct case studies, concept disclosures, curated perspectives, terminal commands, mocked chat success/cancellation, unconfigured AI, email copy, and reduced motion. Mobile, desktop, and case-study axe accessibility scans run in the suite. API unit tests exercise endpoint validation, model request boundaries, safe sources, quotas, and error behavior. Live model accuracy and live Redis remain release checks.
 
 Illustration masters are in `assets/illustrations/builders-adventures/`; optimized WebP files are in `public/illustrations/`. Rebuild derivatives with `python3 scripts/prepare_adventure_assets.py` (Pillow required). The mobile cover and finale are separately generated compositions. The hero uses restrained scroll parallax, with a static reduced-motion fallback.
 
@@ -83,3 +83,9 @@ Persistent project state and continuation instructions live in `.ai/` and `AGENT
 
 ## Current visual implementation (2026-11-20)
 The approved adventure-comic concept is implemented by `AdventureHero.jsx` and `src/comic.css`. Earlier ScrollStory/CharacterSequence, magnetic/tilt components and pose/video assets are retained as historical experiments and are not imported by the current homepage. The approved full-scene illustrations replace the previous three-pose character experience. The corrected cover character stands naturally with both feet on the ground and holds a laptop. No continuous character animation is claimed.
+
+## Visitor content flow (PORT-008)
+The homepage introduces Sourav’s role/value, substantiates it with real projects and contributions, then presents experience, stack and build approach before the optional workshop and contact finale. Structural inspiration: https://sivaprasadc.vercel.app/; copy and professional facts remain Sourav’s. `/?mode=chat#workspace` opens the assistant without submitting a question; repeated navigation reinitializes its local state.
+
+## Work presentation (PORT-009)
+The work index uses editorial project rows and interactive explanatory maps rather than illustration-heavy poster cards. `src/components/ProductMap.jsx` shares the factual workflow UI across index and case studies. `src/work.css` contains the work/case presentation. The maps are labelled as explanations, not screenshots. Detail pages have a responsive chapter index; existing route paths and public project data remain unchanged.

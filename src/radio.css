@@ -1,0 +1,184 @@
+/* Vice City Radio Station / Audio Dock */
+
+.vice-city-radio-bar {
+  position: fixed;
+  bottom: 1.2rem;
+  left: 1.2rem;
+  z-index: 1000;
+  display: inline-flex;
+  align-items: center;
+  user-select: none;
+}
+
+.radio-tuner-unit {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.4rem 0.85rem;
+  background: #0e1016;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.7), 0 0 16px rgba(0, 242, 254, 0.2);
+  border-radius: 9999px;
+  backdrop-filter: blur(12px);
+  transition: all 0.25s ease;
+}
+
+.radio-tuner-unit:hover {
+  border-color: rgba(0, 242, 254, 0.5);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.8), 0 0 20px rgba(0, 242, 254, 0.3);
+}
+
+/* Play/Pause Button */
+.radio-play-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  background: #ff007f; /* Neon sunset magenta */
+  color: #ffffff;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: transform 0.2s cubic-bezier(0.17, 0.89, 0.32, 1.25), background 0.2s ease;
+  box-shadow: 0 2px 8px rgba(255, 0, 127, 0.5);
+}
+
+.radio-play-btn:hover {
+  transform: scale(1.1);
+  background: #ff2a9d;
+}
+
+.radio-play-btn.playing {
+  background: #00f2fe; /* Cyber cyan when active */
+  color: #0b0c10;
+  box-shadow: 0 2px 10px rgba(0, 242, 254, 0.6);
+}
+
+/* Radio Text Labels - High WCAG Contrast */
+.radio-label-group {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-width: 124px;
+}
+
+.radio-station {
+  font-family: var(--font-code, monospace);
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  color: #00f2fe; /* High contrast cyan > 13:1 */
+  line-height: 1.1;
+}
+
+.radio-track-title {
+  font-family: var(--font-code, monospace);
+  font-size: 0.62rem;
+  font-weight: 600;
+  color: #f7f3e8; /* High contrast cream > 15:1 */
+  letter-spacing: 0.05em;
+  line-height: 1.1;
+}
+
+/* Equalizer HTML Bars (No canvas element) */
+.radio-visualizer-wrap {
+  display: flex;
+  align-items: flex-end;
+  gap: 2px;
+  height: 16px;
+  padding: 0 0.2rem;
+}
+
+.eq-bar {
+  display: block;
+  width: 3px;
+  height: 3px;
+  background: #555566;
+  border-radius: 1px;
+  transition: height 0.15s ease;
+}
+
+.eq-bar.active {
+  background: linear-gradient(to top, #00f2fe, #ff007f);
+  animation: eq-bounce 0.6s ease-in-out infinite alternate;
+}
+
+.eq-bar-0.active { animation-duration: 0.45s; }
+.eq-bar-1.active { animation-duration: 0.62s; animation-delay: 0.1s; }
+.eq-bar-2.active { animation-duration: 0.38s; animation-delay: 0.05s; }
+.eq-bar-3.active { animation-duration: 0.55s; animation-delay: 0.15s; }
+.eq-bar-4.active { animation-duration: 0.42s; animation-delay: 0.08s; }
+
+@keyframes eq-bounce {
+  0% { height: 3px; }
+  50% { height: 14px; }
+  100% { height: 6px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .eq-bar.active {
+    animation: none;
+    height: 8px;
+  }
+}
+
+/* Mute Button */
+.radio-mute-btn {
+  background: transparent;
+  border: none;
+  color: #f7f3e8;
+  cursor: pointer;
+  padding: 0.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  transition: color 0.15s ease;
+}
+
+.radio-mute-btn:hover {
+  color: #00f2fe;
+}
+
+/* Replay Marvel Intro Button - High Contrast */
+.radio-intro-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  background: #e62429;
+  border: 1px solid #ffffff;
+  color: #ffffff;
+  border-radius: 9999px;
+  padding: 0.25rem 0.6rem;
+  font-family: var(--font-code, monospace);
+  font-size: 0.65rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+}
+
+.radio-intro-btn:hover {
+  background: #ff2a2e;
+  transform: scale(1.05);
+  box-shadow: 0 0 10px rgba(230, 36, 41, 0.6);
+}
+
+.radio-intro-btn span {
+  color: #ffffff;
+}
+
+@media (max-width: 600px) {
+  .vice-city-radio-bar {
+    bottom: 0.8rem;
+    left: 0.8rem;
+  }
+  .radio-label-group {
+    min-width: 90px;
+  }
+  .radio-track-title {
+    display: none;
+  }
+}

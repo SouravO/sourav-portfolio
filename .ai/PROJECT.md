@@ -21,3 +21,5 @@ Source of truth: src/data/portfolio.js, based on the user-supplied personal brie
 Scripts: npm run dev, build, lint, preview; npm test; npm run test:e2e.
 
 Approved 2026-11-20: Implement The Builder’s Adventures concept, correct the landing pose to a natural upright stance with a laptop, and preserve the sunset To be continued contact composition. Current homepage uses full-scene illustration and direct scrolling instead of the earlier sticky three-pose sequence.
+
+2026-11-20 content update: User requested stronger visitor appeal inspired by Sivaprasad C’s portfolio. Keep the comic visual identity and finale while leading with Sourav’s identity/value, real project scope/contribution, experience, tools, build approach, then optional workshop/assistant. No unsupported availability, résumé, social links, blog posts or testimonials added.

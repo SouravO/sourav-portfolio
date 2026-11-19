@@ -36,10 +36,15 @@ a:hover { color:var(--accent); }
 .cover-picture { position:absolute; inset:-2px 0 -6%; z-index:-1; }
 .cover-picture img { width:100%; height:100%; object-fit:cover; object-position:50% 55%; }
 .cover-picture::after { content:''; position:absolute; inset:0; background:linear-gradient(90deg,#f0e1bd38 0%,transparent 65%); }
-.cover-edition { position:absolute; top:15px; left:24px; right:24px; display:flex; justify-content:space-between; align-items:center; font-family:'Geist Mono Variable',monospace; font-size:10px; font-weight:650; letter-spacing:1px; }
+.cover-edition { position:absolute; top:15px; left:24px; right:24px; display:flex; justify-content:space-between; align-items:center; font-family:'Geist Mono Variable',monospace; font-size:10px; font-weight:650; letter-spacing:1px; z-index:5; }
 .cover-edition > span { background:var(--paper); border:1px solid var(--ink); padding:6px 9px; }
-.cover-edition button { background:var(--paper); border:1px solid var(--ink); padding:7px 10px; display:flex; gap:12px; min-height:32px; }
+.cover-edition-controls { display:flex; align-items:center; gap:8px; }
+.cover-edition button { background:var(--paper); border:1px solid var(--ink); padding:7px 10px; display:flex; align-items:center; gap:8px; min-height:32px; font-family:'Geist Mono Variable',monospace; font-size:10px; font-weight:700; cursor:pointer; }
 .cover-edition button span { color:var(--accent); }
+.cover-intro-pill { background:#e62429!important; color:#ffffff!important; border:1px solid var(--ink)!important; box-shadow:2px 2px 0 var(--ink); transition:transform .15s,box-shadow .15s; }
+.cover-intro-pill:hover { transform:translate(-1px,-1px); box-shadow:3px 3px 0 var(--ink); }
+.header-intro-pill { background:#e62429; color:#ffffff; border:2px solid var(--ink); box-shadow:2px 2px 0 var(--ink); font-family:var(--display); font-size:20px; letter-spacing:.04em; padding:4px 12px; cursor:pointer; display:inline-flex; align-items:center; gap:6px; margin-right:8px; }
+.header-intro-pill:hover { background:var(--accent); transform:translate(-1px,-1px); box-shadow:4px 4px 0 var(--ink); }
 .cover-title-wrap { position:absolute; top:12%; left:4%; width:60%; transform:rotate(-6deg); transform-origin:20% 50%; }
 .cover-kicker { display:inline-block; padding:6px 12px; font-size:16px; background:var(--yellow); margin-bottom:16px; }
 .cover-title-wrap h1 { font-size:clamp(70px,8.6vw,130px); line-height:.91; letter-spacing:.005em; text-transform:uppercase; }
@@ -349,4 +354,52 @@ a:hover { color:var(--accent); }
  .workspace-tabs button { font-size:12px; }
  .agent-response p { font-size:14px; }
  .workspace-brand { font-size:11px; }
+}
+/* PORT-008: a visitor-first narrative inside the approved comic world. */
+.cover-kicker { font-size:14px; }
+.cover-intro { max-width:410px; gap:14px; }
+.cover-intro .caption { font-size:23px; }
+.cover-ask { font-family:var(--lettering); font-size:19px; font-weight:700; background:var(--surface); border:1.5px solid var(--ink); padding:7px 13px; box-shadow:2px 2px 0 var(--ink); transform:rotate(-2deg); }
+.cover-ask:hover { color:var(--ink); background:var(--yellow); }
+.profile-evidence { display:grid; grid-template-columns:.85fr 1fr 1.4fr; border-bottom:3px solid var(--ink); padding:23px 20px; gap:25px; }
+.profile-evidence > div { display:flex; flex-direction:column; gap:5px; border-right:1px solid var(--line); }
+.profile-evidence > div:last-child { border-right:0; }
+.profile-evidence strong { font-family:var(--display); font-weight:400; font-size:31px; letter-spacing:.025em; }
+.profile-evidence span { font-family:var(--lettering); font-size:17px; }
+.project-info > p { margin-top:12px; }
+.project-info .project-contribution { display:flex; flex-direction:column; gap:4px; font-size:14px; font-weight:600; line-height:1.5; padding-top:12px; border-top:1px solid var(--line); color:var(--ink); }
+.project-contribution > span { font-family:'Geist Mono Variable',monospace; text-transform:uppercase; font-size:10px; letter-spacing:.8px; font-weight:400; color:var(--muted); }
+.project-live-link { display:inline-flex; align-items:center; gap:9px; border-bottom:1px solid var(--ink); margin-top:18px; padding-bottom:3px; font-size:13px; font-weight:600; }
+.experience-context { margin-top:18px!important; }
+.experience-contact { margin-top:21px; }
+.toolkit-intro { color:var(--muted); font-size:16px; max-width:680px; margin-top:16px; line-height:1.7; }
+.approach-section h2 { font-size:clamp(38px,4.5vw,65px); max-width:900px; }
+.approach-steps { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:30px; border-top:2px solid var(--ink); border-bottom:2px solid var(--ink); padding:27px 0; margin-top:25px; }
+.approach-steps h3 { font-size:29px; }
+.approach-steps p { font-size:15px; line-height:1.75; color:var(--muted); margin-top:12px; }
+.workshop-desk .section-heading > p:last-child { font-size:20px; max-width:550px; line-height:1.4; }
+.contact-bottom > p { max-width:620px; }
+@media(max-width:1100px) and (min-width:768px) {
+ .cover-intro { max-width:330px; }
+ .cover-intro .caption { font-size:20px; }
+ .cover-kicker { font-size:12px; }
+ .profile-evidence strong { font-size:27px; }
+}
+@media(max-width:767px) {
+ .cover-kicker { font-size:10px; }
+ .cover-intro { max-width:none; }
+ .cover-intro .caption { font-size:20px; }
+ .cover-ask { font-size:17px; transform:none; }
+ .profile-evidence { grid-template-columns:1fr 1fr; padding:20px 7px; gap:19px 12px; }
+ .profile-evidence > div:nth-child(2) { border-right:0; }
+ .profile-evidence > div:last-child { grid-column:1/-1; border-top:1px solid var(--line); padding-top:15px; }
+ .profile-evidence strong { font-size:27px; }
+ .profile-evidence span { font-size:15px; }
+ .approach-steps { grid-template-columns:1fr; gap:23px; }
+ .approach-steps > div:not(:last-child) { border-bottom:1px solid var(--line); padding-bottom:22px; }
+ .approach-steps p { font-size:16px; margin-top:8px; }
+ .experience-contact { font-size:13px; }
+ .workshop-desk .section-heading > p:last-child { font-size:18px; }
+ .contact-bottom > p { max-width:285px; font-size:18px; }
+ .contact-section { min-height:810px; }
 }

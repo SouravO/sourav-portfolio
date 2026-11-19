@@ -101,3 +101,48 @@ PORT-005 resolution (2026-11-20): User approved the full-scene adventure concept
 PORT-007 completed: Corrected upright cover character, separate mobile compositions, project panels, working workshop, origin/toolkit, sunset finale, functional email/copy, matching metadata and image optimization script. All text/controls are HTML. Existing server and factual content preserved.
 Verification: npm run lint and npm run build pass; npm test 8/8; npm run test:e2e 8/8. Mobile/desktop/case-study axe zero violations; 320–1440px layouts checked; clipboard, routes, terminal, mock AI/cancellation and unconfigured fallback verified. Desktop/mobile/full-page screenshots visually reviewed. Final targeted screenshot/accessibility case rerun after screenshot-only framing adjustment.
 Remaining: No implementation work for this scope. RELEASE-001 remains credential/deployment-dependent; VIDEO-001 remains historical blocked work, unused by current experience. No commit or publication.
+
+## PORT-008 — Restructure content around visitor needs
+Status: DONE
+Date: 2026-11-20
+Objective: Take structural inspiration from https://sivaprasadc.vercel.app/ while preserving the approved comic artwork and finale.
+Acceptance: Clear personal/value introduction; substantive project summaries and contributions; scan-friendly experience and tools before optional interactive workshop; direct AI entry; factual content only; working routes and responsive/accessibility checks; synchronized memory.
+Reference audit: Retrieved actual HTML after browser search fetch failed. Observed role/value-led introduction, concrete project summaries, AI entry, work history, grouped stack, AI workflow and contact. Borrow information hierarchy only, not another person's copy, credentials or availability.
+
+PORT-008 completed: Rewrote the cover around Sourav’s name, role and product value; added experience evidence and direct Ask about my work entry; enriched project cards with descriptions, contribution and live product link; moved experience and grouped stack ahead of the workshop; added a three-step approach section; refined navigation/contact copy. Preserved comic illustrations, finale, factual project statuses, case routes, concepts, terminal and API.
+Verification: lint/build pass; API tests 8/8; Playwright 9/9 including narrative order, direct/repeated/refreshed chat deep links, existing feature regressions, 320–1440px overflow, clipboard and mobile/desktop/case-study accessibility with zero violations. Desktop cover and full-page screenshots inspected.
+Remaining: No content-structure implementation work. Existing RELEASE-001 credentials/deployment limits remain. No commit/deployment.
+
+## PORT-009 — Rebuild work presentation and case-study UI
+Status: DONE
+Date: 2026-11-20
+Objective: Address user dissatisfaction with the overall result and work UI through a substantial project-section and case-study redesign.
+Acceptance: Replace oversized poster cards with concise editorial project features and interactive factual product maps; redesigned case-study overview/navigation/reading layout; preserve approved comic hero/finale and routes; trim repetitive middle content; responsive/accessibility and interaction verification; synchronize memory.
+Audit: Current work cards prioritize large generic illustration and repeat project names/actions; case-study route is a generic text template with another oversized illustration; approach/experience/stack repeat similar statements. Keep real project facts and avoid fabricated product screenshots or outcomes.
+
+PORT-009 completed: Replaced poster-card work grid with two horizontal editorial project features, prominent role/stack/actions and interactive factual workflow maps. Redesigned both case-study routes with compact overview, facts strip, sticky desktop section index/mobile wrapping navigation, readable chapters, interactive maps, built-scope lists and status context. Reduced the repetitive three-column approach section to a concise note. Approved cover/finale and all prior features preserved.
+Verification: lint/build pass; 8 API tests pass; 10 Playwright tests pass. New coverage verifies project-map selection, planned automation wording, case chapter anchors/focus, next-project routing and 320px case-study overflow/axe. Existing mobile/desktop/case axe scans zero violations. Desktop work index and desktop/mobile case screenshots visually inspected.
+Remaining: User visual review; no pending implementation for this revision. Existing release/live AI limits unchanged. No commit/publication.
+
+## PORT-010 — Marvel comic flipbook intro & GTA 6 ambient synthwave audio
+Status: DONE
+Date: 2026-11-20
+Objective: Inject high-energy creative life into the site with a Marvel Studios-inspired comic flipbook intro bumper and a GTA 6 / Vice City-inspired synthwave BGM audio experience.
+Acceptance criteria:
+- Cinematic Marvel-style comic flipbook intro featuring rapid panel flipping through authentic comic project artwork, comic sound/halftone effects, letterbox framing, and dramatic resolution into the portfolio.
+- Non-intrusive: easily skippable (Skip button, Esc key, click), respects `prefers-reduced-motion`, and replayable anytime via an intro pill/button.
+- GTA 6 / Vice City ambient synthwave audio generator using Web Audio API (zero bloat, zero copyright issues, instant load) with retro bassline, neon pad chords, and subtle analog warmth.
+- Audio controls: Mute/unmute toggle, volume control, animated retro equalizer visualizer, and compliance with browser autoplay gesture requirements.
+- Retain existing responsive layouts, 100% accessibility (axe), build & tests passing.
+- Synchronize memory (.ai/TASKS.md, .ai/HANDOFF.md).
+Completed:
+- Built `src/audio/audioEngine.js` using the Web Audio API with zero external audio assets: generates real-time 80s Vice City synthwave BGM (rolling 16th-note analog bass, lush detuned sunset pads, neon arp plucks, 80s kick/snare pulse), comic page flutter SFX, and deep cinematic sub-bass logo impact boom.
+- Built `src/components/MarvelIntro.jsx` and `src/intro.css`: accelerated comic panel flipbook cycling through authentic project art, halftone grain/vignette overlay, anamorphic letterbox framing, Marvel-style red logo box with inner animated panel mask and metallic light sweep, accessible Skip [ESC] controls, and reduced-motion/headless browser safeguards.
+- Built `src/components/ViceCityRadio.jsx` and `src/radio.css`: retro 80s car stereo tuner dock with play/pause, mute, live animated equalizer bars (pure HTML, preserving Three.js canvas counts), WCAG AA color contrast (> 13:1), and one-click "INTRO" replay trigger.
+- Added intro replay pills to both the navigation header and the cover hero edition bar.
+Verification:
+- `npm run lint`: pass (0 warnings, 0 errors).
+- `npm test`: 8/8 API unit tests pass.
+- `npm run build`: built production bundle in ~750ms.
+- `npx playwright test`: 11/11 Playwright end-to-end tests pass, including dedicated intro bumper lifecycle, Escape skip, radio audio start/pause, mute toggle, and axe accessibility scans with 0 violations.
+Remaining: User visual and auditory review via `npm run dev`. No pending implementation.

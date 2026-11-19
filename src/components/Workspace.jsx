@@ -83,10 +83,10 @@ function LocalTerminal() {
   )
 }
 
-export default function Workspace({ onPerspectiveChange }) {
+export default function Workspace({ onPerspectiveChange, initialMode = 'explore' }) {
   const [projectId, setProjectId] = useState('cyd')
   const [perspective, setPerspective] = useState('Architecture')
-  const [mode, setMode] = useState('explore')
+  const [mode, setMode] = useState(initialMode)
   const project = projects.find((p) => p.id === projectId)
   return (
     <div className="workspace">

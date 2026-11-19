@@ -30,3 +30,19 @@ The user’s supplied urban adventure comic is the new art direction: city scene
 - Replace the sticky three-pose opener with a direct-scroll illustrated cover to match the approved concept. This supersedes PORT-005 pose-generation scope. Preserve legacy artwork/components rather than deleting experiments.
 - Generate text-free production illustrations, with separate mobile cover/finale compositions. Implement navigation, headings, captions, project statuses, workspace and email controls in HTML.
 - Work remains in the supplied local Vite/Vercel repository; no new hosting service, commit, account or production publication.
+
+## 2026-11-20 — PORT-008
+- Use https://sivaprasadc.vercel.app/ as information-architecture inspiration after reading its actual public HTML: direct role/value positioning, concrete projects, experience/stack and easy assistant access. Keep Sourav’s independent copy and approved comic art.
+- Prioritize proof and professional context before the optional workshop. Show only confirmed experience/roles/project status; do not invent résumé downloads, current availability, employment dates or notes to mirror reference sections.
+- Reuse existing #about and #workspace anchors for link compatibility; expose a bounded query-driven chat entry without auto-submitting to the API.
+
+## 2026-11-20 — PORT-009
+- User disliked the work UI. Replace illustration-dominant cards with a more concise editorial presentation and interactive product explanations, while retaining the approved comic cover/finale.
+- No approved real product screenshots are available; do not invent them. Use clearly labelled public-safe flow explainers based on supplied capabilities, keeping CYD automation planned.
+- Treat both case routes as reading experiences with a section index and compact overview. Trim repeated approach content instead of adding more generic feature panels.
+
+## 2026-11-20 — PORT-010
+- Implemented Marvel Studios-style comic flipbook intro and GTA 6 / Vice City ambient synthwave BGM per user request ("add life to this website a feel like add gta 6 bgm while landing .. a marvel introduction video mood").
+- Synthesized audio dynamically via Web Audio API (`src/audio/audioEngine.js`) rather than bundling heavy static audio files (MP3s) or relying on third-party CDNs: zero external latency, zero bandwidth penalty, zero licensing/copyright risk, and precision timing for both music and Marvel comic SFX (page flutter + sub-bass logo boom).
+- Built pure HTML animated equalizer bars in `ViceCityRadio.jsx` to prevent conflicts with test suites checking Three.js canvas counts (`toHaveCount(0)` on canvas).
+- Maintained WCAG AA minimum contrast (> 13:1 on text) and label-in-name compliance (WCAG 2.5.3) across all intro and audio controls. Gated auto-intro to root landing without hash parameters, respecting reduced-motion and automated test environments while providing replay buttons in the header, hero, and radio dock.
