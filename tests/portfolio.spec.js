@@ -6,9 +6,9 @@ test('homepage navigation, projects, and concept disclosures', async ({
 }) => {
   await page.goto('/')
   await expect(
-    page.getByRole('heading', { name: /Hey, I’m.*Sourav/ }),
+    page.getByRole('heading', { name: /The builder’s adventures!/ }),
   ).toBeVisible()
-  await page.getByRole('link', { name: 'Explore my work', exact: true }).click()
+  await page.getByRole('link', { name: 'Explore the work', exact: true }).click()
   await expect(page).toHaveURL(/#work/)
   await page
     .getByRole('link', { name: /^Read Check Your Deals case study/ })
@@ -116,7 +116,7 @@ test('mobile, reduced motion and keyboard navigation are accessible', async ({
   await page.setViewportSize({ width: 390, height: 844 })
   await page.emulateMedia({ reducedMotion: 'reduce' })
   await page.goto('/')
-  await expect(page.locator('.character-poster')).toBeVisible()
+  await expect(page.locator('.cover-picture img')).toBeVisible()
   await expect(page.locator('canvas')).toHaveCount(0)
   await page.keyboard.press('Tab')
   await expect(
@@ -138,111 +138,82 @@ test('mobile, reduced motion and keyboard navigation are accessible', async ({
   })
 })
 
-test('comic story advances and reverses with native scroll and keyboard scrub', async ({
-  page,
-}) => {
+test('adventure cover, live project panels and finale match the approved flow', async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 1000 })
   const errors = []
   page.on('pageerror', (error) => errors.push(error.message))
   await page.goto('/')
-  await expect(page.locator('.character-poster')).toBeVisible()
-  await page.getByRole('button', { name: /Talk to comic Sourav/ }).click()
-  await expect(
-    page.getByRole('button', { name: /Talk to comic Sourav/ }),
-  ).toContainText('Let’s make it happen.')
-  await page.getByRole('button', { name: 'The process', exact: true }).click()
-  await expect(page.locator('.scroll-story')).toHaveAttribute(
-    'data-chapter',
-    '1',
-  )
-  await page.getByRole('button', { name: 'The products', exact: true }).click()
-  await expect(page.locator('.scroll-story')).toHaveAttribute(
-    'data-chapter',
-    '2',
-  )
-  await expect(
-    page
-      .locator('.scene-projects')
-      .getByRole('link', { name: /Check Your Deals/ }),
-  ).toBeVisible()
-  await page.getByRole('slider', { name: 'Scrub character story' }).focus()
-  await page.keyboard.press('Home')
-  await expect(page.locator('.scroll-story')).toHaveAttribute(
-    'data-chapter',
-    '0',
-  )
-  expect(errors).toEqual([])
+  await expect(page.getByRole('heading', { level: 1, name: /The builder’s adventures!/ })).toBeVisible()
+  await expect.poll(() => page.locator('.cover-picture img').evaluate(img => img.complete && img.naturalWidth > 0)).toBeTruthy()
+  await page.screenshot({ path: 'test-results/adventure-desktop-hero.png' })
+  await page.getByRole('button', { name: /INK MODE/ }).click()
+  await expect(page.locator('.adventure-cover')).toHaveClass(/ink-mode/)
+  await page.getByRole('button', { name: /INK MODE/ }).click()
+  await page.getByRole('link', { name: 'Explore the work', exact: true }).click()
+  await expect(page).toHaveURL(/#work/)
+  await expect(page.locator('.featured-projects')).toBeVisible()
+  await page.locator('.featured-projects').screenshot({ path: 'test-results/adventure-projects.png' })
   await page.emulateMedia({ reducedMotion: 'reduce' })
-  await page.reload()
-  await expect(page.locator('.workspace-brand')).toBeAttached()
-  await page.screenshot({
-    path: 'test-results/comic-desktop.png',
-    fullPage: true,
-  })
+  await page.goto('/#workspace')
+  await expect(page.getByRole('heading', { name: 'The workshop.' })).toBeVisible()
+  await page.locator('.workshop-spread').screenshot({ path: 'test-results/adventure-workshop.png' })
+  await page.goto('/#contact')
+  await expect(page.getByRole('heading', { name: 'To be continued…' })).toBeVisible()
+  await expect(page.locator('.contact-cta')).toHaveAttribute('href', 'mailto:o.sourav5@gmail.com')
+  await expect.poll(() => page.locator('.contact-picture img').evaluate(img => img.complete && img.naturalWidth > 0)).toBeTruthy()
+  await page.context().grantPermissions(['clipboard-read', 'clipboard-write'])
+  await page.getByRole('button', { name: 'Copy email address' }).click()
+  await expect(page.getByRole('status')).toContainText('Copied')
+  expect(await page.evaluate(() => navigator.clipboard.readText())).toBe('o.sourav5@gmail.com')
+  await page.locator('#contact').screenshot({ path: 'test-results/adventure-finale.png' })
+  expect(errors).toEqual([])
 })
 
-test('comic poses follow chapters, reverse correctly, and work without WebGL', async ({
-  page,
-}) => {
-  await page.setViewportSize({ width: 1440, height: 1000 })
-  await page.addInitScript(() => {
-    const original = HTMLCanvasElement.prototype.getContext
-    HTMLCanvasElement.prototype.getContext = function (type, ...args) {
-      if (String(type).includes('webgl')) return null
-      return original.call(this, type, ...args)
-    }
-  })
-  await page.goto('/')
-  const portrait = page.locator('.character-poster')
-  await expect(portrait).toHaveAttribute('data-pose', 'focus')
-  await page.getByRole('button', { name: 'The process', exact: true }).click()
-  await expect(portrait).toHaveAttribute('data-pose', 'connect')
-  await page.getByRole('button', { name: 'The products', exact: true }).click()
-  await expect(portrait).toHaveAttribute('data-pose', 'welcome')
-  await expect
-    .poll(() =>
-      portrait.evaluate((img) => img.complete && img.naturalWidth > 0),
-    )
-    .toBeTruthy()
-  await page
-    .locator('.story-stage')
-    .screenshot({ path: 'test-results/comic-products.png' })
-  await page.getByRole('button', { name: 'The person', exact: true }).click()
-  await expect(portrait).toHaveAttribute('data-pose', 'focus')
-  await page.getByRole('button', { name: /INK MODE/ }).click()
-  await expect(page.locator('.scroll-story')).toHaveClass(/ink-mode/)
-  await page
-    .locator('.story-stage')
-    .screenshot({ path: 'test-results/comic-ink.png' })
-  await page.getByRole('button', { name: /INK MODE/ }).click()
-  await page
-    .locator('.story-stage')
-    .screenshot({ path: 'test-results/comic-live-hero.png' })
-  await expect(page.locator('canvas')).toHaveCount(0)
-})
-
-test('compact mobile story keeps the character and navigation usable', async ({
-  page,
-}) => {
+test('compact mobile artwork, menu and footer have no overflow or broken images', async ({ page }) => {
   await page.setViewportSize({ width: 375, height: 667 })
   await page.goto('/')
-  await expect
-    .poll(() =>
-      page
-        .locator('.character-poster')
-        .evaluate((img) => img.complete && img.naturalWidth > 0),
-    )
-    .toBeTruthy()
-  expect(
-    await page.evaluate(
-      () => document.documentElement.scrollWidth <= innerWidth,
-    ),
-  ).toBeTruthy()
-  await page.screenshot({ path: 'test-results/comic-mobile-hero.png' })
-  await page.getByRole('button', { name: 'The products', exact: true }).click()
-  await expect(page.locator('.character-poster')).toHaveAttribute(
-    'data-pose',
-    'welcome',
-  )
-  await page.screenshot({ path: 'test-results/comic-mobile-products.png' })
+  await expect.poll(() => page.locator('.cover-picture img').evaluate(img => img.complete && img.naturalWidth > 0)).toBeTruthy()
+  await expect(page.locator('.cover-picture img')).toHaveJSProperty('currentSrc', 'http://127.0.0.1:5173/illustrations/cover-mobile.webp')
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBeTruthy()
+  await page.screenshot({ path: 'test-results/adventure-mobile-hero.png' })
+  await page.getByRole('button', { name: 'Open menu' }).click()
+  await page.keyboard.press('Escape')
+  await expect(page.getByRole('button', { name: 'Open menu' })).toHaveAttribute('aria-expanded', 'false')
+  await page.goto('/#contact')
+  await expect(page.getByRole('heading', { name: 'To be continued…' })).toBeVisible()
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBeTruthy()
+  await expect.poll(() => page.locator('.contact-picture img').evaluate(img => img.complete && img.naturalWidth > 0)).toBeTruthy()
+  await page.locator('#contact').screenshot({ path: 'test-results/adventure-mobile-finale.png' })
+})
+
+test('desktop reduced-motion page and case-study artwork are accessible', async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 1000 })
+  await page.emulateMedia({ reducedMotion: 'reduce' })
+  await page.goto('/')
+  const results = await new AxeBuilder({ page }).analyze()
+  expect(results.violations).toEqual([])
+  await page.locator('#contact').scrollIntoViewIfNeeded()
+  await expect.poll(() => page.locator('.contact-picture img').evaluate(img => img.complete && img.naturalWidth > 0)).toBeTruthy()
+  await page.evaluate(() => window.scrollTo({ top: 0, behavior: 'instant' }))
+  await page.screenshot({ path: 'test-results/adventure-full-page.png', fullPage: true })
+  await page.goto('/work/day-one-crm')
+  await expect.poll(() => page.locator('.project-art img').evaluate(img => img.complete && img.naturalWidth > 0)).toBeTruthy()
+  const caseResults = await new AxeBuilder({ page }).analyze()
+  expect(caseResults.violations).toEqual([])
+  await page.screenshot({ path: 'test-results/adventure-case-study.png', fullPage: true })
+})
+
+ test('tablet and small-phone layouts keep artwork and controls inside the viewport', async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: 'reduce' })
+  for (const width of [320, 768, 1024]) {
+    await page.setViewportSize({ width, height: 900 })
+    await page.goto('/')
+    expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBeTruthy()
+    await page.goto('/#workspace')
+    await expect(page.getByRole('button', { name: 'Architecture', exact: true })).toBeVisible()
+    expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBeTruthy()
+    await page.goto('/#contact')
+    await expect(page.locator('.contact-cta')).toBeVisible()
+    expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBeTruthy()
+  }
 })

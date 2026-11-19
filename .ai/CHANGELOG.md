@@ -22,3 +22,12 @@
 - Redesigned homepage, navigation, project panels, workspace, origin story, toolkit, contact, and case studies with vintage comic typography, paper textures, halftone backgrounds, ink borders, red/yellow colors, and speech balloons.
 - Restored likeness-based comic character artwork as new responsive WebP assets, preserving previous Memoji assets. Added an origin-story portrait.
 - Verified lint/build, 8 API tests, 7 browser tests, zero violations in mobile axe scan, and desktop/mobile screenshots. Corrected mobile spacing, contrast and logo accessible naming.
+
+## PORT-006
+Created four high-fidelity adventure-comic UI concept sections and an implementation direction document from the user’s cover reference. Saved the new classic-comic focus character master from PORT-005. No runtime source changes in this milestone.
+
+## 2026-11-20 — PORT-007
+- Built the approved adventure-comic portfolio: corrected full-scene cover, illustrated project stories, live workshop spread, origin/toolkit, and sunset contact finale.
+- Generated seven production illustrations, optimized WebP derivatives, media-specific cover preloads, matching favicon and raster social preview.
+- Preserved functional routing, project facts, concept disclosures, curated perspectives, terminal, chat and email copy. Replaced the retired sticky pose story with direct scrolling and restrained reduced-motion-aware parallax.
+- Lint/build and eight API tests pass; eight Playwright tests pass, including phone/tablet/desktop overflow, real clipboard copy, mock AI success/cancellation, and zero violations in mobile/desktop/case-study axe scans. Reviewed desktop/mobile/whole-page screenshots.

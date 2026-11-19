@@ -1,6 +1,6 @@
 # Sourav O · Portfolio
 
-Dark React + Vite portfolio with a personal comic scroll story, two case studies, curated agent perspectives, a local terminal, and a server-side OpenAI assistant.
+Vintage adventure-comic React + Vite portfolio with an illustrated street-scene cover, two case studies, an interactive workshop, an origin story, and a sunset contact finale. All headings and controls are live HTML; illustrations are separate optimized assets.
 
 ## Local development
 
@@ -21,7 +21,9 @@ npx playwright install chromium
 npm run test:e2e
 ```
 
-Seven browser tests cover chapter navigation and reversal, keyboard scrubbing, three comic poses, ink mode, compact mobile layouts, direct case studies, curated perspectives, terminal commands, mocked chat success/cancellation, unconfigured AI, reduced motion, and operation without WebGL. The mobile axe accessibility scan runs in the suite. Unit tests exercise endpoint validation, model request boundaries, safe sources, quota decisions, and error behavior. They do not establish the factual accuracy of every live model response or a live Redis deployment.
+Eight browser tests cover cover navigation and ink mode, responsive artwork at phone/tablet/desktop sizes, direct case studies, concept disclosures, curated perspectives, terminal commands, mocked chat success/cancellation, unconfigured AI, email copy, and reduced motion. Mobile, desktop, and case-study axe accessibility scans run in the suite. API unit tests exercise endpoint validation, model request boundaries, safe sources, quotas, and error behavior. Live model accuracy and live Redis remain release checks.
+
+Illustration masters are in `assets/illustrations/builders-adventures/`; optimized WebP files are in `public/illustrations/`. Rebuild derivatives with `python3 scripts/prepare_adventure_assets.py` (Pillow required). The mobile cover and finale are separately generated compositions. The hero uses restrained scroll parallax, with a static reduced-motion fallback.
 
 ## Live AI configuration
 
@@ -61,9 +63,9 @@ Production publication and real provider checks require your service accounts an
 
 CYD is deployed and in development; its automation plans remain explicitly planned. CRM is built and internally used; visuals are explanatory and public-safe. NOTWO and Founder Versa remain planning/concept work. Project artwork is typography and explanatory flows, not a claimed screenshot of a product. There are no invented social profiles, metrics, or testimonials.
 
-The homepage is a CSS-sticky, native-scroll story. Motion values control geometric scene/typography effects; React state changes only for discrete chapters and toggles. Three generated illustrated poses use deliberate comic cuts. This is **not** a continuous generated video or rigged 3D likeness. Mobile and reduced-motion views retain the identity, readable copy, and direct project navigation. The previously built abstract Three.js components are retained in source but no longer imported or included in the application build. Workspace and Chat stay lazy-loaded. The z-index scale is defined as CSS tokens in `src/index.css`: header 20, keyboard skip link 30.
+The retired PORT-004 homepage was a CSS-sticky, native-scroll story. Motion values control geometric scene/typography effects; React state changes only for discrete chapters and toggles. Three generated illustrated poses use deliberate comic cuts. This is **not** a continuous generated video or rigged 3D likeness. Mobile and reduced-motion views retain the identity, readable copy, and direct project navigation. The previously built abstract Three.js components are retained in source but no longer imported or included in the application build. Workspace and Chat stay lazy-loaded. The z-index scale is defined as CSS tokens in `src/index.css`: header 20, keyboard skip link 30.
 
-### Character artwork and motion production
+### Historical character artwork and motion production
 
 Built-in image generation created three reference-based character illustrations from the supplied photos. Only generated artwork is published; original personal photos and the other person in the office reference are not published. `public/character/` holds responsive 900px/450px alpha WebP assets. High-resolution chroma-key originals, alpha masters, prompt descriptions, a motion brief, and QA background matrix are retained under `assets/sourav-motion/`.
 
@@ -71,10 +73,13 @@ Regenerate deterministic derivatives with `python3 scripts/prepare_character.py`
 
 A MiniMax H3 request through the existing local ZenMux configuration returned **403 access_denied**. No video master was generated, no paid model alternative or reduced constraints were silently substituted, and no fake intermediate frames are claimed. Status is recorded in `assets/sourav-motion/qa/video-generation-status.json`. To finish a continuous clip, enable the requested provider resource, rerun the saved start/end-constrained prompt through the Oil Motion skill, then complete the 48 FPS interpolation, all-keyframe encoding, alpha/keying QA, and browser forward/reverse seek validation before replacing the comic cuts.
 
-Interaction references: [React Bits](https://reactbits.dev/) and [21st.dev](https://21st.dev/). Magnetic links and project tilt are original Motion implementations inspired by these interaction categories, not copied library components.
+Historical interaction references: [React Bits](https://reactbits.dev/) and [21st.dev](https://21st.dev/). Magnetic links and project tilt are original Motion implementations inspired by these interaction categories, not copied library components.
 
 The SVG social preview is a local design asset; social platforms that require raster Open Graph images need a PNG/JPEG export and an absolute deployed image URL before sharing. Per-case-study metadata is updated client-side; crawler-specific SSR/pre-rendering is outside this release.
 
 Performance measurements are local lab checks, not hosted guarantees. Current results and verification limits are recorded in `.ai/HANDOFF.md`; the previous abstract-hero score does not describe this redesign.
 
 Persistent project state and continuation instructions live in `.ai/` and `AGENTS.md`. No automatic commits are made.
+
+## Current visual implementation (2026-11-20)
+The approved adventure-comic concept is implemented by `AdventureHero.jsx` and `src/comic.css`. Earlier ScrollStory/CharacterSequence, magnetic/tilt components and pose/video assets are retained as historical experiments and are not imported by the current homepage. The approved full-scene illustrations replace the previous three-pose character experience. The corrected cover character stands naturally with both feet on the ground and holds a laptop. No continuous character animation is claimed.

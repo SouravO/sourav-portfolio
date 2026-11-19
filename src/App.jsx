@@ -12,7 +12,6 @@ import {
   Cube,
   EnvelopeSimple,
   Code,
-  Stack,
   TreeStructure,
   Plus,
   Minus,
@@ -23,10 +22,9 @@ import {
   Globe,
 } from '@phosphor-icons/react'
 import { projects, profile, skills, journey } from './data/portfolio'
-import ScrollStory from './components/ScrollStory'
+import AdventureHero from './components/AdventureHero'
 import FlowDiagram from './components/FlowDiagram'
 import Reveal from './components/Reveal'
-import Tilt from './components/Tilt'
 import './App.css'
 import './comic.css'
 const Workspace = lazy(() => import('./components/Workspace'))
@@ -76,7 +74,7 @@ function Header() {
         className="wordmark"
         onClick={() => setOpen(false)}
       >
-        sourav<span className="wordmark-edition" aria-hidden="true">THE BUILDER’S EDITION</span>
+        Sourav O<span className="wordmark-edition" aria-hidden="true">THE BUILDER’S ADVENTURES</span>
         <span className="wordmark-symbol">
           <Asterisk size={24} weight="bold" />
         </span>
@@ -119,39 +117,11 @@ function Header() {
 }
 
 function ProjectArt({ project }) {
-  return (
-    <div
-      className={`project-art project-art-${project.id}`}
-      aria-label={`${project.name} explanatory product flow`}
-    >
-      <div className="art-grid" aria-hidden="true" />
-      <div className="art-title">
-        <span>{project.id === 'cyd' ? 'CHECK YOUR' : 'DAY ONE'}</span>
-        <strong>{project.id === 'cyd' ? 'DEALS' : 'CONNECTED.'}</strong>
-      </div>
-      <div className="product-flow-mini">
-        {project.flow.slice(0, 3).map((label, i) => (
-          <span key={label}>
-            <span className="mini-node">
-              {i === 0 ? (
-                <Stack size={17} />
-              ) : i === 1 ? (
-                <TreeStructure size={17} />
-              ) : (
-                <Globe size={17} />
-              )}
-            </span>
-            {label}
-          </span>
-        ))}
-      </div>
-      <p className="art-disclaimer">
-        {project.id === 'cyd'
-          ? 'DISCOVER / COMPARE / CONNECT'
-          : 'FOUNDERS / MANAGERS / TEAMS'}
-      </p>
-    </div>
-  )
+  return <div className={`project-art project-art-${project.id}`}>
+    <img src={`/illustrations/${project.id === 'cyd' ? 'deals' : 'crm'}.webp`} alt={project.id === 'cyd' ? 'Comic illustration of discovering deals on a phone in a city marketplace' : 'Comic illustration of a developer connecting systems in a control room'} width="1024" height="1024" loading="lazy" />
+    <div className="art-title" aria-hidden="true"><span>{project.id === 'cyd' ? 'CHECK YOUR' : 'DAY ONE'}</span><strong>{project.id === 'cyd' ? 'DEALS' : 'CRM'}</strong></div>
+    <span className="art-label">{project.id === 'cyd' ? 'A LIVE DEAL-DISCOVERY PRODUCT' : 'A SHARED SYSTEM FOR STARTUP TEAMS'}</span>
+  </div>
 }
 
 function Work() {
@@ -160,8 +130,8 @@ function Work() {
     <section id="work" className="section work-section">
       <Reveal>
         <div className="section-heading">
-          <p className="eyebrow">TALES FROM THE BUILD</p>
-          <h2>Every build has a story.</h2>
+          <p className="eyebrow">SELECTED WORK / THE STORIES SO FAR</p>
+          <h2>Real builds. <span>Real stories.</span></h2>
           <p>Real products. Complex problems. Thoughtful systems.</p>
         </div>
       </Reveal>
@@ -174,9 +144,8 @@ function Work() {
           >
             <Link className="project-visual-link" to={`/work/${p.slug}`}>
               <span className="sr-only">Read {p.name} case study. </span>
-              <Tilt>
-                <ProjectArt project={p} />
-              </Tilt>
+              <ProjectArt project={p} />
+              <span className="panel-read">Read the story</span>
               <span className="project-open">
                 <Plus size={22} />
               </span>
@@ -264,7 +233,7 @@ function About() {
           </div>
         </div>
       </Reveal>
-      <div className="journey"><div className="origin-portrait"><img src="/character/comic-welcome.webp" alt="Comic illustration of Sourav waving hello" width="900" height="900" loading="lazy" /><span>Curiosity is my superpower.</span></div>
+      <div className="journey">
         {journey.map((item, i) => (
           <Reveal className="journey-item" key={item.label} delay={i * 0.04}>
             <span className="journey-mark" aria-hidden="true" />
@@ -331,23 +300,16 @@ function Contact() {
   }
   return (
     <section id="contact" className="contact-section">
-      <div className="contact-top">
-        <span>THE NEXT CHAPTER STARTS WITH YOU.</span>
-        <Asterisk size={45} weight="light" />
-      </div>
+      <picture className="contact-picture" aria-hidden="true"><source media="(max-width: 600px)" srcSet="/illustrations/finale-mobile.webp" /><img src="/illustrations/finale.webp" alt="" width="1536" height="1024" loading="lazy" /></picture>
       <Reveal>
-        <h2>
-          Let’s build
-          <br />
-          something <span>good.</span>
-        </h2>
+        <h2>To be continued…</h2>
+        <p className="contact-subtitle">Your idea. Our next chapter.</p>
       </Reveal>
       <div className="contact-bottom">
         <p>
-          An idea, a tricky problem, or a good conversation.
-          <br />
-          My inbox is open.
+          Have a product to build or a tricky problem to solve?
         </p>
+        <a className="button primary contact-cta" href={`mailto:${profile.email}`}>Let’s talk</a>
         <div className="email-group">
           <a href={`mailto:${profile.email}`}>{profile.email}</a>
           <button
@@ -365,6 +327,7 @@ function Contact() {
           </span>
         </div>
       </div>
+      <p className="caption finale-caption">The next adventure starts with a hello.</p>
     </section>
   )
 }
@@ -382,44 +345,27 @@ function Footer() {
 
 function Home() {
   const [, setActive] = useState(1)
-  return (
-    <>
-      <ScrollStory />
-      <div className="intro-strip">
-        <p>
-          Full-stack engineering.
-          <br />
-          <span className="text-muted">Product-level thinking.</span>
-        </p>
-        <p>
-          I like understanding the whole system.
-          <br />
-          Then making it feel simple.
-        </p>
-        <Asterisk size={35} weight="light" />
-      </div>
-      <Work />
-      <section id="workspace" className="section workspace-section">
-        <Reveal>
-          <div className="section-heading">
-            <p className="eyebrow">STEP INSIDE THE WORKSHOP</p>
-            <h2>Inside the idea lab.</h2>
-            <p>Pick a project. Change perspective. Ask a question.</p>
-          </div>
+  return <>
+    <AdventureHero />
+    <div className="chapter-strip"><span>ENGINEER BY TRADE.</span><Asterisk size={24} weight="bold" /><span>BUILDER BY INSTINCT.</span><Asterisk size={24} weight="bold" /><span>BASED IN INDIA.</span></div>
+    <Work />
+    <section id="workspace" className="section workspace-section">
+      <div className="workshop-spread">
+        <Reveal className="workshop-portrait">
+          <p className="caption meanwhile">Meanwhile, behind the builds…</p>
+          <img src="/illustrations/workshop.webp" alt="Sourav thinking through a product at his laptop in an illustrated workshop" width="1024" height="1024" loading="lazy" />
+          <div className="portrait-caption"><h2>Curiosity is my <span>superpower.</span></h2><p>Engineer. Technical lead.<br />Product builder. Based in India.</p><Link to="/#about" className="text-link">Read my origin story <Plus size={18} /></Link></div>
         </Reveal>
-        <Suspense
-          fallback={
-            <div className="workspace-loading">Opening the workspace…</div>
-          }
-        >
-          <Workspace onPerspectiveChange={setActive} />
-        </Suspense>
-      </section>
-      <About />
-      <Toolkit />
-      <Contact />
-    </>
-  )
+        <div className="workshop-desk">
+          <Reveal><div className="section-heading"><p className="eyebrow">OPEN THE NOTEBOOK</p><h2>The <span>workshop.</span></h2><p>Pick a project. See how I think.</p></div></Reveal>
+          <Suspense fallback={<div className="workspace-loading">Opening the workspace…</div>}><Workspace onPerspectiveChange={setActive} /></Suspense>
+        </div>
+      </div>
+    </section>
+    <About />
+    <Toolkit />
+    <Contact />
+  </>
 }
 
 function CaseStudy({ id }) {

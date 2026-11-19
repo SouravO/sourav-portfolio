@@ -8,7 +8,7 @@ React 19 + Vite 8, JavaScript ES modules, React Router, Tailwind v4 Vite integra
 
 Routes: /, /work/check-your-deals, /work/day-one-crm, plus client not-found view. Route effects update title/description, scroll destinations, and anchor focus. Vercel rewrites /work paths to the SPA; the API and static assets retain their own paths.
 
-Motion handles entry/reveal and scroll-driven geometric effects. The current homepage imports ScrollStory: a native-scroll CSS-sticky stage, chapter-dependent text and system/project overlays, keyboard range scrubbing, pause control, ink mode, and a speech interaction. CharacterSequence maps progress to three alpha illustrated poses using discrete cuts, with ref-based DOM updates rather than continuous React state. Magnetic links and Tilt project artwork use Motion values/springs and respect reduced motion.
+Motion handles entry/reveal and scroll-driven geometric effects. The retired PORT-004 homepage imported ScrollStory: a native-scroll CSS-sticky stage, chapter-dependent text and system/project overlays, keyboard range scrubbing, pause control, ink mode, and a speech interaction. CharacterSequence maps progress to three alpha illustrated poses using discrete cuts, with ref-based DOM updates rather than continuous React state. Magnetic links and Tilt project artwork use Motion values/springs and respect reduced motion.
 
 The active hero has no WebGL dependency. The old CoreVisual/CoreScene components and installed dependencies are retained but no longer imported into the production app. Workspace and Chat remain separately lazy-loaded. Local terminal commands never call the API.
 
@@ -34,3 +34,12 @@ Node test runner for API logic; Playwright Chromium and axe for browser/accessib
 
 ## PORT-004 visual system
 Self-hosted Fontsource Bangers and Comic Neue accompany Geist. `src/comic.css`, imported after the legacy structural styles, owns the printed-paper palette, panel treatments, responsive hero layout, and site-wide comic surfaces. Legacy hardcoded green/dark CSS values are mapped to shared theme tokens. Six `public/character/comic-*.webp` responsive derivatives reuse the reference-based comic alpha masters under `assets/sourav-motion/alpha/comic-backup/`. Memoji assets remain preserved. CharacterSequence uses the comic derivatives; About includes a lazy welcome portrait. Existing routes, API, workspace and discrete pose-switching behavior remain unchanged.
+
+## PORT-007 current frontend (2026-11-20)
+`AdventureHero.jsx` replaces the ScrollStory import on the homepage. Semantic H1, caption, CTA, and an accessible ink-mode button overlay a separately generated street illustration with a corrected upright character pose. Motion scroll values animate the background subtly; reduced motion is static. No sticky hero or pose scrubbing is active. Retired components/assets remain preserved.
+
+`src/comic.css` implements the approved vermilion/petrol-blue/newsprint comic system over the existing structural stylesheet. ProjectArt now uses separate illustrative project images and live HTML titles; case-study routes share those assets. A portrait/workshop grid frames the existing lazy Workspace. Existing About/journey/toolkit content remains. Contact overlays live heading, email/copy controls, and narration on a separate sunset illustration.
+
+Seven generated source masters (five desktop/shared, two dedicated mobile compositions) are under `assets/illustrations/builders-adventures/`. `scripts/prepare_adventure_assets.py` only resizes/compresses them into `public/illustrations/*.webp`; it does not synthesize poses or edit backgrounds. Main cover preload is media-specific; other illustrations lazy-load. `public/social-preview.jpg` and favicon match the new palette. All UI text remains HTML rather than baked into concept screenshots.
+
+API and route contracts unchanged. Eight Playwright cases now validate the current design, replacing retired chapter/pose assertions. Checks include 320/375/390/768/1024/1440 widths, mobile image selection, no overflow, concept/case routes, terminal, mock chat and unavailable API, clipboard copy, reduced-motion behavior and mobile/desktop/case-study axe scans.

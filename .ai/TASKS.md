@@ -76,3 +76,28 @@ Implementation: Audited current React site and existing illustration masters. Re
 Completed: Full paper/ink/red/yellow visual system, self-hosted comic fonts, responsive reference-based comic portraits, origin portrait and refreshed editorial copy. Preserved all routes, workspace, terminal, chat and chapter interactions.
 Verification: npm run lint and npm run build pass; npm test 8/8; npm run test:e2e 7/7, including mobile axe with zero violations, reduced motion, no WebGL, forward/reverse poses, concepts, case studies, AI mock/cancellation and unconfigured fallback. Desktop and compact mobile screenshots inspected; mobile spacing corrected.
 Remaining: No redesign implementation work. Existing release credentials and deployment remain RELEASE-001; blocked continuous video remains VIDEO-001. No commit or publication.
+
+## PORT-005 — Redraw character as classic comic art
+Status: DONE (superseded scope fulfilled by PORT-007)
+Objective: Replace the overly realistic character artwork with visibly hand-inked classic comic illustrations while preserving Sourav’s likeness and three poses.
+Acceptance: Bold ink outlines, flat colors and halftone shading; transparent assets integrated in scroll sequence/About; mobile and desktop assets load; build and browser verification; synchronized memory.
+
+## PORT-006 — Vintage adventure-comic UI concept
+Status: DONE
+Objective: Develop a stronger visual concept from the user's supplied worn urban adventure comic cover (red shirt, petrol blue, heavy ink, aged newsprint, city scenery).
+Acceptance: Four separate horizontal website section concepts: cover hero, projects, origin/workshop, closing contact; coherent visual language and factual portfolio content; preserve implementation until concept is translated.
+Progress: Four image-generation jobs started. PORT-005 focus master saved under assets/sourav-motion/classic-comic/focus.png; connect/welcome generation jobs were running when the user supplied the new art direction. No new character derivatives integrated yet.
+
+PORT-006 completed: Four horizontal 1536×1024 concept images generated, visually reviewed and saved under assets/concepts/builders-adventures, with DIRECTION.md describing implementation guidance. Files verified decodable. No application code changed; no new runtime tests needed for concept-only artifacts. PORT-005 remains IN_PROGRESS: focus artwork generated, remaining pose jobs interrupted by user steering and not integrated.
+
+## PORT-007 — Build approved adventure-comic portfolio
+Status: DONE
+Date: 2026-11-20
+Objective: Implement the approved four-section comic concepts with corrected natural landing character pose and preserve the loved closing scene.
+Acceptance: Semantic responsive implementation matching concept mood; separate illustration assets without baked UI; corrected hero anatomy; functional existing projects/workspace/contact; desktop/mobile and accessibility verification; synchronized memory.
+
+PORT-005 resolution (2026-11-20): User approved the full-scene adventure concept in PORT-007, superseding the three-pose integration. New comic illustrations now replace the realistic character on the active site. Historical focus master and pose files preserved.
+
+PORT-007 completed: Corrected upright cover character, separate mobile compositions, project panels, working workshop, origin/toolkit, sunset finale, functional email/copy, matching metadata and image optimization script. All text/controls are HTML. Existing server and factual content preserved.
+Verification: npm run lint and npm run build pass; npm test 8/8; npm run test:e2e 8/8. Mobile/desktop/case-study axe zero violations; 320–1440px layouts checked; clipboard, routes, terminal, mock AI/cancellation and unconfigured fallback verified. Desktop/mobile/full-page screenshots visually reviewed. Final targeted screenshot/accessibility case rerun after screenshot-only framing adjustment.
+Remaining: No implementation work for this scope. RELEASE-001 remains credential/deployment-dependent; VIDEO-001 remains historical blocked work, unused by current experience. No commit or publication.

@@ -1,10 +1,10 @@
 # Project
 
-Updated 2026-11-19. Portfolio for **Sourav O**, a full-stack software engineer, technical lead, and product builder based in India with 3+ years of experience. B.Tech, MES College of Engineering, Kuttippuram (2018–2022). Public contact: o.sourav5@gmail.com.
+Updated 2026-11-20. Portfolio for **Sourav O**, a full-stack software engineer, technical lead, and product builder based in India with 3+ years of experience. B.Tech, MES College of Engineering, Kuttippuram (2018–2022). Public contact: o.sourav5@gmail.com.
 
 ## Confirmed scope
 
-Classic comic-book portfolio emphasizing personal reputation and technical credibility for builders, recruiters, engineering managers, founders, and clients. User requested a complete vintage comic mood on 2026-11-19: warm printed paper, ink borders, red/yellow palette, Bangers display and Comic Neue character lettering, likeness-based comic portraits, scroll chapters, curated workspace, local terminal, grounded AI interface, responsive layouts, and reduced-motion support. This supersedes the earlier dark cinematic/Memoji visual direction.
+Classic comic-book portfolio emphasizing personal reputation and technical credibility for builders, recruiters, engineering managers, founders, and clients. User requested a complete vintage comic mood on 2026-11-19: warm printed paper, ink borders, red/yellow palette, Bangers display and Comic Neue character lettering, likeness-based comic street scenes, curated workspace, local terminal, grounded AI interface, responsive layouts, and reduced-motion support. This supersedes the earlier dark cinematic/Memoji visual direction.
 
 Routes: homepage; Check Your Deals case study; Day One CRM case study. NOTWO and Founder Versa appear as expandable planning/concept entries. No invented metrics, testimonials, employment dates, social links, or repositories. No résumé until supplied.
 
@@ -19,3 +19,5 @@ Live OpenAI assistant and Vercel hosting selected by user. Default quotas: five 
 Source of truth: src/data/portfolio.js, based on the user-supplied personal brief and subsequent answers. Supplied product websites were inaccessible to the browsing tool; no screenshots or additional public-site claims were inferred.
 
 Scripts: npm run dev, build, lint, preview; npm test; npm run test:e2e.
+
+Approved 2026-11-20: Implement The Builder’s Adventures concept, correct the landing pose to a natural upright stance with a laptop, and preserve the sunset To be continued contact composition. Current homepage uses full-scene illustration and direct scrolling instead of the earlier sticky three-pose sequence.
