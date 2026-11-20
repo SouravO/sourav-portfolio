@@ -21,13 +21,14 @@ import {
   Globe,
   ChatCircleText,
 } from '@phosphor-icons/react'
-import { projects, profile, skills, journey } from './data/portfolio'
+import { projects, profile, skills } from './data/portfolio'
 import AdventureHero from './components/AdventureHero'
 import Book3D from './components/Book3D'
 import ProductMap from './components/ProductMap'
 import Reveal from './components/Reveal'
 import MarvelIntro from './components/MarvelIntro'
 import ViceCityRadio from './components/ViceCityRadio'
+import DetectiveBoard from './components/DetectiveBoard'
 import './App.css'
 import './comic.css'
 import './work.css'
@@ -136,43 +137,7 @@ function Header({ onReplayIntro }) {
 }
 
 
-function About() {
-  return (
-    <section id="about" className="section about-section">
-      <Reveal className="about-statement">
-        <p className="eyebrow">EXPERIENCE / THE PERSON BEHIND THE BUILDS</p>
-        <h2>
-          Engineer. Technical lead.
-          <br />
-          <span>Product-minded builder.</span>
-        </h2>
-        <p>{profile.bio}</p>
-        <p className="experience-context">At Day One Venture Studio, my work has included technical leadership, startup product planning, and the architecture of internal systems.</p>
-        <Link to="/#contact" className="text-link experience-contact">Talk through a product idea <EnvelopeSimple size={17} /></Link>
-        <div className="about-facts">
-          <div>
-            <strong>4+ years</strong>
-            <span>Building software</span>
-          </div>
-          <div>
-            <strong>Full stack</strong>
-            <span>From interface to infrastructure</span>
-          </div>
-        </div>
-      </Reveal>
-      <div className="journey">
-        {[journey[2], journey[1], journey[3], journey[0]].map((item, i) => (
-          <Reveal className="journey-item" key={item.label} delay={i * 0.04}>
-            <span className="journey-mark" aria-hidden="true" />
-            <p className="journey-label">{item.label}</p>
-            <h3>{item.title}</h3>
-            <p>{item.text}</p>
-          </Reveal>
-        ))}
-      </div>
-    </section>
-  )
-}
+
 
 function Toolkit() {
   return (
@@ -282,7 +247,7 @@ function Home({ onPlayIntro }) {
       <div><strong>Technical leadership</strong><span>Day One Venture Studio</span></div>
     </div>
     <Book3D />
-    <About />
+    <DetectiveBoard />
     <Toolkit />
     <aside id="approach" className="build-note"><p className="eyebrow">MY APPROACH</p><p>Understand the workflow. Connect the system. Build, review, and improve.</p><Link to="/#workspace" className="text-link">Explore a technical perspective <Plus size={17} /></Link></aside>
     <section id="workspace" className="section workspace-section">

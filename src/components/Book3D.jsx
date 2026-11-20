@@ -1,5 +1,4 @@
 import { useCallback, useEffect, useRef, useState, useSyncExternalStore } from 'react'
-import { flushSync } from 'react-dom'
 import { useScroll, useMotionValueEvent } from 'motion/react'
 import { Link, useLocation } from 'react-router-dom'
 import { ArrowDown, ArrowRight, CaretLeft, CaretRight, Globe } from '@phosphor-icons/react'
@@ -41,7 +40,7 @@ function StoryPage({ project: p, index }) {
 function ArtPage({ project: p, index }) {
   return <div className={`folio-page folio-art folio-art-${p.id}`}>
     <div className="folio-running"><span>{p.kind === 'concept' ? 'From the sketchbook' : 'Inside the build'}</span><span>Sourav / Selected work</span></div>
-    <div className="folio-main-panel"><img src={artwork[p.id]} alt={`Comic illustration for ${p.name}`} width="1024" height="1024" loading="lazy" /><p>{p.kind === 'concept' ? 'An idea taking shape…' : 'Every build starts with a problem.'}</p></div>
+    <div className="folio-main-panel"><img src={artwork[p.id]} alt={`Comic illustration for ${p.name}`} width="1024" height="1024" loading="eager" decoding="async" /><p>{p.kind === 'concept' ? 'An idea taking shape…' : 'Every build starts with a problem.'}</p></div>
     <div className="folio-small-panels">
       <div><span>{p.kind === 'concept' ? 'The concept' : 'The challenge'}</span><p>{p.flow[0]}</p></div>
       <div><span>{p.kind === 'concept' ? 'The proposed direction' : 'The connection'}</span><p>{p.flow.at(-1)}</p><ArrowRight size={26} weight="bold" aria-hidden="true" /></div>
@@ -91,7 +90,13 @@ export default function Book3D() {
   const currentScene = useRef(scene)
   const { scrollYProgress } = useScroll({ target: sectionRef, offset: ['start start', 'end end'] })
 
-  const updateScene = useCallback((value) => {
+  const targetProgress = useRef(0)
+  const animatedProgress = useRef(0)
+  const lastTimeRef = useRef(0)
+  const isRunningRef = useRef(false)
+  const animIdRef = useRef(null)
+
+  const applyProgress = useCallback((value) => {
     const opening = clamp((value - .025) / .175)
     const chapter = clamp((value - .2) / .8) * count
     const page = Math.min(count - 1, Math.floor(chapter))
@@ -100,24 +105,72 @@ export default function Book3D() {
     const phase = page < count - 1 ? clamp((fraction - .64) / .36) : 0
     const turn = phase * phase * (3 - 2 * phase)
     const next = { page, index, turning: turn > 0 && turn < 1, open: opening > .64 }
-    // Write CSS vars first so they are correct on the same paint as any React commit.
+
     if (bookRef.current) {
       bookRef.current.style.setProperty('--lift', opening)
       bookRef.current.style.setProperty('--cover-visibility', opening >= 1 ? 'hidden' : 'visible')
       bookRef.current.style.setProperty('--cover-angle', `${-180 * clamp((opening - .25) / .75)}deg`)
       bookRef.current.style.setProperty('--bend', `${Math.sin(Math.PI * turn) * 9}deg`)
       bookRef.current.style.setProperty('--shade', Math.sin(Math.PI * turn))
-      // When a page lands (turn just finished), park the sheet fully flipped so it
-      // disappears behind the spread rather than snapping back to 0° before unmounting.
-      const wasturning = currentScene.current.turning
-      bookRef.current.style.setProperty('--turn-angle', turn === 0 && wasturning ? '-180deg' : `${-180 * turn}deg`)
+      bookRef.current.style.setProperty('--turn-angle', `${-180 * turn}deg`)
     }
     if (Object.keys(next).some(key => currentScene.current[key] !== next[key])) {
-      // Commit face swap in the same frame as the CSS variable that drove it.
       currentScene.current = next
-      flushSync(() => setScene(next))
+      setScene(next)
     }
   }, [compact, count])
+
+  // On-demand animation loop: wakes up when scroll progress changes,
+  // rate-limits page turns so fast scrolling never skips the animation,
+  // and sleeps when caught up so CPU usage is zero.
+  const startLoop = useCallback(() => {
+    if (isRunningRef.current) return
+    isRunningRef.current = true
+    lastTimeRef.current = performance.now()
+
+    const step = (now) => {
+      const dt = lastTimeRef.current ? Math.min((now - lastTimeRef.current) / 1000, 0.05) : 0.016
+      lastTimeRef.current = now
+
+      const target = targetProgress.current
+      const current = animatedProgress.current
+      const diff = target - current
+
+      if (Math.abs(diff) < 0.0004) {
+        animatedProgress.current = target
+        applyProgress(target)
+        isRunningRef.current = false
+        animIdRef.current = null
+        return
+      }
+
+      // Compute current chapter/fraction to know if we are in a turn window
+      const chapter = clamp((current - .2) / .8) * count
+      const page = Math.floor(chapter)
+      const fraction = chapter - page
+      const inTurn = page < count - 1 && fraction >= 0.60 && fraction <= 0.99
+
+      // In turn window: rate-limit progress velocity so the leaf turn lasts at least ~180-220ms
+      // Outside turn window: track scroll swiftly so opening and holds never lag
+      const maxRate = inTurn ? 0.65 : Math.max(3.0, Math.abs(diff) * 12)
+      const maxStep = maxRate * dt
+      const move = Math.sign(diff) * Math.min(Math.abs(diff), maxStep)
+      const nextProgress = current + move
+      animatedProgress.current = nextProgress
+      applyProgress(nextProgress)
+
+      animIdRef.current = requestAnimationFrame(step)
+    }
+
+    animIdRef.current = requestAnimationFrame(step)
+  }, [applyProgress, count])
+
+  useEffect(() => {
+    return () => {
+      if (animIdRef.current) cancelAnimationFrame(animIdRef.current)
+    }
+  }, [])
+
   useEffect(() => {
     const images = []
     const observer = new IntersectionObserver(([entry]) => {
@@ -127,7 +180,7 @@ export default function Book3D() {
         const image = new Image()
         image.src = src
         images.push(image)
-        image.decode().catch(() => {}) // The visible image can retry normally.
+        image.decode().catch(() => {})
       }
     }, { rootMargin: '100% 0px' })
     observer.observe(sectionRef.current)
@@ -136,11 +189,18 @@ export default function Book3D() {
       images.length = 0
     }
   }, [])
-  useMotionValueEvent(scrollYProgress, 'change', updateScene)
+
+  useMotionValueEvent(scrollYProgress, 'change', (val) => {
+    targetProgress.current = val
+    startLoop()
+  })
+
   useEffect(() => {
-    const frame = requestAnimationFrame(() => updateScene(scrollYProgress.get()))
-    return () => cancelAnimationFrame(frame)
-  }, [scrollYProgress, updateScene])
+    const initial = scrollYProgress.get()
+    targetProgress.current = initial
+    animatedProgress.current = initial
+    applyProgress(initial)
+  }, [scrollYProgress, applyProgress])
 
   useEffect(() => {
     if (hash !== '#concepts' || window.matchMedia('(max-height: 500px), (prefers-reduced-motion: reduce)').matches) return
@@ -151,13 +211,17 @@ export default function Book3D() {
     return () => cancelAnimationFrame(frame)
   }, [hash, compact, count])
 
-  function goToPage(index) {
+  const goToPage = useCallback((index) => {
     const section = sectionRef.current
     if (!section) return
     const target = Math.max(0, Math.min(count - 1, index))
+    const pos = pagePosition(target, count)
+    targetProgress.current = pos
+    animatedProgress.current = pos
+    applyProgress(pos)
     const start = section.getBoundingClientRect().top + window.scrollY
-    window.scrollTo({ top: start + pagePosition(target, count) * (section.offsetHeight - innerHeight), behavior: 'smooth' })
-  }
+    window.scrollTo({ top: start + pos * (section.offsetHeight - innerHeight), behavior: 'instant' })
+  }, [count, applyProgress])
 
   const turning = scene.turning && (compact ? scene.page < count - 1 : scene.index < projects.length - 1)
   const left = scene.index

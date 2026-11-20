@@ -1,0 +1,536 @@
+/* ==========================================================================
+   HOLOGRAPHIC COMIC CHARACTER DECK (ABOUT SOURAV)
+   ========================================================================== */
+
+.deck-section {
+  position: relative;
+  padding: 100px 32px 110px;
+  max-width: 1320px;
+  margin: 0 auto;
+  color: var(--ink, #1f221e);
+}
+
+.deck-header {
+  text-align: center;
+  max-width: 780px;
+  margin: 0 auto 56px;
+  position: relative;
+  z-index: 2;
+}
+
+.deck-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font: 700 11px/1 'Geist Mono Variable', monospace;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #9c3022;
+  background: #fdf3d7;
+  border: 2px solid #242521;
+  padding: 6px 14px;
+  box-shadow: 3px 3px 0 #242521;
+  margin-bottom: 18px;
+  transform: rotate(-1deg);
+}
+
+.deck-title {
+  font: 400 clamp(38px, 4.8vw, 68px)/0.96 'Bangers', cursive;
+  letter-spacing: 0.02em;
+  margin: 0 0 16px;
+  color: #242521;
+}
+
+.deck-title span {
+  color: #b93525;
+  text-shadow: 2px 2px 0 #f5cb58;
+}
+
+.deck-subtitle {
+  font-family: 'Comic Neue', cursive;
+  font-size: clamp(16px, 1.35vw, 20px);
+  line-height: 1.5;
+  color: #43443d;
+  margin: 0 0 22px;
+}
+
+.deck-instruction {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font: 700 11px 'Geist Mono Variable', monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #63573c;
+  background: rgba(245, 203, 88, 0.25);
+  border: 1px dashed #7a6639;
+  padding: 6px 14px;
+  border-radius: 999px;
+}
+
+/* Card Deck Grid */
+.deck-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 32px;
+  perspective: 1600px;
+  position: relative;
+  z-index: 2;
+}
+
+/* Outer Card Container with 3D context */
+.holo-card-wrap {
+  position: relative;
+  height: 620px;
+  perspective: 1200px;
+  cursor: pointer;
+  outline: none;
+  touch-action: pan-y;
+}
+
+.holo-card-wrap:focus-visible .holo-card-slab {
+  box-shadow: 0 0 0 4px #b93525, 0 16px 36px rgba(0, 0, 0, 0.35);
+}
+
+/* Acrylic slab holder */
+.holo-card-slab {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 18px;
+  background: #fbf7ec;
+  border: 3px solid #242521;
+  box-shadow: 7px 9px 0 #242521, 0 14px 28px rgba(36, 37, 33, 0.15);
+  transform-style: preserve-3d;
+  transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.3s ease;
+  will-change: transform;
+}
+
+.holo-card-wrap:hover .holo-card-slab {
+  box-shadow: 10px 14px 0 #242521, 0 24px 45px rgba(36, 37, 33, 0.22);
+}
+
+/* 3D flipper container */
+.holo-card-inner {
+  position: absolute;
+  inset: 10px;
+  border-radius: 12px;
+  transform-style: preserve-3d;
+  transition: transform 0.65s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.holo-card-wrap.is-flipped .holo-card-inner {
+  transform: rotateY(180deg);
+}
+
+/* Front & Back Faces */
+.holo-card-face {
+  position: absolute;
+  inset: 0;
+  border-radius: 10px;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  background: #fdfaf0;
+  border: 2px solid #242521;
+}
+
+/* Card Front Styling */
+.holo-card-front {
+  transform: rotateY(0deg) translateZ(1px);
+}
+
+/* Top Collector Banner / Header Slab */
+.card-slab-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #242521;
+  color: #fff2cf;
+  padding: 8px 12px;
+  font: 700 10px 'Geist Mono Variable', monospace;
+  letter-spacing: 0.08em;
+  border-bottom: 2px solid #242521;
+}
+
+.card-slab-rarity {
+  color: #f7cc62;
+  font-weight: 800;
+}
+
+.card-slab-edition {
+  opacity: 0.85;
+}
+
+/* Card Artwork Frame */
+.card-art-frame {
+  position: relative;
+  height: 250px;
+  background: #1c2626;
+  overflow: hidden;
+  border-bottom: 2px solid #242521;
+}
+
+.card-art-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  filter: contrast(1.1) saturate(1.15);
+  transition: transform 0.6s ease;
+}
+
+.holo-card-wrap:hover .card-art-img {
+  transform: scale(1.05);
+}
+
+.card-art-badge {
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
+  background: #f5cb58;
+  color: #242521;
+  border: 2px solid #242521;
+  padding: 4px 8px;
+  font: 400 15px/1 'Bangers', cursive;
+  letter-spacing: 0.03em;
+  box-shadow: 2px 2px 0 #242521;
+  transform: rotate(2deg);
+}
+
+/* Dynamic Holographic Foil Glare Overlay */
+.card-holo-glare {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 5;
+  border-radius: 10px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  mix-blend-mode: color-dodge;
+  background:
+    radial-gradient(
+      circle at var(--glare-x, 50%) var(--glare-y, 50%),
+      rgba(255, 255, 255, 0.7) 0%,
+      rgba(255, 120, 200, 0.35) 25%,
+      rgba(0, 240, 255, 0.35) 50%,
+      transparent 75%
+    ),
+    linear-gradient(
+      115deg,
+      transparent 20%,
+      rgba(255, 255, 255, 0.25) 35%,
+      rgba(255, 215, 0, 0.3) 48%,
+      rgba(0, 255, 210, 0.3) 55%,
+      rgba(255, 100, 220, 0.25) 65%,
+      transparent 80%
+    );
+  background-size: 150% 150%;
+  background-position: var(--glare-x, 50%) var(--glare-y, 50%);
+}
+
+.holo-card-wrap:hover .card-holo-glare {
+  opacity: 0.85;
+}
+
+/* Card Body Content */
+.card-content {
+  padding: 16px 14px 14px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.card-role-title {
+  font: 400 clamp(24px, 2.2vw, 30px)/0.96 'Bangers', cursive;
+  margin: 0 0 4px;
+  color: #242521;
+  letter-spacing: 0.015em;
+}
+
+.card-archetype {
+  font: 700 9px 'Geist Mono Variable', monospace;
+  text-transform: uppercase;
+  color: #9c3022;
+  margin: 0 0 12px;
+  letter-spacing: 0.05em;
+}
+
+.card-quote {
+  font-family: 'Comic Neue', cursive;
+  font-size: 13px;
+  line-height: 1.35;
+  color: #3b3d36;
+  margin: 0 0 14px;
+  font-weight: 700;
+  font-style: italic;
+  border-left: 3px solid #f5cb58;
+  padding-left: 8px;
+}
+
+/* Card Power Meter / Stats */
+.card-stats-box {
+  background: #f2e7c9;
+  border: 1.5px solid #242521;
+  padding: 10px 10px 8px;
+  border-radius: 6px;
+  margin-top: auto;
+}
+
+.card-stat-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 6px;
+  font: 700 9px 'Geist Mono Variable', monospace;
+  text-transform: uppercase;
+}
+
+.card-stat-row:last-child {
+  margin-bottom: 0;
+}
+
+.stat-label {
+  flex-shrink: 0;
+  min-width: 95px;
+  color: #424036;
+}
+
+.stat-bar-track {
+  flex: 1;
+  height: 6px;
+  background: #d8cbb0;
+  border-radius: 3px;
+  overflow: hidden;
+  border: 1px solid #242521;
+}
+
+.stat-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #f5cb58, #b93525);
+  border-radius: 2px;
+  transition: width 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.stat-value {
+  font-size: 9px;
+  font-weight: 800;
+  min-width: 20px;
+  text-align: right;
+  color: #242521;
+}
+
+/* Card Flip Action Button */
+.card-flip-prompt {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  margin-top: 10px;
+  font: 700 10px 'Comic Neue', cursive;
+  color: #8c2a1e;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 4px 0;
+}
+
+.card-flip-prompt svg {
+  transition: transform 0.4s ease;
+}
+
+.holo-card-wrap:hover .card-flip-prompt svg {
+  transform: rotate(180deg);
+}
+
+/* ==========================================================================
+   Card Back (Stat Sheet & Dossier)
+   ========================================================================== */
+
+.holo-card-back {
+  transform: rotateY(180deg) translateZ(1px);
+  background: #fbf5e2;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+}
+
+.card-back-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  border-bottom: 2px solid #242521;
+  padding-bottom: 10px;
+  margin-bottom: 12px;
+}
+
+.card-back-header h4 {
+  font: 400 24px/1 'Bangers', cursive;
+  margin: 0 0 2px;
+  color: #242521;
+  letter-spacing: 0.02em;
+}
+
+.card-back-header span {
+  font: 700 9px 'Geist Mono Variable', monospace;
+  text-transform: uppercase;
+  color: #9c3022;
+}
+
+.card-back-number {
+  font: 800 18px/1 'Bangers', cursive;
+  background: #f5cb58;
+  border: 1.5px solid #242521;
+  padding: 3px 6px;
+  box-shadow: 2px 2px 0 #242521;
+}
+
+.card-back-section {
+  margin-bottom: 12px;
+}
+
+.card-back-label {
+  font: 700 8.5px 'Geist Mono Variable', monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #7a6e50;
+  margin: 0 0 4px;
+}
+
+.card-back-mission {
+  font-family: 'Comic Neue', cursive;
+  font-size: 13.5px;
+  line-height: 1.35;
+  color: #242521;
+  margin: 0;
+  font-weight: 700;
+}
+
+.card-back-narrative {
+  font-family: 'Comic Neue', cursive;
+  font-size: 12.5px;
+  line-height: 1.4;
+  color: #424036;
+  margin: 0;
+}
+
+.card-back-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-top: 6px;
+}
+
+.card-back-tags span {
+  font: 600 9px 'Geist Mono Variable', monospace;
+  background: #eee3c4;
+  border: 1px solid #706346;
+  padding: 3px 6px;
+  border-radius: 3px;
+  color: #242521;
+}
+
+.card-back-footer {
+  margin-top: auto;
+  border-top: 2px dashed #9c8e6b;
+  padding-top: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.card-barcode {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.barcode-lines {
+  height: 20px;
+  width: 90px;
+  background: repeating-linear-gradient(
+    90deg,
+    #242521 0 2px,
+    transparent 2px 4px,
+    #242521 4px 7px,
+    transparent 7px 9px,
+    #242521 9px 12px
+  );
+}
+
+.barcode-code {
+  font: 700 7.5px 'Geist Mono Variable', monospace;
+  color: #63573c;
+  letter-spacing: 0.05em;
+}
+
+.card-flip-back-btn {
+  font: 700 11px 'Comic Neue', cursive;
+  color: #242521;
+  background: #f5cb58;
+  border: 1.5px solid #242521;
+  padding: 5px 10px;
+  cursor: pointer;
+  box-shadow: 2px 2px 0 #242521;
+  transition: transform 0.15s ease;
+}
+
+.card-flip-back-btn:hover {
+  transform: translate(-1px, -1px);
+  box-shadow: 3px 3px 0 #242521;
+}
+
+/* ==========================================================================
+   Responsive & Accessibility
+   ========================================================================== */
+
+@media (max-width: 1024px) {
+  .deck-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px;
+  }
+  .holo-card-wrap:last-child {
+    grid-column: span 2;
+    max-width: 440px;
+    margin: 0 auto;
+    width: 100%;
+  }
+}
+
+@media (max-width: 700px) {
+  .deck-section {
+    padding: 70px 16px 80px;
+  }
+  .deck-grid {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+  .holo-card-wrap:last-child {
+    grid-column: span 1;
+    max-width: 100%;
+  }
+  .holo-card-wrap {
+    height: 590px;
+  }
+  .card-art-frame {
+    height: 220px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .holo-card-slab {
+    transition: none !important;
+    transform: none !important;
+  }
+  .holo-card-inner {
+    transition: transform 0.2s ease !important;
+  }
+  .card-holo-glare {
+    display: none !important;
+  }
+}

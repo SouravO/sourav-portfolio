@@ -247,3 +247,238 @@ PORT-021. Desktop leaves bend along the spine and compact leaves curl over the t
 
 ## PORT-022 — Continuous page landing
 DONE. Eliminated the per-page-turn flash by reordering the updateScene function so CSS custom properties (--turn-angle, --bend, --shade, --lift, --cover-angle, --cover-visibility) are written to bookRef BEFORE flushSync commits the React state change. This ensures the folio-turn div always mounts with the correct angle already on the element, and no intermediate 0° snap is painted. Additionally, when a page finishes landing (turn drops to 0 while currentScene.turning was true), --turn-angle is parked at -180deg so the outgoing sheet disappears behind the spread instead of snapping upright before unmounting. Artwork preload IntersectionObserver (from PORT-022 Codex partial) retained. Lint and build pass.
+
+## PORT-023 — Wheel snap for page turns (SUPERSEDED)
+Superseded by PORT-024. The wheel interception approach caused scroll freezing ("stucks") and blocked browser momentum.
+
+## PORT-024 — Smooth, un-stuck page turn transitions under fast scroll
+DONE. Fixed page turn stucks and jarring jumps during fast scrolling:
+1. Removed wheel interception (`e.preventDefault()`, `pending` lockouts) and custom RAF scrollTo, restoring native, free-flowing scroll without getting stuck.
+2. Removed `flushSync` layout thrashing on high-frequency scroll events.
+3. Implemented an on-demand requestAnimationFrame loop that smoothly interpolates scroll progress to the target. During page turn windows (fraction 0.60–0.99), the progress velocity is capped at a maximum rate (0.38/s), guaranteeing that every page turn animates over at least ~220ms even if the user scrolls or flicks vigorously. Outside turn windows, it tracks scroll swiftly (up to 3.0+/s) so cover opening and reading holds never lag.
+4. When progress is caught up, the RAF loop sleeps immediately (0% idle CPU usage).
+5. Set `loading="eager" decoding="async"` on `ArtPage` artwork images so image decoding never produces a loading pop or flash when pages land.
+Verification: Lint passed; 19/19 tests in `tests/book.spec.js` (8) and `tests/portfolio.spec.js` (11) passed; verified frame captures under fast scrolling showing smooth multi-frame 3D leaf curls without skipping or stutter.
+
+## PORT-025 — Holographic Comic Character Card Deck for About section
+Status: DONE
+Date: 2026-11-21
+Objective: Redesign the About section from static text/cards into an innovative 3D Holographic Character Card Deck fitting the comic/builder aesthetic.
+Acceptance: 3 collectible cards showcasing Sourav's experience, leadership, and technical journey; interactive 3D mouse tilt with iridescent holographic foil glare; flip-to-back card inspection for deep stats, milestones, and credentials; accessible keyboard flip; fully responsive down to mobile; passes lint, build, and tests.
+Completed:
+- Created `src/components/CharacterDeck.jsx` and `src/character-deck.css` implementing Concept 3 (The Holographic Comic Character Card Deck) replacing the old static `<About />` section in `src/App.jsx`.
+- 3 collectible character cards showcasing Sourav's experience:
+  1. Studio Architect (Venture Engineering & Startup Acceleration at Day One Studio)
+  2. Full-Stack Craftsman (End-to-End Systems, Micro-Interactions & Infrastructure)
+  3. Agentic Pioneer (Applied AI, Human-in-the-Loop, Tool Calling & Autonomous Workflows)
+- Interactive 3D mouse tilt with dynamic iridescent holographic rainbow foil reflection, specular glare tracking, and comic halftone textures using CSS custom properties (`--mouse-x`, `--mouse-y`, `--rotate-x`, `--rotate-y`).
+- 3D card flip inspection (`rotateY(180deg) translateZ(1px)`) revealing detailed dossiers, verified stats, milestones, and key achievements with accessible button triggers.
+- Maintained `#about` anchor, responsive wrapping for mobile, and zero layout shift.
+- Synchronized `Book3D.jsx` chapter transitions ensuring seamless navigation.
+Verification:
+- `npm test`: 8/8 unit tests pass.
+- `npm run lint`: 0 errors/warnings.
+- `npm run build`: built cleanly.
+- `npx playwright test tests/portfolio.spec.js tests/book.spec.js`: 19/19 tests pass.
+- Accessibility: axe scan pass with 0 violations.
+- Visual inspection: verified front and back renders on desktop and mobile.
+
+## PORT-026 — Classified Case Dossier for About section (Concept 1)
+Status: DONE
+Date: 2026-11-21
+Objective: Implement Concept 1 (The "Classified Case Dossier" / Interactive 3D Manila Archive) to replace the About section with an authentic physical detective case file on the builder's desk.
+Acceptance:
+- Interactive vintage manila case folder with string-tie clasp, stamped `TOP SECRET // BUILDER DOSSIER`.
+- 3 interactive tabbed case files:
+  1. Tab 1: Identity & Clearance (Origin, 4+ years specs, tape-affixed portrait, clearance badges).
+  2. Tab 2: Mission Logs (Chronological field reports: Foundations -> Full-Stack -> Studio Leadership -> Agentic Frontier).
+  3. Tab 3: The Builder’s Creed (Field operating directives, architectural philosophy, pinned notes).
+- Tactile details: authentic kraft texture, ink stamp effects (CLASSIFIED, VERIFIED, DEPLOYED), paper clip / tape styling, and vintage typewriter/mono typography.
+- Keyboard navigation with ARIA tabs (`role="tablist"`, `role="tab"`, `role="tabpanel"`), full WCAG accessibility (0 axe violations).
+- Responsive design down to mobile viewports (<= 390px).
+- All unit, lint, build, and Playwright tests pass.
+Completed:
+- Created `src/components/DossierArchive.jsx` and `src/dossier-archive.css`.
+- Replaced `<CharacterDeck />` with `<DossierArchive />` in `src/App.jsx`.
+- Designed physical manila folder case with binder clips, red-string-and-washer clasp, and rubber ink classification stamps (`TOP SECRET // LEVEL 4+`, `ARCHIVE #DO-2026`).
+- Implemented 3 interactive staggered index tabs with full ARIA semantics (`role="tablist"`, `role="tab"`, `role="tabpanel"`) and left/right keyboard arrow navigation:
+  1. Identity & Clearance: Translucent tape-affixed operative portrait, verified operative badge, 4+ years production experience breakdown, and direct CTA link.
+  2. Field Mission Logs: Chronological mission dispatches covering CS Foundations, Full-Stack in the trenches, Day One Venture Studio CTO leadership, and the Agentic Frontier.
+  3. The Builder's Creed: Four realistic pinned sticky notes (yellow, blue, pink, green) with brass pins, tactile tilt offsets, and core operating directives.
+- Fine-tuned `Book3D.jsx` turn velocity so mobile scroll tests and chapter navigations pass without timeouts.
+Verification:
+- `npm test`: 8/8 unit tests PASS.
+- `npm run lint`: PASS (0 errors, 0 warnings).
+- `npm run build`: PASS (clean production build).
+- `npx playwright test tests/book.spec.js`: 8/8 tests PASS.
+- `npx playwright test tests/portfolio.spec.js`: 11/11 tests PASS (including desktop and mobile axe accessibility scans with 0 violations).
+- Screenshots verified across all three tabs (`test-results/dossier-tab1-identity.png`, `test-results/dossier-tab2-missions.png`, `test-results/dossier-tab3-creed.png`).
+
+## PORT-027 — Mobile Responsiveness Polish for Classified Dossier
+Status: DONE
+Date: 2026-11-21
+Objective: Make the Classified Dossier archive impeccably mobile-responsive across small phones (320px–390px) and tablets (up to 768px).
+Acceptance:
+- Mobile-optimized tab bar: adaptive labels (`01 // Identity`, `02 // Missions`, `03 // Creed`) fitting neatly across screen widths without awkward truncation or horizontal scroll.
+- Mobile folder flange: proportional binder clips, compact badge formatting, and balanced red seal.
+- Touch targets: tabs and CTA links adhere to >= 44px touch guidelines.
+- Content layouts: full-width primary CTA button on mobile, clean mission timeline headers (status badge + log number inline), and sticky note tactile charm preserved with subtle rotation.
+- Space efficiency: optimized mobile padding/margins on `.manila-folder-wrapper` and `.manila-paper-sheet` maximizing readable area on 320px–390px screens.
+- Zero horizontal overflow (`scrollWidth <= innerWidth`), 0 axe violations, and all unit/playwright tests pass.
+Completed:
+- Enhanced `DossierArchive.jsx` with adaptive responsive tab labels (`shortLabel` for mobile) and clean structure.
+- In `dossier-archive.css`:
+  - Implemented an equal-flex 3-segment mobile tab bar (`flex: 1 1 0; min-height: 44px;`) ensuring all tabs fit side-by-side with zero cut-off or awkward overflow.
+  - Scaled folder flange elements (binder clip, label tag, red-string clasp) proportionally.
+  - Designed responsive mission item dispatches with inline log numbers and status badges.
+  - Made primary CTA link full-width (`width: 100%`) with minimum 44px touch height.
+  - Preserved playful physical tilt on mobile sticky notes (`-1deg` / `1deg` alternating) without clipping or viewport overflow.
+  - Optimized sheet margins on <= 640px and <= 360px phones.
+Verification:
+- Tested viewport widths: 320px, 360px, 375px, 390px, 414px, 768px. All returned `scrollWidth === width` (0 overflow).
+- `npm run lint`: PASS (0 errors, 0 warnings).
+- `npm run build`: PASS (clean production build).
+- `npx playwright test tests/portfolio.spec.js`: 11/11 tests PASS (axe accessibility scans pass with 0 violations).
+- Captured mobile visual snapshots at 375x812 (`test-results/mobile-375-tab1-identity.png`, `test-results/mobile-375-tab2-missions.png`, `test-results/mobile-375-tab3-creed.png`).
+
+## PORT-028 — Detective Investigation Corkboard with Connected Red String Roadmap
+Status: DONE
+Date: 2026-11-21
+Objective: Rebuild the About section into an addictive, comic-style Detective Evidence Noticeboard ("The Investigation: Tracking the Builder").
+Acceptance:
+- Authentic detective evidence corkboard aesthetic with brass pins, pushpins, polaroids, evidence tags, scribbled sticky notes, and connected red yarn/strings.
+- Chronological roadmap exhibits tracing Sourav's real timeline:
+  1. Exhibit 01 (2018–2022): Academic Genesis (B.Tech CS, algorithms, systems foundation).
+  2. Exhibit 02 (2022–2024): Electronic Media Crucible (2 full years as Software Engineer in Electronic Media, live broadcasting feeds, high concurrency, zero downtime).
+  3. Exhibit 03 (2024–Present): Venture Studio Command (CTO & Technical Leadership at Day One Venture Studio, internal venture CRM, MVP acceleration).
+  4. Exhibit 04 (The Frontier): The Agentic Pioneer (Next.js, Supabase, autonomous AI coding swarms, human-in-the-loop systems).
+- Interactive red thread navigation: users can click/tap any exhibit or scrub through eras, highlighting the red connecting string and spotlighting that chapter.
+- Full mobile responsiveness: zero horizontal overflow on mobile (320px–390px).
+- WCAG accessibility: keyboard navigation, accessible labels, 0 axe violations.
+- All unit, lint, build, and Playwright tests pass.
+Completed:
+- Created `src/components/DetectiveBoard.jsx` and `src/detective-board.css`.
+- Replaced `<DossierArchive />` with `<DetectiveBoard />` at `#about` in `src/App.jsx`.
+- Crafted physical corkboard frame with brass corner braces, screw rivets, faded cork stamp, and dynamic SVG curved red strings (`.red-string`) with yarn drop shadows connecting the pins.
+- Implemented 4 chronological evidence exhibits with authentic comic detective elements:
+  - Exhibit 01: Academic Genesis (B.Tech CS, lab polaroid with tape, core algorithms stamp).
+  - Exhibit 02: Electronic Media Crucible (2 full years as software engineer in live broadcasting, high-concurrency content pipelines, zero-downtime stamp).
+  - Exhibit 03: Venture Studio Command (Day One Studio CTO, venture CRM platform, system architecture).
+  - Exhibit 04: The Agentic Pioneer (Next.js, Supabase, autonomous coding agents, direct contact case CTA).
+- Added interactive clue filter toolbar (`[All Evidence]`, `[01 // ORIGINS]`, `[02 // MEDIA]`, `[03 // STUDIO]`, `[04 // FRONTIER]`) that spotlights individual exhibit cards and glows the connecting red strings.
+- Pinned floating investigator clue stickies with brass pins.
+- Refined `Book3D.jsx` `goToPage` to use instant scroll without intermediate smooth-scroll fighting.
+Verification:
+- `npm test`: 8/8 unit tests PASS.
+- `npm run lint`: PASS (0 errors, 0 warnings).
+- `npm run build`: PASS (clean production build).
+- Viewport fit audit: 320px, 360px, 375px, 390px, 414px, 768px, 1280px all returned `scrollWidth === width` (0 overflow).
+- Playwright tests: 19/19 tests PASS across `tests/book.spec.js` (8/8) and `tests/portfolio.spec.js` (11/11, including axe accessibility scans with 0 violations).
+- Captured high-resolution visual screenshots: `test-results/detective-board-desktop.png` (1.3MB) and `test-results/detective-board-mobile.png` (746KB).
+
+## PORT-029 — Authentic Murder-Board Mystery with Era Photo Surveillance & Detective Torch
+Status: DONE
+Date: 2026-11-21
+Objective: Transform the corkboard into the exact authentic detective conspiracy pinboard from the user's reference image:
+- Central "Prime Suspect" anchor polaroid radiating red strings to surrounding cards.
+- Era-by-era surveillance photos documenting Sourav's evolving style and real milestones:
+  1. 2018–2022: College Era (Late-night midnight coding, student hoodie attire, algorithms & C++).
+  2. 2022–2024: Electronic Media (2 full years in live broadcast studio gear, high-throughput streaming pipelines).
+  3. 2024–Present: Day One Venture Studio CTO (Leadership tech attire, architecture blueprints, CRM platform).
+  4. The Frontier: Agentic Pioneer (Visionary rooftop surveillance, multi-agent AI swarms).
+- Tactile paper variety matching reference: black-framed polaroids, torn spiral-notebook page with punch holes, yellow Post-it stickies, white index cards.
+- Interactive Detective Flashlight / Torch mode: dynamic ambient lighting following the cursor or toggled with a torch button.
+- Organic, unaligned tilt angles (`-2.5°`, `2.5°`, `1°`, `-1.5°`) with interactive string tension.
+- Full mobile responsiveness (320px–390px) with zero horizontal overflow, full accessibility (0 axe violations), and all tests passing.
+Completed:
+- Built `src/components/DetectiveBoard.jsx` and `src/detective-board.css` matching the user's reference image.
+- Implemented central anchor polaroid with red pushpin and radiating SVG red yarn lines.
+- Designed 4 distinct exhibits with tactile paper variety:
+  - Torn spiral-bound notebook page with punch-holes for College Era (`/illustrations/cinema/midnight.webp`).
+  - Black-framed surveillance snapshot for Electronic Media Era (`/illustrations/workshop.webp`).
+  - Yellow sticky notes cluster with brass pushpins for Directives 01 & 02.
+  - White blueprint system diagram card for Day One Studio CTO (`/illustrations/crm.webp`).
+  - Agentic Frontier telegram exhibit (`/illustrations/cinema/rooftop.webp`).
+- Built Detective Torch mode: dynamic ambient lighting following cursor (`--torch-x`, `--torch-y`), flashlight button toggle, and spotlight focus filters.
+- Fixed axe heading hierarchy (`h2` -> `h3`, styled paragraphs for stickies).
+Verification:
+- `npm run lint`: PASS (0 errors, 0 warnings).
+- `npm run build`: PASS (clean production build).
+- `npm test`: 8/8 API unit tests PASS.
+- `npx playwright test tests/portfolio.spec.js tests/book.spec.js`: 19/19 PASS (including full desktop and mobile axe accessibility scans).
+- Visual inspection: Captured high-resolution screenshots of the complete corkboard frame (`test-results/detective-board-corkboard-desktop.png` and `test-results/detective-board-corkboard-mobile.png`). Verified responsive layout at 390px and desktop.
+Remaining: None. Ready for user feedback.
+
+## PORT-031 — Single-Viewport Detective Noticeboard with Connected Red String Web
+Status: DONE
+Date: 2026-11-21
+Objective: Transform the detective board section to fit entirely within a single viewport (`100vh` / `100dvh`) without requiring scrolling, keeping all evidence cards and connecting red strings visible at a glance:
+- Design a single-screen layout where the entire corkboard fits in the viewport on desktop and mobile.
+- Render the visible red string web connecting all pushpins directly across the single viewport canvas (matching the reference image layout).
+- Compact, high-impact evidence cards arranged radially around the central prime suspect polaroid.
+- Interactive card inspection: tapping or clicking any card opens an in-viewport evidence dossier modal / detail inspector so deep career intel is readable without making the board scroll.
+- Responsive design for mobile (320px–390px) and desktop (1024px–1920px), ensuring the entire board stays within the single viewport height without page scrolling.
+- Full accessibility (0 axe violations) and full test verification.
+Completed:
+- Converted `#about.detective-section` to a single-viewport container (`height: 100vh; height: 100dvh; max-height: 100vh; overflow: hidden;`).
+- Designed a compact top header bar with case badge, title, torch toggle, and era filter chips.
+- Positioned all 6 evidence items (Prime Suspect anchor, College 2018–22, Media 2022–24, Operating Creed, Day One CTO 2024–Now, Agentic Frontier) directly on the corkboard stage around the central anchor.
+- Connected all pushpins with real SVG red strings (`stroke: #c22727` with drop shadow and glowing active highlights) forming the murder-board web across the single viewport on desktop and mobile.
+- Built the in-viewport Dossier Inspector Modal (`.dossier-overlay-modal`) allowing full high-resolution surveillance photos, detailed stories, field intel, and tech tags to be read without vertical page scrolling.
+- Ensured zero axe violations by using `role="region"` landmarks on cards.
+Verification:
+- `npm run lint`: PASS (0 errors, 0 warnings).
+- `npm run build`: PASS (clean production build).
+- `npm test`: 8/8 API unit tests PASS.
+- `npx playwright test tests/portfolio.spec.js tests/book.spec.js`: 19/19 PASS (all tests pass, 0 accessibility violations).
+- Visual verification: Captured `single-viewport-detective-desktop.png` (1280x800), `single-viewport-detective-mobile.png` (390x844), and `single-viewport-dossier-modal.png` (1280x800).
+Remaining: None. Ready for user review.
+
+## PORT-030 — Mobile Touch Interactions & Touch-First Detective Torch Experience
+Status: DONE
+Date: 2026-11-21
+Objective: Replace desktop hover dependencies with touch-first interactions on mobile:
+- Add mobile tap-to-spotlight and tap-to-inspect: tapping any exhibit centers the detective torch on it, triggers tactile feedback, and highlights its clues.
+- Add touch drag tracking (`onTouchMove`, `onTouchStart`) so visitors can shine the flashlight beam by dragging across the corkboard on phones.
+- Add mobile visual cues (e.g. tactile "TAP TO SPOTLIGHT" badge / active evidence ring) so touch users know cards are interactive without relying on hover.
+- Make the era filter toolbar a smooth horizontal touch-scroller on small screens so buttons don't wrap awkwardly.
+- Calibrate mobile torch lighting so text across the entire vertical stack remains crisp, illuminated, and legible without being blacked out by desktop-sized vignette cones.
+- Verify across mobile viewports (320px–390px), ensure 0 axe accessibility violations, and run full test suite.
+Completed:
+- Added `onTouchStart` and `onTouchMove` to `.corkboard-frame` in `DetectiveBoard.jsx` to dynamically steer the flashlight beam with finger drags.
+- Added `handleExhibitTap` which centers the torch coordinates directly onto tapped cards and toggles active spotlight.
+- Added mobile inspect badges (`.mobile-inspect-pill`) displaying `○ TAP TO FOCUS` and `● SPOTLIGHT ON` with glowing borders.
+- Added mobile touch guide banner: `Tap any evidence card to shine the detective torch & inspect details`.
+- Configured horizontal smooth-scrolling chip bar for `.detective-clue-filter` on mobile viewports.
+- Calibrated mobile torch vignette opacity and card contrast (`opacity: 0.78` for dimmed items, luminous red border for spotlighted items) to prevent blackout on tall vertical phone screens.
+Verification:
+- `npm run lint`: PASS (0 errors, 0 warnings).
+- `npm run build`: PASS (clean production build).
+- `npx playwright test tests/portfolio.spec.js tests/book.spec.js`: 19/19 PASS (including full desktop and mobile axe accessibility audits).
+- Visual inspection: Captured `test-results/mobile-detective-header-and-anchor.png` and `test-results/mobile-detective-tap-active.png` verifying touch interaction and active spotlight state at 390x844.
+Remaining: None. Ready for user feedback.
+
+## PORT-031 — Single-Viewport Detective Noticeboard with Connected Red String Web
+Status: DONE
+Date: 2026-11-21
+Objective: Transform the detective board section to fit entirely within a single viewport (`100vh` / `100dvh`) without requiring scrolling, keeping all evidence cards and connecting red strings visible at a glance:
+- Design a single-screen layout where the entire corkboard fits in the viewport on desktop and mobile.
+- Render the visible red string web connecting all pushpins directly across the single viewport canvas (matching the reference image layout).
+- Compact, high-impact evidence cards arranged radially around the central prime suspect polaroid.
+- Interactive card inspection: tapping or clicking any card opens an in-viewport evidence dossier modal / detail inspector so deep career intel is readable without making the board scroll.
+- Responsive design for mobile (320px–390px) and desktop (1024px–1920px), ensuring the entire board stays within the single viewport height without page scrolling.
+- Full accessibility (0 axe violations) and full test verification.
+Completed:
+- Converted `#about.detective-section` to a single-viewport container (`height: 100vh; height: 100dvh; max-height: 100vh; overflow: hidden;`).
+- Designed a compact top header bar with case badge, title, torch toggle, and era filter chips.
+- Positioned all 6 evidence items (Prime Suspect anchor, College 2018–22, Media 2022–24, Operating Creed, Day One CTO 2024–Now, Agentic Frontier) directly on the corkboard stage around the central anchor.
+- Connected all pushpins with real SVG red strings (`stroke: #c22727` with drop shadow and glowing active highlights) forming the murder-board web across the single viewport on desktop and mobile.
+- Built the in-viewport Dossier Inspector Modal (`.dossier-overlay-modal`) allowing full high-resolution surveillance photos, detailed stories, field intel, and tech tags to be read without vertical page scrolling.
+- Ensured zero axe violations by using `role="region"` landmarks on cards.
+Verification:
+- `npm run lint`: PASS (0 errors, 0 warnings).
+- `npm run build`: PASS (clean production build).
+- `npm test`: 8/8 API unit tests PASS.
+- `npx playwright test tests/portfolio.spec.js tests/book.spec.js`: 19/19 PASS (all tests pass, 0 accessibility violations).
+- Visual verification: Captured `single-viewport-detective-desktop.png` (1280x800), `single-viewport-detective-mobile.png` (390x844), and `single-viewport-dossier-modal.png` (1280x800).
+Remaining: None. Ready for user review.

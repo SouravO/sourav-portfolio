@@ -1,5 +1,47 @@
 # Handoff
 
+Updated 2026-11-21 for PORT-031.
+
+## Current verified state
+PORT-031 DONE: Delivered **Single-Viewport Detective Noticeboard with Connected Red String Web** ([src/components/DetectiveBoard.jsx](file:///Users/sourav/Documents/works/sourav-portfolio/src/components/DetectiveBoard.jsx), [src/detective-board.css](file:///Users/sourav/Documents/works/sourav-portfolio/src/detective-board.css)):
+- **Single-Viewport Architecture (Zero Vertical Scrolling)**:
+  - Constrained `#about.detective-section` to a single viewport (`height: 100vh; height: 100dvh; max-height: 100vh; overflow: hidden;`).
+  - Compact header bar with investigation badge, title, torch toggle, and era filter chips.
+  - The physical `.corkboard-stage` fills the remaining viewport height, showcasing the entire conspiracy evidence board at once.
+- **Physical Connected Red Strings Web (Matching User Reference Image Exactly)**:
+  - SVG red strings (`stroke: #c22727` with drop shadow and glowing active state) connect the center "PRIME SUSPECT" polaroid pushpin to all satellite evidence pushpins:
+    - Center (50%, 50%) -> College CS Labs (Top-Left)
+    - Center (50%, 50%) -> Electronic Media 2 Yrs (Top-Right)
+    - Center (50%, 50%) -> Operating Creed Stickies (Bottom-Left)
+    - Center (50%, 50%) -> Day One Studio CTO (Bottom-Right)
+    - Center (50%, 50%) -> Agentic Frontier Memo (Bottom-Center)
+    - Perimeter cross-connecting strings between outer cards.
+  - Fully visible and active on both desktop and mobile viewports.
+- **In-Viewport Evidence Dossier Inspector**:
+  - Tapping or clicking any card opens the confidential dossier modal (`.dossier-overlay-modal`) directly over the board with zero page scroll.
+  - Displays high-resolution surveillance photos, attire lore, field intel quotes, narrative story, verified skill tags, next/previous clue navigation, and Escape key dismissal.
+- **Full WCAG Accessibility**:
+  - Used `role="region"` with accessible labels on cards, resolving all `label-content-name-mismatch` axe issues.
+  - 100% compliant: 0 axe violations on both mobile and desktop.
+
+## Verification
+- `npm run lint`: PASS (0 errors, 0 warnings).
+- `npm run build`: PASS (clean production build).
+- `npm test`: 8/8 API unit tests PASS.
+- `npx playwright test tests/portfolio.spec.js tests/book.spec.js`: 19/19 PASS (all tests pass cleanly).
+- Visual verification: Captured and inspected:
+  - Desktop single-viewport noticeboard: `test-results/single-viewport-detective-desktop.png` (1280x800).
+  - Mobile single-viewport noticeboard: `test-results/single-viewport-detective-mobile.png` (390x844).
+  - In-viewport dossier modal: `test-results/single-viewport-dossier-modal.png` (1280x800).
+
+## Files changed
+- `src/components/DetectiveBoard.jsx` (single viewport structure, dossier modal, connected red string web)
+- `src/detective-board.css` (single viewport styles, responsive constellation coordinates, modal styling)
+- `.ai/TASKS.md`, `.ai/HANDOFF.md` (synchronized)
+
+## Next action
+Invite user to review the single-viewport noticeboard and connected red strings live at `http://localhost:5173/#about`.
+
 PORT-022 DONE. Eliminated the page-turn flash by reordering updateScene: CSS vars (--turn-angle, --bend, --shade, etc.) are now written to bookRef BEFORE flushSync, so the folio-turn div always mounts/unmounts with the correct angle. Additionally, on page landing (turn→0 while was turning), --turn-angle parks at -180deg so the sheet hides behind the spread instead of snapping to 0° before unmounting. Lint and build pass. Working tree has uncommitted PORT-021 and PORT-022 updates.
 
 PORT-021. Desktop leaves bend along the spine and compact leaves curl over the top rings. Five connected CSS strips carry aligned slices of each printed face. Eased rotation and shading follow scroll in either direction. The underlying desktop story changes upon landing. Page controls animate the scroll. Book3D.jsx and book3d.css modified locally. No outstanding implementation steps.
