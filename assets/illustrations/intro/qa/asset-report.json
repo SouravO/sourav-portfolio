@@ -1,0 +1,86 @@
+{
+  "idea": {
+    "source_size": [
+      1024,
+      1536
+    ],
+    "alpha_corners": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "variants": {
+      "desktop": {
+        "size": [
+          1000,
+          1500
+        ],
+        "bytes": 269388
+      },
+      "-mobile": {
+        "size": [
+          600,
+          900
+        ],
+        "bytes": 117674
+      }
+    }
+  },
+  "build": {
+    "source_size": [
+      1024,
+      1536
+    ],
+    "alpha_corners": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "variants": {
+      "desktop": {
+        "size": [
+          1000,
+          1500
+        ],
+        "bytes": 254376
+      },
+      "-mobile": {
+        "size": [
+          600,
+          900
+        ],
+        "bytes": 104988
+      }
+    }
+  },
+  "stride": {
+    "source_size": [
+      1024,
+      1536
+    ],
+    "alpha_corners": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "variants": {
+      "desktop": {
+        "size": [
+          1000,
+          1500
+        ],
+        "bytes": 176538
+      },
+      "-mobile": {
+        "size": [
+          600,
+          900
+        ],
+        "bytes": 75206
+      }
+    }
+  }
+}

@@ -50,3 +50,26 @@ Created four high-fidelity adventure-comic UI concept sections and an implementa
 - Added retro 80s car stereo tuner dock (`ViceCityRadio.jsx`, `radio.css`) with play/pause, volume mute, animated HTML equalizer bars, WCAG AA compliance (> 13:1 contrast), and one-click intro replay button.
 - Added dedicated intro triggers to header and hero edition bar; added new Playwright test covering full intro lifecycle, escape skip, and audio controls.
 - Lint/build pass, 8 API tests pass, 11 Playwright browser tests pass. All axe scans pass with zero violations.
+
+## 2026-11-20 — PORT-011
+- Added image-first cinematic handoff from comic intro/title to the exact responsive hero artwork and crop, then staggered navigation/headline/caption reveal.
+- Fixed phase changes restarting montage timers; added bounded decode fallback, resize exit, scroll lock, inert background and focused keyboard skip.
+- Automatic ordinary homepage entry on every load; reduced-motion and deep-link entry remain direct.
+- Lint/build, eight API tests and 14 scoped browser tests pass; desktop/mobile crop alignment and screenshots verified. Pre-existing unrelated untracked cinema tests preserved.
+
+## 2026-11-20 — PORT-012
+- Generated three consistent Sourav comic illustrations: sketchbook idea, laptop build, and forward stride; preserved sources/alpha masters/prompts and added reproducible alpha WebP/QA pipeline.
+- Rebuilt the initial montage as three directed comic shots with camera moves, live display typography, distinct scene colors, panel spread and printed title reveal.
+- Preserved the approved exact-art landing settle/dissolve and staggered navbar/copy reveal, skip/focus/scroll cleanup and reduced-motion/deep-link access.
+- Verified asset alpha over four backgrounds, 320/390/1440px story compositions, final hero match within 2px, slow asset/resize exit, accessibility and existing feature checks. Lint/build and eight API tests pass; 11 portfolio plus five opening browser cases pass in scoped runs.
+
+## 2026-11-20 — PORT-013
+- Replaced the rejected cutout/slide opening with four new cinematic graphic-novel scenes, art-only accelerating cuts, a dimensional comic-sheet camera move, and artwork-filled lettering resolving into a metallic SOURAV O title.
+- Preserved the exact responsive landing-image handoff and staggered navbar/copy reveal; added decoded-cover fallback for unavailable/slow illustrations.
+- Saved source art, exact image_gen prompts, asset report and direction; added reproducible desktop/mobile compression script. Retained previous art/history.
+- Fixed transient tablet navigation overflow before fonts load and tightened the 320px radio dock.
+- Lint/build, eight API tests and 16 scoped browser cases pass. Reviewed desktop/mobile art/panel/title/landing captures and recorded an end-to-end preview.
+
+## 2026-11-20 — PORT-014
+- Changed cinematic metallic/art-filled title to SOURAV and its loading monogram to S per user preference.
+- Production build and existing 320px title browser check pass; effects and landing transition unchanged.

@@ -1,0 +1,66 @@
+{
+  "midnight": {
+    "desktop": {
+      "size": [
+        1536,
+        1024
+      ],
+      "bytes": 363612
+    },
+    "-mobile": {
+      "size": [
+        1152,
+        768
+      ],
+      "bytes": 200266
+    }
+  },
+  "portrait": {
+    "desktop": {
+      "size": [
+        1536,
+        1024
+      ],
+      "bytes": 530942
+    },
+    "-mobile": {
+      "size": [
+        1152,
+        768
+      ],
+      "bytes": 292092
+    }
+  },
+  "street": {
+    "desktop": {
+      "size": [
+        1536,
+        1024
+      ],
+      "bytes": 629602
+    },
+    "-mobile": {
+      "size": [
+        1152,
+        768
+      ],
+      "bytes": 340622
+    }
+  },
+  "rooftop": {
+    "desktop": {
+      "size": [
+        1536,
+        1024
+      ],
+      "bytes": 435110
+    },
+    "-mobile": {
+      "size": [
+        1152,
+        768
+      ],
+      "bytes": 228230
+    }
+  }
+}

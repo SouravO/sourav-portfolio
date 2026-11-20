@@ -1,4 +1,4 @@
-import { lazy, Suspense, useEffect, useState } from 'react'
+import { lazy, Suspense, useCallback, useEffect, useState } from 'react'
 import {
   BrowserRouter,
   Link,
@@ -416,36 +416,34 @@ export default function App() {
   const [playIntro, setPlayIntro] = useState(() => {
     if (typeof window === 'undefined') return false
     if (window.location.hash || (window.location.pathname && window.location.pathname !== '/')) return false
-    if (navigator.webdriver) return false
-    if (window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches) return false
-    try {
-      const hasSeen = window.sessionStorage?.getItem('marvel_intro_played')
-      return !hasSeen
-    } catch {
-      return false
-    }
+    if (window.sessionStorage?.getItem('skip_intro_test')) return false
+    return !window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches
   })
+  const [entryRevealed, setEntryRevealed] = useState(false)
 
   const triggerIntro = () => {
+    if (window.location.pathname === '/') window.scrollTo({ top: 0, behavior: 'instant' })
+    setEntryRevealed(false)
     setPlayIntro(true)
   }
 
-  const handleIntroComplete = () => {
+  const handleIntroComplete = useCallback(() => {
     setPlayIntro(false)
-  }
+    setEntryRevealed(true)
+  }, [])
 
   return (
     <BrowserRouter>
       <MotionConfig reducedMotion="user">
         <RouteEffects />
         {playIntro && (
-          <MarvelIntro onComplete={handleIntroComplete} forcePlay={playIntro} />
+          <MarvelIntro onComplete={handleIntroComplete} />
         )}
         <div id="top" />
         <a href="#main" className="skip-link">
           Skip to content
         </a>
-        <div className="site-shell">
+        <div className={`site-shell ${playIntro ? 'entry-pending' : ''} ${entryRevealed ? 'entry-revealed' : ''}`} inert={playIntro ? true : undefined}>
           <Header onReplayIntro={triggerIntro} />
           <main id="main">
             <Routes>
@@ -463,7 +461,7 @@ export default function App() {
           </main>
           <Footer />
         </div>
-        <ViceCityRadio onReplayIntro={triggerIntro} />
+        <div inert={playIntro ? true : undefined} className={playIntro ? 'entry-radio-hidden' : ''}><ViceCityRadio onReplayIntro={triggerIntro} /></div>
       </MotionConfig>
     </BrowserRouter>
   )

@@ -46,3 +46,20 @@ The user’s supplied urban adventure comic is the new art direction: city scene
 - Synthesized audio dynamically via Web Audio API (`src/audio/audioEngine.js`) rather than bundling heavy static audio files (MP3s) or relying on third-party CDNs: zero external latency, zero bandwidth penalty, zero licensing/copyright risk, and precision timing for both music and Marvel comic SFX (page flutter + sub-bass logo boom).
 - Built pure HTML animated equalizer bars in `ViceCityRadio.jsx` to prevent conflicts with test suites checking Three.js canvas counts (`toHaveCount(0)` on canvas).
 - Maintained WCAG AA minimum contrast (> 13:1 on text) and label-in-name compliance (WCAG 2.5.3) across all intro and audio controls. Gated auto-intro to root landing without hash parameters, respecting reduced-motion and automated test environments while providing replay buttons in the header, hero, and radio dock.
+
+## 2026-11-20 — PORT-011
+- Preserve the existing Marvel-inspired montage/title and illustrations. Match its final shot directly to the actual rendered hero currentSrc/crop rather than approximating with a separate exported frame. Existing opening is browser animation, not a video file.
+- User requested automatic cinematic entry on website load: remove previous session-once and webdriver bypass. Keep accessibility/deep-link bypasses; use an explicit test fixture flag for unrelated feature tests.
+- Reveal navigation and live hero text only after the artwork settles; retain the existing audio system and replay controls. No new media service or generation required.
+
+## 2026-11-20 — PORT-012
+- User approved the smooth landing handoff and asked for a more creative opening with new character illustrations. Keep the PORT-011 match invariant and redesign only the preceding sequence.
+- Replace rapid repeated project-art flips with three readable, character-led scenes: curiosity, hands-on building, forward momentum. Reuse the approved red-shirt likeness, ink/halftone treatment and paper/petrol-blue/vermilion palette. Three separate image_gen calls use the current cover as identity/style reference.
+- Generate isolated stills on magenta, extract alpha offline using the existing keyer and animate camera/text in CSS. This is an illustrated cinematic opening, not a newly generated video or continuous pose interpolation. No provider access/API key required.
+- Preserve prior work and pre-existing public/character deletions; do not restore unrelated legacy files. The intro now owns independent assets.
+
+## 2026-11-20 — PORT-013
+- User explicitly rejected PORT-012 artwork and reiterated a Marvel introduction/cinematic feel. Treat prior cutout/large-copy direction as superseded, while preserving its source files and the positively received PORT-011 landing handoff.
+- Generate four complete graphic-novel scenes rather than isolated character sprites: macro laptop work, rain-lit portrait, city street and rooftop. Use the approved landing cover as identity/outfit reference with finer ink/paint rendering, dramatic amber light and dark petrol shadows. Built-in image_gen; no API/provider work required.
+- Use accelerating cinematic cuts and a continuous dimensional comic-sheet camera move, followed by artwork inside the name resolving to a metallic mark on deep red. Remove motivational slide captions and circular character backdrops. Preserve skip, reduced-motion/direct-link entry, audio controls and final actual-hero snapshot.
+- Missing/slow art uses the landing cover after a bounded wait. Preserve existing unrelated deleted character files and untracked cinema invitation tests. No commit or deployment.

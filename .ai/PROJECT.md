@@ -23,3 +23,11 @@ Scripts: npm run dev, build, lint, preview; npm test; npm run test:e2e.
 Approved 2026-11-20: Implement The Builder’s Adventures concept, correct the landing pose to a natural upright stance with a laptop, and preserve the sunset To be continued contact composition. Current homepage uses full-scene illustration and direct scrolling instead of the earlier sticky three-pose sequence.
 
 2026-11-20 content update: User requested stronger visitor appeal inspired by Sivaprasad C’s portfolio. Keep the comic visual identity and finale while leading with Sourav’s identity/value, real project scope/contribution, experience, tools, build approach, then optional workshop/assistant. No unsupported availability, résumé, social links, blog posts or testimonials added.
+
+2026-11-20 entry requirement (PORT-011): Keep the Marvel-inspired comic opening, automatically play on ordinary homepage loads, end on the exact responsive landing artwork, settle smoothly into the hero, then reveal navbar and live text. Implemented with existing browser animation/assets; no video file introduced. Reduced-motion and deep links retain direct access.
+
+2026-11-20 opening refinement (PORT-012): User liked the final transition and requested more attractive initial scenes with additional character illustrations. Implemented three new likeness/style-consistent illustrations and a curiosity/build/forward-momentum comic story, retaining the approved landing handoff and existing site content.
+
+2026-11-20 revision (PORT-013): User rejected PORT-012's image quality/slide presentation and requested a more creative Marvel-inspired cinematic opening. Active direction now uses full-scene dramatic graphic-novel art, accelerating cuts, comic-page camera travel and a dimensional studio title. The approved exact landing-image transition remains a requirement. Previous cutout assets are retained but unused.
+
+2026-11-20 naming refinement (PORT-014): User approved the rest of the cinematic opening and requested the title read SOURAV, without the trailing O. Both cinematic title layers now use SOURAV; loading monogram uses S. Imagery, motion and landing handoff remain unchanged.

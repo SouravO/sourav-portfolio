@@ -146,3 +146,44 @@ Verification:
 - `npm run build`: built production bundle in ~750ms.
 - `npx playwright test`: 11/11 Playwright end-to-end tests pass, including dedicated intro bumper lifecycle, Escape skip, radio audio start/pause, mute toggle, and axe accessibility scans with 0 violations.
 Remaining: User visual and auditory review via `npm run dev`. No pending implementation.
+
+## PORT-011 — Cinematic matched-art landing handoff
+Status: IN_PROGRESS
+Date: 2026-11-20
+Objective: Automatically run the existing comic introduction and resolve its final artwork into the exact landing hero before revealing navigation and copy.
+Acceptance: Deterministic intro phases; decoded responsive artwork matches hero crop and bounds; smooth image-first handoff and staggered UI; skip, reduced-motion and deep-link access; meaningful browser/build/lint verification and synchronized memory.
+Existing untracked tests/cinema.spec.js and .vercel/ are preserved; cinema tests describe a different, unimplemented entry/audio design and are not the current runtime contract.
+
+PORT-011 completed: DONE. Replaced restarting phase-dependent timers with one cancelable timeline. Existing comic montage/title resolves to a decoded snapshot of the actual responsive hero image, settles from a viewport-filling shot to the measured hero crop, then dissolves before staggered navigation/copy. Automatic on each ordinary root load; reduced-motion and hash/case deep links bypass. Added scroll lock, inert background, skip focus/keyboard containment, timer cleanup, resize exit and bounded image decoding fallback. Existing replay/audio controls preserved.
+Verification: npm run lint and npm run build pass (build reports a >500 KB main-chunk advisory); npm test 8/8; scoped Playwright tests/opening.spec.js + tests/portfolio.spec.js 14/14 pass. New desktop/mobile checks confirm matching source and final geometry within 2px, hidden copy during handoff, subsequent reveal, reload auto-entry, skip cleanup, reduced-motion/deep-link access and zero axe violations. Desktop matched-frame and mobile reveal screenshots visually inspected.
+Remaining: No implementation remaining in this request. Untracked tests/cinema.spec.js was present before work and targets unrelated unimplemented invitation/audio contracts; preserved untouched and excluded from the scoped verification. No commit or deployment.
+
+## PORT-012 — Illustrated character origin opening
+Status: IN_PROGRESS
+Date: 2026-11-20
+Objective: Make the opening more creative and character-led with new generated Sourav illustrations while preserving the approved PORT-011 matched landing transition.
+Acceptance: Multiple new consistent character illustrations saved as source masters and optimized runtime assets; directed readable comic montage with purposeful camera/composition changes; exact existing hero handoff retained; desktop/mobile, reduced-motion, skip, build/lint and regression verification; synchronized memory.
+Startup: Existing uncommitted PORT-011 changes and newly deleted public/character files belong to prior/user state and will be preserved. Existing intro references deleted character assets; replace only intro references with new assets, without restoring unrelated deletions.
+
+PORT-012 completed: DONE. Generated three reference-consistent character illustrations using built-in image_gen (idea sketchbook, laptop build, laptop stride). Saved unchanged magenta sources, full-resolution alpha masters, exact prompt set and motion brief under assets/illustrations/intro. Added scripts/prepare_intro_assets.py and six alpha WebP variants under public/illustrations/intro (about 684 KiB desktop / 291 KiB mobile total). Replaced the repeated flipbook with three timed comic scenes, distinct paper/blue/red compositions, restrained camera/text motion, panel-spread beat and printed title. Existing PORT-011 exact responsive hero capture/settle/dissolve and staggered landing reveal preserved. Legacy intro references to already-deleted character assets removed; unrelated deletions preserved.
+Verification: Final lint/build pass (existing >500 KB main-chunk advisory remains); eight API tests pass; 11 portfolio and five opening browser cases pass in scoped runs. New checks cover each generated asset loading, 320px face/text separation, desktop/mobile story screenshots, panel/title screenshots, actual hero matching within 2px, slow intro artwork timeout and resize cleanup. Existing reduced-motion/deep links, keyboard skip/focus/scroll, feature regressions and axe scans pass. Inspected sources, encoded alpha over four backgrounds, desktop/390/320 story layouts, panel spread, title and final matched frame. git diff --check passes.
+Remaining: User visual review. No video file was generated; opening uses generated still art and browser camera/text animation. Pre-existing unrelated tests/cinema.spec.js remains untouched and outside scoped verification. No commit or deployment.
+
+## PORT-013 — Cinematic graphic-novel studio opening
+Status: DONE
+Date: 2026-11-20
+Objective: Replace the rejected cutout/slide presentation with more creative full-scene graphic-novel imagery and a Marvel-inspired cinematic comic-page/title sequence; retain the approved matched landing transition.
+Acceptance: Newly generated scene artwork consistent with Sourav's reference; art-first cinematic composition, accelerating dimensional panel choreography and strong title treatment; no old motivational-slide UI; final hero currentSrc/crop handoff preserved; responsive/reduced-motion/skip/fallback verification and synchronized memory.
+Preserve all existing user/uncommitted changes and retired source art. PORT-012 is functionally verified but its visual direction is rejected and superseded by this task.
+
+PORT-013 completed: DONE. Four built-in image_gen scenes replace the rejected cutouts: midnight laptop close-up, rain-lit portrait, rain street, rooftop. Art-only camera cuts accelerate into a dimensional printed-page flight; artwork in the name resolves into a silver studio mark on dark red. Original PORT-011 exact hero currentSrc/crop settle/dissolve and navbar/text reveal retained. Asset decode is bounded and unavailable/slow art falls back to the actual cover. Previous assets/deletions/unrelated tests preserved. Sources/prompts/direction/report are under assets/illustrations/cinema; eight optimized WebP files under public/illustrations/cinema; scripts/prepare_cinema_assets.py regenerates derivatives. Narrow tablet/fallback-font header and 320px radio spacing corrected after responsive verification exposed overflow.
+Verification: npm run lint, npm run build and git diff --check pass; eight API tests pass; npx playwright test tests/opening.spec.js tests/portfolio.spec.js passes 16/16. All scene loads, comic/title stages, 320px title bounds, failed-art fallback, resize/skip/inert/scroll cleanup, reduced motion/deep links, actual landing source/crop match <2px, existing features and axe checks verified. Inspected source art, desktop/phone screenshots and recorded sequence contact sheet. Recorded preview under ignored test-results/cinematic-opening-preview.mp4 (browser capture, not a production dependency).
+Remaining: User artistic review; no unimplemented scope. Existing >500 KB main-chunk advisory and unrelated historical tests/cinema.spec.js remain documented. No commit/deployment.
+
+## PORT-014 — Shorten cinematic name to Sourav
+Status: DONE
+Objective: Use SOURAV rather than SOURAV O in the cinematic title, preserving the approved imagery, effects and landing transition.
+Acceptance: Both artwork-filled and metallic title layers show SOURAV; title remains inside the mobile viewport; project memory synchronized.
+Completed: Both cinematic title layers now read SOURAV; prelude monogram is S. No imagery/style/timing/handoff changes.
+Verification: Production build passes (existing chunk advisory remains); existing small-phone cinematic-title Playwright case passes; source text and git diff --check verified.
+Remaining: None for this title correction. Persistent project memory synchronized; no commit/deployment.

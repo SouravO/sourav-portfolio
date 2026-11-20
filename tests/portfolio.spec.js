@@ -1,5 +1,10 @@
+// General feature checks bypass the automatic opening; opening.spec.js tests real entry.
 import { test, expect } from '@playwright/test'
 import AxeBuilder from '@axe-core/playwright'
+
+test.beforeEach(async ({ page }) => {
+  await page.addInitScript(() => sessionStorage.setItem('skip_intro_test', 'true'))
+})
 
 test('homepage navigation, projects, and concept disclosures', async ({
   page,
