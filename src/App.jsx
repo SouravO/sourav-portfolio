@@ -1,4 +1,4 @@
-import { lazy, Suspense, useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import {
   BrowserRouter,
   Link,
@@ -9,19 +9,16 @@ import {
 import { MotionConfig } from 'motion/react'
 import {
   Asterisk,
-  Cube,
   EnvelopeSimple,
   Code,
-  TreeStructure,
   Plus,
   Copy,
   Check,
   List,
   X,
   Globe,
-  ChatCircleText,
 } from '@phosphor-icons/react'
-import { projects, profile, skills } from './data/portfolio'
+import { projects, profile } from './data/portfolio'
 import AdventureHero from './components/AdventureHero'
 import Book3D from './components/Book3D'
 import ProductMap from './components/ProductMap'
@@ -35,7 +32,6 @@ import './work.css'
 import './intro.css'
 import './radio.css'
 import './book3d.css'
-const Workspace = lazy(() => import('./components/Workspace'))
 
 function RouteEffects() {
   const { pathname, hash, search } = useLocation()
@@ -48,7 +44,7 @@ function RouteEffects() {
       : 'Sourav · Engineer & Product Builder'
     document.querySelector('meta[name="description"]').content = project
       ? project.description
-      : 'Sourav is a full-stack software engineer, technical lead, and product builder. Explore real projects, architecture, and an interactive AI workspace.'
+      : 'Sourav is a full-stack software engineer, technical lead, and product builder. Explore real projects, architecture, and experience.'
     const id = setTimeout(() => {
       if (hash) {
         const target = document.getElementById(hash.slice(1))
@@ -91,7 +87,6 @@ function Header({ onReplayIntro }) {
         {[
           ['Work', '/#work'],
           ['Experience', '/#about'],
-          ['Workspace', '/#workspace'],
         ].map(([title, href]) => (
           <Link
             key={title}
@@ -133,43 +128,6 @@ function Header({ onReplayIntro }) {
         {open ? <X size={24} /> : <List size={24} />}
       </button>
     </header>
-  )
-}
-
-
-
-
-function Toolkit() {
-  return (
-    <section id="toolkit" className="section toolkit-section">
-      <Reveal>
-        <p className="eyebrow">THE STACK / TOOLS I BUILD WITH</p>
-        <h2>From interface <span>to infrastructure.</span></h2>
-        <p className="toolkit-intro">React and Next.js on the screen. Node.js and Supabase behind it. Architecture and product thinking to connect them.</p>
-      </Reveal>
-      <div className="toolkit-grid">
-        {skills.map((group, i) => (
-          <Reveal key={group.name} delay={i * 0.07}>
-            <div className="toolkit-icon">
-              {i === 0 ? (
-                <Code size={25} />
-              ) : i === 1 ? (
-                <TreeStructure size={25} />
-              ) : (
-                <Cube size={25} />
-              )}
-            </div>
-            <h3>{group.name}</h3>
-            <p>{group.description}</p>
-            <div className="skill-list">
-              {group.items.map((item) => (
-                <span key={item}>{item}</span>
-              ))}
-            </div>
-          </Reveal>
-        ))}
-      </div>
-    </section>
   )
 }
 
@@ -236,9 +194,6 @@ function Footer() {
 }
 
 function Home({ onPlayIntro }) {
-  const [, setActive] = useState(1)
-  const { search, key: entryKey } = useLocation()
-  const workspaceMode = new URLSearchParams(search).get('mode') === 'chat' ? 'chat' : 'explore'
   return <>
     <AdventureHero onPlayIntro={onPlayIntro} />
     <div className="profile-evidence" aria-label="Experience at a glance">
@@ -248,21 +203,7 @@ function Home({ onPlayIntro }) {
     </div>
     <Book3D />
     <DetectiveBoard />
-    <Toolkit />
-    <aside id="approach" className="build-note"><p className="eyebrow">MY APPROACH</p><p>Understand the workflow. Connect the system. Build, review, and improve.</p><Link to="/#workspace" className="text-link">Explore a technical perspective <Plus size={17} /></Link></aside>
-    <section id="workspace" className="section workspace-section">
-      <div className="workshop-spread">
-        <Reveal className="workshop-portrait">
-          <p className="caption meanwhile">Meanwhile, behind the builds…</p>
-          <img src="/illustrations/workshop.webp" alt="Sourav thinking through a product at his laptop in an illustrated workshop" width="1024" height="1024" loading="lazy" />
-          <div className="portrait-caption"><h2>Curiosity is my <span>superpower.</span></h2><p>Explore the decisions behind a build, from the product problem to the engineering.</p><Link to="/?mode=chat#workspace" className="text-link">Ask about my work <ChatCircleText size={18} /></Link></div>
-        </Reveal>
-        <div className="workshop-desk">
-          <Reveal><div className="section-heading"><p className="eyebrow">GO DEEPER / EXPLORE OR ASK</p><h2>The <span>workshop.</span></h2><p>Choose a project and a perspective, try a terminal command, or ask about my experience.</p></div></Reveal>
-          <Suspense fallback={<div className="workspace-loading">Opening the workspace…</div>}><Workspace key={`${workspaceMode}-${entryKey}`} initialMode={workspaceMode} onPerspectiveChange={setActive} /></Suspense>
-        </div>
-      </div>
-    </section>
+    <aside id="approach" className="build-note"><p className="eyebrow">MY APPROACH</p><p>Understand the workflow. Connect the system. Build, review, and improve.</p></aside>
     <Contact />
   </>
 }

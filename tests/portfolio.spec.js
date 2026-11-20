@@ -41,78 +41,6 @@ test('homepage navigation, projects, and concept disclosures', async ({
   await expect(page.locator('#concepts .folio-description')).toBeAttached()
 })
 
-test('workspace project perspectives, local commands and unconfigured live AI fallback', async ({
-  page,
-}) => {
-  await page.goto('/#workspace')
-  await page.getByRole('button', { name: 'Day One CRM', exact: true }).click()
-  await page.getByRole('button', { name: 'Engineering', exact: true }).click()
-  await expect(page.locator('.agent-response')).toContainText(
-    'Built and used internally',
-  )
-  await page.getByRole('button', { name: 'Terminal', exact: true }).click()
-  await page.getByLabel('Terminal command').fill('projects')
-  await page.getByRole('button', { name: 'Run', exact: true }).click()
-  await expect(page.getByRole('log')).toContainText('Founder Versa: Concept')
-  await page.getByLabel('Terminal command').fill('clear')
-  await page.getByRole('button', { name: 'Run', exact: true }).click()
-  await expect(page.getByRole('log')).toContainText('Terminal cleared')
-  await page.getByRole('button', { name: 'Ask AI', exact: true }).click()
-  await page.getByRole('button', { name: 'What has Sourav shipped?' }).click()
-  await expect(page.getByRole('alert')).toContainText(
-    'Live AI is not connected',
-  )
-})
-
-test('AI success and cancellation preserve usable controls', async ({
-  page,
-}) => {
-  await page.route('**/api/chat', (route) =>
-    route.fulfill({
-      json: {
-        answer: 'CYD is publicly deployed. NOTWO is planning work.',
-        sources: [
-          {
-            id: 'cyd',
-            label: 'Check Your Deals case study',
-            href: '/work/check-your-deals',
-          },
-        ],
-        remaining: 4,
-      },
-    }),
-  )
-  await page.goto('/#workspace')
-  await page.getByRole('button', { name: 'Ask AI', exact: true }).click()
-  await page
-    .getByLabel('Ask about my work', { exact: true })
-    .fill('What is live?')
-  await page.getByRole('button', { name: 'Send question' }).click()
-  await expect(page.getByRole('log')).toContainText('CYD is publicly deployed')
-  await expect(
-    page.getByRole('link', {
-      name: 'Check Your Deals case study',
-      exact: true,
-    }),
-  ).toBeVisible()
-  await expect(
-    page.getByText('4 requests left this hour.', { exact: false }),
-  ).toBeVisible()
-  await page.unroute('**/api/chat')
-  await page.route('**/api/chat', async (route) => {
-    await new Promise((resolve) => setTimeout(resolve, 1500))
-    await route.fulfill({ json: {} }).catch(() => {})
-  })
-  await page
-    .getByLabel('Ask about my work', { exact: true })
-    .fill('Tell me more')
-  await page.getByRole('button', { name: 'Send question' }).click()
-  await page.getByRole('button', { name: 'Stop response' }).click()
-  await expect(page.getByRole('alert')).toContainText('Request stopped')
-  await expect(
-    page.getByLabel('Ask about my work', { exact: true }),
-  ).toBeEnabled()
-})
 
 test('mobile, reduced motion and keyboard navigation are accessible', async ({
   page,
@@ -127,8 +55,8 @@ test('mobile, reduced motion and keyboard navigation are accessible', async ({
     page.getByRole('link', { name: 'Skip to content' }),
   ).toBeFocused()
   await page.getByRole('button', { name: 'Open menu' }).click()
-  await page.getByRole('link', { name: 'Workspace', exact: true }).click()
-  await expect(page).toHaveURL(/#workspace/)
+  await page.getByRole('link', { name: 'Experience', exact: true }).click()
+  await expect(page).toHaveURL(/#about/)
   expect(
     await page.evaluate(
       () => document.documentElement.scrollWidth <= innerWidth,
@@ -158,9 +86,6 @@ test('adventure cover, live project panels and finale match the approved flow', 
   await expect(page.locator('#work')).toBeVisible()
   await page.locator('.folio-sticky').screenshot({ path: 'test-results/adventure-projects.png' })
   await page.emulateMedia({ reducedMotion: 'reduce' })
-  await page.goto('/#workspace')
-  await expect(page.getByRole('heading', { name: 'The workshop.' })).toBeVisible()
-  await page.locator('.workshop-spread').screenshot({ path: 'test-results/adventure-workshop.png' })
   await page.goto('/#contact')
   await expect(page.getByRole('heading', { name: 'To be continued…' })).toBeVisible()
   await expect(page.locator('.contact-cta')).toHaveAttribute('href', 'mailto:o.sourav5@gmail.com')
@@ -207,14 +132,14 @@ test('desktop reduced-motion page and case-study artwork are accessible', async 
   await page.screenshot({ path: 'test-results/adventure-case-study.png', fullPage: true })
 })
 
- test('tablet and small-phone layouts keep artwork and controls inside the viewport', async ({ page }) => {
+test('tablet and small-phone layouts keep artwork and controls inside the viewport', async ({ page }) => {
   await page.emulateMedia({ reducedMotion: 'reduce' })
   for (const width of [320, 768, 1024]) {
     await page.setViewportSize({ width, height: 900 })
     await page.goto('/')
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBeTruthy()
-    await page.goto('/#workspace')
-    await expect(page.getByRole('button', { name: 'Architecture', exact: true })).toBeVisible()
+    await page.goto('/#about')
+    await expect(page.getByRole('heading', { name: /Work experience/i })).toBeVisible()
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBeTruthy()
     await page.goto('/#contact')
     await expect(page.locator('.contact-cta')).toBeVisible()
@@ -222,27 +147,18 @@ test('desktop reduced-motion page and case-study artwork are accessible', async 
   }
 })
 
-test('visitor narrative leads with value and proof, and direct questions open the assistant', async ({ page }) => {
+test('visitor narrative leads with value and proof across core sections', async ({ page }) => {
   await page.goto('/')
   await expect(page.locator('.cover-intro')).toContainText('I’m Sourav.')
   await expect(page.locator('.profile-evidence')).toContainText('Day One Venture Studio')
-  // Projects are now a 3D flip-book — verify the section and project text exist
   await expect(page.locator('#work')).toBeAttached()
   await expect(page.locator('#work')).toContainText('deal discovery platform')
   await expect(page.locator('#work')).toContainText('Day One CRM')
-  const ids = await page.locator('main section[id]').evaluateAll(nodes => nodes.map(node => node.id))
+  const ids = await page.locator('main section[id], main aside[id]').evaluateAll(nodes => nodes.map(node => node.id))
   expect(ids.indexOf('work')).toBeLessThan(ids.indexOf('about'))
-  expect(ids.indexOf('about')).toBeLessThan(ids.indexOf('toolkit'))
-  expect(ids.indexOf('toolkit')).toBeLessThan(ids.indexOf('workspace'))
-  await page.locator('.cover-ask').click()
-  await expect(page).toHaveURL(/mode=chat#workspace/)
-  await expect(page.getByRole('button', { name: 'Ask AI', exact: true })).toHaveAttribute('aria-pressed', 'true')
-  await expect(page.getByLabel('Ask about my work', { exact: true })).toBeVisible()
-  await page.locator('#workspace').getByRole('button', { name: 'Explore', exact: true }).click()
-  await page.locator('.portrait-caption').getByRole('link', { name: 'Ask about my work' }).click()
-  await expect(page.getByLabel('Ask about my work', { exact: true })).toBeVisible()
-  await page.reload()
-  await expect(page.getByRole('button', { name: 'Ask AI', exact: true })).toHaveAttribute('aria-pressed', 'true')
+  expect(ids.indexOf('about')).toBeLessThan(ids.indexOf('approach'))
+  expect(ids.indexOf('approach')).toBeLessThan(ids.indexOf('contact'))
+  await expect(page.getByRole('link', { name: 'Let’s talk', exact: true }).first()).toBeVisible()
 })
 
 test('project maps explain real workflows and case-study chapters remain navigable', async ({ page }) => {

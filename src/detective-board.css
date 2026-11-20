@@ -1,4 +1,4 @@
-/* Portrait-led experience board. All selectors are local to this section. */
+/* Work-experience board. All selectors are local to this section. */
 .life-section { margin: 85px 0 50px; color: #30271f; scroll-margin-top: 100px; }
 .life-header { display: flex; align-items: end; justify-content: space-between; gap: 30px; padding: 0 28px 28px; }
 .life-eyebrow { display: flex; align-items: center; gap: 8px; font-family: 'Geist Mono Variable', monospace; font-size: 11px; font-weight: 600; letter-spacing: .09em; }
@@ -10,12 +10,12 @@
 .life-torch { display: inline-flex; align-items: center; gap: 8px; background: #f8edcf; border: 1px solid #65503a; border-radius: 0; padding: 10px 14px; min-height: 44px; font-family: 'Geist Mono Variable', monospace; color: #30271f; font-size: 11px; }
 .life-torch[aria-pressed='true'] { background: #e9c55f; }
 .life-section button:focus-visible, .life-section a:focus-visible, .life-inspector button:focus-visible, .life-inspector a:focus-visible { outline: 3px solid #1f626d; outline-offset: 6px; }
-.life-board { position: relative; isolation: isolate; width: 100%; min-height: 1000px; aspect-ratio: 1.3; background-color: #ae7346; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 160 160' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.7' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Cpath fill='%233e2114' opacity='.38' filter='url(%23n)' d='M0 0h160v160H0z'/%3E%3C/svg%3E"), radial-gradient(ellipse at 45% 30%, #c59360, #a5673e); border: 12px solid #674a30; box-shadow: inset 0 0 0 3px #c09a6a, inset 0 0 45px #54341b70, 0 8px 0 #34291e30; }
+.life-board { position: relative; isolation: isolate; width: 100%; min-height: 940px; aspect-ratio: 1.35; background-color: #ae7346; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 160 160' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.7' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Cpath fill='%233e2114' opacity='.38' filter='url(%23n)' d='M0 0h160v160H0z'/%3E%3C/svg%3E"), radial-gradient(ellipse at 45% 30%, #c59360, #a5673e); border: 12px solid #674a30; box-shadow: inset 0 0 0 3px #c09a6a, inset 0 0 45px #54341b70, 0 8px 0 #34291e30; }
 .life-board-label { position: absolute; top: 20px; left: 22px; font: 9px 'Geist Mono Variable', monospace; letter-spacing: .1em; color: #442c1a; opacity: .85; }
 .life-threads { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 2; overflow: visible; pointer-events: none; }
 .life-thread-mobile { display: none; }
 .life-threads line { stroke: #a52c22; stroke-width: 1.6px; vector-effect: non-scaling-stroke; filter: drop-shadow(1px 2px 1px #48291d80); }
-.life-card { position: absolute; left: var(--card-x); top: var(--card-y); width: 23%; display: flex; flex-direction: column; align-items: stretch; padding: 12px 12px 14px; background: #fbf0d7; color: #34271d; border: 0; border-radius: 1px; text-align: left; transform: translateX(-50%) rotate(var(--card-angle)); transform-origin: 50% 10px; box-shadow: 3px 6px 5px #49281770, 0 1px 1px #49281780; z-index: 3; transition: transform .25s, box-shadow .25s; }
+.life-card { position: absolute; left: var(--card-x); top: var(--card-y); width: 24%; display: flex; flex-direction: column; align-items: stretch; padding: 12px 12px 14px; background: #fbf0d7; color: #34271d; border: 0; border-radius: 1px; text-align: left; transform: translateX(-50%) rotate(var(--card-angle)); transform-origin: 50% 10px; box-shadow: 3px 6px 5px #49281770, 0 1px 1px #49281780; z-index: 3; transition: transform .25s, box-shadow .25s; }
 .life-card:hover { transform: translateX(-50%) rotate(0deg) translateY(-5px); box-shadow: 6px 14px 12px #49281760; z-index: 5; }
 .life-card:active { transform: translateX(-50%) rotate(0deg) translateY(-1px); }
 .life-pin { position: absolute; z-index: 6; width: 15px; height: 15px; top: -7px; left: calc(50% - 7.5px); border-radius: 50%; background: radial-gradient(circle at 35% 30%, #f2926c 0 12%, #c23d28 28%, #8b271d 75%); border: 1px solid #9b3924; box-shadow: 2px 4px 2px #42291d80; }
@@ -23,19 +23,14 @@
 .life-photo img { width: 100%; height: 100%; object-fit: cover; object-position: center 35%; display: block; }
 .life-chapter-number { position: absolute; bottom: 8px; left: 8px; width: 31px; height: 31px; background: #f5e5ba; color: #4e3022; display: grid; place-items: center; font: 21px var(--display, 'Bangers'); border: 1px solid #523925; }
 .life-card-meta { margin-top: 12px; font: 9px/1.5 'Geist Mono Variable', monospace; letter-spacing: .02em; text-transform: uppercase; }
-.life-card-title { font: 28px/1.08 var(--display, 'Bangers'); margin-top: 4px; }
-.life-card-caption { font: 700 16px/1.25 var(--lettering, 'Comic Neue'); margin-top: 7px; }
+.life-card-title { font: 27px/1.08 var(--display, 'Bangers'); margin-top: 4px; }
+.life-card-caption { font: 700 15px/1.3 var(--lettering, 'Comic Neue'); margin-top: 7px; }
 .life-open-hint { display: flex; align-items: center; justify-content: space-between; margin-top: 12px; padding-top: 8px; border-top: 1px solid #b5a281; color: #7b3327; font: 10px/1.4 'Geist Mono Variable', monospace; }
 .life-card-sourav { width: 26%; padding: 14px 14px 20px; background: #fff6df; }
-.life-card-sourav .life-photo { aspect-ratio: 1.2; }
-.life-card-sourav .life-card-title { font-size: 45px; }
+.life-card-sourav .life-photo { aspect-ratio: 1.15; }
+.life-card-sourav .life-card-title { font-size: 42px; }
 .life-card-sourav .life-card-meta { color: #8b3025; }
-.life-card-personal { width: 14%; padding: 8px 8px 10px; }
-.life-card-personal .life-photo { aspect-ratio: 1; }
-.life-card-personal .life-card-title { font: 700 22px/1.2 var(--lettering, 'Comic Neue'); margin-top: 7px; }
-.life-card-personal .life-card-meta, .life-card-personal .life-card-caption, .life-card-personal .life-open-hint { display: none; }
-.life-card-music { width: 13%; }
-.life-handwritten { position: absolute; left: 37%; top: 68%; width: 25%; padding: 14px 16px; background: #e9ce70; box-shadow: 2px 4px 3px #49281760; transform: rotate(3deg); z-index: 4; font: 20px/1.25 var(--lettering, 'Comic Neue'); }
+.life-handwritten { position: absolute; left: 38%; top: 72%; width: 24%; padding: 14px 16px; background: #e9ce70; box-shadow: 2px 4px 3px #49281760; transform: rotate(3deg); z-index: 4; font: 20px/1.25 var(--lettering, 'Comic Neue'); }
 .life-handwritten::before { content: ''; position: absolute; height: 22px; width: 60px; background: #ebdab19c; border-left: 1px solid #e6d9b9; top: -12px; left: 35%; transform: rotate(-9deg); }
 .life-handwritten > span { position: absolute; left: -35px; top: -26px; font-size: 50px; }
 .life-light { position: absolute; inset: 0; z-index: 7; pointer-events: none; opacity: 0; transition: opacity .3s; background: radial-gradient(circle 220px at var(--light-x, 50%) var(--light-y, 45%), #ffde9028, #2e1b102b 80%); }
@@ -80,11 +75,7 @@
   .life-card:hover, .life-card:active { transform: rotate(0deg) translateY(-3px); }
   .life-card-sourav { grid-column: 1 / -1; width: 65%; justify-self: center; }
   .life-card-sourav .life-photo { aspect-ratio: 1.1; }
-  .life-card-personal { width: 82%; justify-self: center; }
-  .life-card-music { grid-column: 1 / -1; width: 40%; }
-  .life-card-personal .life-card-title { font-size: 24px; }
-  .life-handwritten { position: relative; left: auto; top: auto; grid-column: 1 / -1; justify-self: center; width: 80%; font-size: 24px; margin: 4px 0 20px; }
-
+  .life-handwritten { position: relative; left: auto; top: auto; grid-column: 1 / -1; justify-self: center; width: 80%; font-size: 22px; margin: 4px 0 20px; }
 }
 @media (max-width: 540px) {
   .life-header { display: block; }
@@ -96,12 +87,10 @@
   .life-board-label { left: 12px; font-size: 8px; }
   .life-card { width: 93%; max-width: 350px; }
   .life-card-sourav { width: 100%; }
-  .life-card-title { font-size: 29px; }
-  .life-card-caption { font-size: 18px; }
-  .life-card-personal { width: 78%; }
+  .life-card-title { font-size: 28px; }
+  .life-card-caption { font-size: 17px; }
   .life-card-meta { font-size: 10px; }
-  .life-card-personal .life-card-title { font-size: 28px; }
-  .life-handwritten { width: 100%; font-size: 21px; margin-top: 10px; }
+  .life-handwritten { width: 100%; font-size: 20px; margin-top: 10px; }
   .life-handwritten > span { display: none; }
   .life-footer { align-items: start; flex-direction: column; font-size: 16px; }
   .life-inspector { width: calc(100% - 24px); max-height: calc(100dvh - 24px); }

@@ -349,7 +349,7 @@ Acceptance:
 - Authentic detective evidence corkboard aesthetic with brass pins, pushpins, polaroids, evidence tags, scribbled sticky notes, and connected red yarn/strings.
 - Chronological roadmap exhibits tracing Sourav's real timeline:
   1. Exhibit 01 (2018–2022): Academic Genesis (B.Tech CS, algorithms, systems foundation).
-  2. Exhibit 02 (2022–2024): Electronic Media Crucible (2 full years as Software Engineer in Electronic Media, live broadcasting feeds, high concurrency, zero downtime).
+  2. Exhibit 02 (2022–2024): eletronikmedia Crucible (2 full years as Software Engineer in eletronikmedia, live broadcasting feeds, high concurrency, zero downtime).
   3. Exhibit 03 (2024–Present): Venture Studio Command (CTO & Technical Leadership at Day One Venture Studio, internal venture CRM, MVP acceleration).
   4. Exhibit 04 (The Frontier): The Agentic Pioneer (Next.js, Supabase, autonomous AI coding swarms, human-in-the-loop systems).
 - Interactive red thread navigation: users can click/tap any exhibit or scrub through eras, highlighting the red connecting string and spotlighting that chapter.
@@ -362,7 +362,7 @@ Completed:
 - Crafted physical corkboard frame with brass corner braces, screw rivets, faded cork stamp, and dynamic SVG curved red strings (`.red-string`) with yarn drop shadows connecting the pins.
 - Implemented 4 chronological evidence exhibits with authentic comic detective elements:
   - Exhibit 01: Academic Genesis (B.Tech CS, lab polaroid with tape, core algorithms stamp).
-  - Exhibit 02: Electronic Media Crucible (2 full years as software engineer in live broadcasting, high-concurrency content pipelines, zero-downtime stamp).
+  - Exhibit 02: eletronikmedia Crucible (2 full years as software engineer in live broadcasting, high-concurrency content pipelines, zero-downtime stamp).
   - Exhibit 03: Venture Studio Command (Day One Studio CTO, venture CRM platform, system architecture).
   - Exhibit 04: The Agentic Pioneer (Next.js, Supabase, autonomous coding agents, direct contact case CTA).
 - Added interactive clue filter toolbar (`[All Evidence]`, `[01 // ORIGINS]`, `[02 // MEDIA]`, `[03 // STUDIO]`, `[04 // FRONTIER]`) that spotlights individual exhibit cards and glows the connecting red strings.
@@ -383,7 +383,7 @@ Objective: Transform the corkboard into the exact authentic detective conspiracy
 - Central "Prime Suspect" anchor polaroid radiating red strings to surrounding cards.
 - Era-by-era surveillance photos documenting Sourav's evolving style and real milestones:
   1. 2018–2022: College Era (Late-night midnight coding, student hoodie attire, algorithms & C++).
-  2. 2022–2024: Electronic Media (2 full years in live broadcast studio gear, high-throughput streaming pipelines).
+  2. 2022–2024: eletronikmedia (2 full years in live broadcast studio gear, high-throughput streaming pipelines).
   3. 2024–Present: Day One Venture Studio CTO (Leadership tech attire, architecture blueprints, CRM platform).
   4. The Frontier: Agentic Pioneer (Visionary rooftop surveillance, multi-agent AI swarms).
 - Tactile paper variety matching reference: black-framed polaroids, torn spiral-notebook page with punch holes, yellow Post-it stickies, white index cards.
@@ -395,7 +395,7 @@ Completed:
 - Implemented central anchor polaroid with red pushpin and radiating SVG red yarn lines.
 - Designed 4 distinct exhibits with tactile paper variety:
   - Torn spiral-bound notebook page with punch-holes for College Era (`/illustrations/cinema/midnight.webp`).
-  - Black-framed surveillance snapshot for Electronic Media Era (`/illustrations/workshop.webp`).
+  - Black-framed surveillance snapshot for eletronikmedia Era (`/illustrations/workshop.webp`).
   - Yellow sticky notes cluster with brass pushpins for Directives 01 & 02.
   - White blueprint system diagram card for Day One Studio CTO (`/illustrations/crm.webp`).
   - Agentic Frontier telegram exhibit (`/illustrations/cinema/rooftop.webp`).
@@ -497,3 +497,45 @@ PORT-032 completion:
 - Saved seven generated PNG masters and exact built-in image_gen prompts, 14 responsive WebPs, and asset preparation script. No old artwork deleted.
 - Verification: lint/build pass; eight API tests pass; all 23 portfolio/book/life-board browser tests pass. After final thread/layout refinements, all four focused board tests pass, including endpoint alignment at 320/390/768/1024/1440 widths and zero axe violations on phone/desktop board and inspector.
 - Known limitation: existing >500KB main JavaScript chunk advisory remains; unrelated stale cinema.spec.js excluded as previously documented. No commit or deployment. Remaining implementation: none.
+
+## PORT-033 — Refocus experience section on work experience
+Status: DONE
+Date: 2026-11-21
+Objective: Change Experience (#about) content to focus on work experience rather than mixed personal/life chapters.
+Acceptance criteria:
+- Section copy and structure foreground professional experience (education, roles, responsibilities, and confirmed context).
+- Personal-interest clues removed from the experience narrative; only confirmed facts presented (no invented dates, companies, metrics, or anecdotes).
+- Existing `#about` anchor, board interaction model (cards, threads, optional torch, inspector dialog), responsiveness, accessibility, and image fallback behavior preserved.
+- Relevant lint/build/tests pass and project memory synchronized.
+Completed:
+- Replaced `src/data/lifeBoard.js` content with `experienceChapters` + `boardProfile` focused on four confirmed professional milestones: B.Tech CS at MES College of Engineering (2018–2022), software engineering in electronic media/broadcasting, CTO/Technical lead at Day One Venture Studio (internal systems including Day One CRM), and current 4+ years full-stack/product building with agentic workflow exploration.
+- Removed gaming/travel/music personal clues and personal-life framing; updated `src/components/DetectiveBoard.jsx` copy/labels/navigation to “Work experience, chapter by chapter.” with 5 total entries, work-focused inspector text, and preserved keyboard dialog, focus restore, torch, threads, lazy images, and fallback.
+- Adjusted `src/detective-board.css` for the 5-card professional layout across desktop/tablet/mobile.
+- Updated `tests/life-board.spec.js` to the new work-experience contract (5 cards, headings, labels, inspector controls, accessibility and fallback).
+Verification:
+- `npm run lint`: PASS.
+- `npm run build`: PASS (pre-existing >500KB main chunk advisory remains).
+- `npm test`: 8/8 API tests PASS.
+- `npx playwright test tests/life-board.spec.js`: 4/4 PASS (keyboard/native focus containment/navigation/restoration, responsive layout/thread alignment/no overflow at 320/390/768/1024/1440, mobile+desktop axe on board and inspector, image fallback).
+Remaining: Optional user visual review at `http://localhost:5173/#about`. No further implementation requested. Unrelated stale `tests/cinema.spec.js` and release/provider setup remain outside this task. No commit or deployment performed.
+
+## PORT-034 — Remove toolkit and workshop sections
+Status: DONE
+Date: 2026-11-21
+Objective: Remove the "From interface to infrastructure." toolkit section and "The workshop." workspace/AI section from the website per user request.
+Acceptance criteria:
+- Toolkit (`#toolkit`, "From interface to infrastructure.") and workshop/workspace (`#workspace`, interactive workspace/chat) sections removed from the homepage and navigation.
+- Links/CTAs pointing to removed sections updated to valid destinations or removed; no broken in-site experience.
+- Related data/source entries and tests updated to reflect removed sections; lint/build and relevant tests pass.
+- Project memory synchronized.
+Completed:
+- Removed `Toolkit` section and the entire workshop/workspace block (lazy `Workspace`, chat/terminal UI, workshop illustration/copy) from `src/App.jsx`; removed `Workspace` nav item and updated home route description to drop AI-workspace claim.
+- Replaced removed-section CTAs: hero “Ask about my work” removed, experience footer now links to `/#contact`, approach note no longer links to `#workspace`.
+- Removed toolkit source entry from `src/data/portfolio.js`.
+- Updated tests for new structure: `tests/portfolio.spec.js` (removed workspace/AI flows, adjusted navigation/section-order/layout checks) and `tests/opening.spec.js` (deep-link bypass now uses `/#contact` instead of chat-mode workspace).
+Verification:
+- `npm run lint`: PASS.
+- `npm run build`: PASS (pre-existing >500KB main chunk advisory remains).
+- `npm test`: 8/8 API tests PASS.
+- `npx playwright test tests/portfolio.spec.js tests/life-board.spec.js tests/opening.spec.js`: 18/18 PASS.
+Remaining: Optional visual review. Unused component files (`src/components/Workspace.jsx`, `src/components/Chat.jsx`) and legacy CSS/classes for removed sections remain in repo but are no longer referenced by the app; can be cleaned up separately if desired. No commit or deployment performed.

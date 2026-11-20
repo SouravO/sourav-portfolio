@@ -211,7 +211,6 @@ export const journey = [
 
 export const sources = [
   { id: 'about', label: 'About Sourav', href: '/#about' },
-  { id: 'stack', label: 'Engineering toolkit', href: '/#toolkit' },
   {
     id: 'cyd',
     label: 'Check Your Deals case study',

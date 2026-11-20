@@ -1,9 +1,70 @@
 # Handoff
 
+Updated 2026-11-21 for PORT-034.
+
+## Current state
+PORT-034 DONE: Removed the “From interface to infrastructure.” toolkit section (`#toolkit`) and “The workshop.” workspace/AI section (`#workspace`) from the homepage. Header nav now has Work/Experience/Contact only. Home flow is hero → evidence band → work → experience → approach note → contact. Experience footer CTA links to `/#contact`; hero no longer links to chat/workspace. Toolkit source entry removed from `src/data/portfolio.js`. Interactive AI workspace/chat/terminal UI is no longer rendered by the app (components remain in repo but unused).
+
+## Verification
+- `npm run lint`: PASS.
+- `npm run build`: PASS (pre-existing >500KB main chunk advisory remains).
+- `npm test`: 8/8 API tests PASS.
+- `npx playwright test tests/portfolio.spec.js tests/life-board.spec.js tests/opening.spec.js`: 18/18 PASS (updated tests for removed sections/links).
+
+## Files changed (this task)
+- `src/App.jsx` — removed Toolkit/workspace blocks, lazy Workspace, related nav/CTAs/imports; updated home description.
+- `src/components/AdventureHero.jsx` — removed workspace ask link.
+- `src/components/DetectiveBoard.jsx` — footer CTA → contact.
+- `src/data/portfolio.js` — removed toolkit source entry.
+- `tests/portfolio.spec.js`, `tests/opening.spec.js` — aligned with removed sections/flows.
+- `.ai/TASKS.md`, `.ai/HANDOFF.md`, `.ai/PROJECT.md`, `.ai/CHANGELOG.md`, `.ai/DECISIONS.md` — synchronized.
+
+## Next exact action
+Optional visual review at `http://localhost:5173/` (confirm removed sections and contact flow). Optional cleanup of now-unused `src/components/Workspace.jsx`, `src/components/Chat.jsx` and related CSS if desired.
+
+## Git state
+HEAD 99fad56 (unchanged). Working tree includes prior uncommitted PORT-032/033 artifacts plus PORT-034 edits: modified `.ai/*`, `src/App.jsx`, `src/components/AdventureHero.jsx`, `src/components/DetectiveBoard.jsx`, `src/data/portfolio.js`, `tests/opening.spec.js`, `tests/portfolio.spec.js`, plus previously untracked `src/data/lifeBoard.js`, `tests/life-board.spec.js`, `assets/illustrations/life-board/`, `public/illustrations/life-board/`, `scripts/prepare_life_board_assets.py`. No commit or deployment performed.
+
+---
+## Previous handoff — superseded by PORT-034
+
+# Handoff
+
+Updated 2026-11-21 for PORT-033.
+
+## Current state
+PORT-033 DONE: Experience (#about) is now focused on **work experience** while keeping the detective/corkboard presentation. `src/data/lifeBoard.js` provides a central profile card plus four confirmed professional chapters: Education — B.Tech Computer Science, MES College of Engineering, Kuttippuram (2018–2022); Software engineer in electronic media/broadcasting; CTO/Technical lead at Day One Venture Studio (including Day One CRM, built and used internally); and current 4+ years full-stack/product building with ongoing, human-reviewed agentic workflow exploration.
+
+Personal-interest clues (gaming/travel/music) and personal-life framing were removed. `src/components/DetectiveBoard.jsx` now renders 5 work-experience entries with “Work experience, chapter by chapter.” copy, work-focused labels/details, measured red threads, optional torch (off by default), responsive board layout, lazy responsive images with portrait fallback, and a native dialog inspector with keyboard opening, focus containment/inert background behavior, Escape/previous/next, and opener focus restoration.
+
+## Verification
+- `npm run lint`: PASS.
+- `npm run build`: PASS (pre-existing >500KB main chunk advisory remains).
+- `npm test`: 8/8 API tests PASS.
+- `npx playwright test tests/life-board.spec.js`: 4/4 PASS (keyboard/open/close/nav/focus restoration, torch toggle, 5 cards and pin-aligned threads at 320/390/768/1024/1440 with no horizontal overflow, mobile+desktop axe on board and inspector, image fallback preserving details/keyboard access).
+
+## Files changed (this task)
+- `src/data/lifeBoard.js` — work-experience chapters/profile data (replaced personal chapters/clues).
+- `src/components/DetectiveBoard.jsx` — work-experience UI/copy, 5-entry board/threads/inspector.
+- `src/detective-board.css` — 5-card responsive layout/styling adjustments.
+- `tests/life-board.spec.js` — updated work-experience contract.
+- `.ai/TASKS.md`, `.ai/HANDOFF.md`, `.ai/PROJECT.md`, `.ai/ARCHITECTURE.md`, `.ai/DECISIONS.md`, `.ai/CHANGELOG.md` — synchronized project memory.
+
+## Next exact action
+Optional user visual review at `http://localhost:5173/#about`. No requested implementation remains.
+
+## Git state
+HEAD 99fad56 (unchanged). Working tree includes prior uncommitted PORT-032 artifacts plus PORT-033 edits: modified `.ai/*`, `src/components/DetectiveBoard.jsx`, `src/detective-board.css`; untracked `src/data/lifeBoard.js`, `tests/life-board.spec.js`, `assets/illustrations/life-board/`, `public/illustrations/life-board/`, `scripts/prepare_life_board_assets.py`. No commit or deployment performed. Recommend a Git checkpoint after review.
+
+---
+## Previous handoff — superseded by PORT-033
+
+# Handoff
+
 Updated 2026-11-21 for PORT-032.
 
 ## Current state
-PORT-032 DONE: Experience (#about) is a portrait-led personal detective board, “Same me. Different chapters.” Four career portraits (college, electronic media, Day One leadership, current experimentation), a central approved Sourav portrait and gaming/travel/music snapshots. Distinct scenes generated with built-in image_gen; exact prompts and PNG masters retained. Only confirmed college dates shown; no historical photo claims or invented travel stories.
+PORT-032 DONE: Experience (#about) is a portrait-led personal detective board, “Same me. Different chapters.” Four career portraits (college, eletronikmedia, Day One leadership, current experimentation), a central approved Sourav portrait and gaming/travel/music snapshots. Distinct scenes generated with built-in image_gen; exact prompts and PNG masters retained. Only confirmed college dates shown; no historical photo claims or invented travel stories.
 
 Desktop: warm physical corkboard with angled paper portraits and measured red threads. <=900px: scrolling two-column layout; <=540px: single-column readable board. Optional torch defaults off and leaves touch scrolling alone. Native dialog supports keyboard opening, browser focus containment/inert background, Escape, previous/next and opener focus restoration. Images lazy-load with responsive sources and portrait fallback. Reduced motion disables decorative transitions/entrance.
 
@@ -41,7 +102,7 @@ PORT-031 DONE: Delivered **Single-Viewport Detective Noticeboard with Connected 
 - **Physical Connected Red Strings Web (Matching User Reference Image Exactly)**:
   - SVG red strings (`stroke: #c22727` with drop shadow and glowing active state) connect the center "PRIME SUSPECT" polaroid pushpin to all satellite evidence pushpins:
     - Center (50%, 50%) -> College CS Labs (Top-Left)
-    - Center (50%, 50%) -> Electronic Media 2 Yrs (Top-Right)
+    - Center (50%, 50%) -> eletronikmedia 2 Yrs (Top-Right)
     - Center (50%, 50%) -> Operating Creed Stickies (Bottom-Left)
     - Center (50%, 50%) -> Day One Studio CTO (Bottom-Right)
     - Center (50%, 50%) -> Agentic Frontier Memo (Bottom-Center)

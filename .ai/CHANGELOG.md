@@ -100,3 +100,13 @@ PORT-021. Desktop leaves bend along the spine and compact leaves curl over the t
 - Generated seven separate comic portraits with consistent likeness and distinct outfits/scenes; saved masters, prompts, responsive WebPs and preparation script.
 - Added readable tablet/phone layouts, measured thread endpoints, optional torch, reduced-motion-aware entrance/hover, and a keyboard-accessible native chapter inspector.
 - Added responsive/keyboard/focus/image-fallback/thread-alignment/accessibility coverage; existing portfolio/book behavior retained.
+
+## 2026-11-21 — PORT-033
+- Refocused Experience (#about) content on work experience: profile plus four confirmed chapters (education 2018–2022, electronic media software engineering, Day One Venture Studio CTO/technical leadership, current 4+ years full-stack/product building and agentic exploration).
+- Removed gaming/travel/music personal clues and personal-life framing; updated board copy, labels, and inspector to professional experience while keeping corkboard/threads/torch/dialog interaction.
+- Adjusted responsive 5-card layout/CSS and updated life-board tests to the new work-experience contract. Lint, build, 8 API tests, and 4 focused Playwright life-board tests pass.
+
+## 2026-11-21 — PORT-034
+- Removed toolkit (`#toolkit`, “From interface to infrastructure.”) and workshop/workspace (`#workspace`, interactive perspectives/terminal/AI chat) sections from home/navigation and deleted their CTAs/links.
+- Updated hero, experience footer, approach note, and data sources to remove workspace/toolkit references; updated portfolio and opening tests for the reduced section flow.
+- Lint, build, 8 API tests, and 18 Playwright tests (portfolio, life-board, opening) pass. No commit/deployment.

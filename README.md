@@ -1,6 +1,6 @@
 # Sourav · Portfolio
 
-Vintage adventure-comic React + Vite portfolio with an illustrated street-scene cover, two case studies, an interactive workshop, an origin story, and a sunset contact finale. All headings and controls are live HTML; illustrations are separate optimized assets.
+Vintage adventure-comic React + Vite portfolio with an illustrated street-scene cover, two case studies, experience, and a sunset contact finale. All headings and controls are live HTML; illustrations are separate optimized assets.
 
 ## Local development
 
@@ -85,7 +85,7 @@ Persistent project state and continuation instructions live in `.ai/` and `AGENT
 The approved adventure-comic concept is implemented by `AdventureHero.jsx` and `src/comic.css`. Earlier ScrollStory/CharacterSequence, magnetic/tilt components and pose/video assets are retained as historical experiments and are not imported by the current homepage. The approved full-scene illustrations replace the previous three-pose character experience. The corrected cover character stands naturally with both feet on the ground and holds a laptop. No continuous character animation is claimed.
 
 ## Visitor content flow (PORT-008)
-The homepage introduces Sourav’s role/value, substantiates it with real projects and contributions, then presents experience, stack and build approach before the optional workshop and contact finale. Structural inspiration: https://sivaprasadc.vercel.app/; copy and professional facts remain Sourav’s. `/?mode=chat#workspace` opens the assistant without submitting a question; repeated navigation reinitializes its local state.
+The homepage introduces Sourav’s role/value, substantiates it with real projects and contributions, then presents experience and build approach before the contact finale. Structural inspiration: https://sivaprasadc.vercel.app/; copy and professional facts remain Sourav’s.
 
 ## Work presentation (PORT-009)
 The work index uses editorial project rows and interactive explanatory maps rather than illustration-heavy poster cards. `src/components/ProductMap.jsx` shares the factual workflow UI across index and case studies. `src/work.css` contains the work/case presentation. The maps are labelled as explanations, not screenshots. Detail pages have a responsive chapter index; existing route paths and public project data remain unchanged.

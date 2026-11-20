@@ -85,3 +85,12 @@ PORT-020 completed. The compact project book uses a portrait spiral notebook wit
 - Replace compressed surveillance copy and unsupported performance/employment-date claims with concise documented facts. Only the confirmed college dates are displayed; current agent work remains experimentation.
 - Use a native modal dialog for keyboard focus containment and background inertness. Keep torch optional/off and avoid touch tracking that interferes with scrolling.
 - The user's approved vertical mobile plan supersedes PORT-031's single-viewport constraint. Measure thread endpoints from real pin positions instead of guessing responsive SVG coordinates.
+
+## 2026-11-21 — PORT-033
+- User requested experience content focus on work experience. Reframe #about from mixed life/personal board to professional experience while retaining the existing corkboard/inspector interaction style and `#about` anchor.
+- Remove personal-interest clues (gaming/travel/music) and unsupported personal narrative from experience. Present only confirmed milestones: education (2018–2022, MES), software engineering in electronic media/broadcasting, CTO/technical leadership at Day One Venture Studio, and current 4+ years full-stack/product building with ongoing human-reviewed agentic exploration.
+- Reuse existing life-board illustrations for matching chapters/profile and preserve responsive/thread/torch/dialog/fallback behavior; update tests to the new contract. No invented employers, dates, metrics, or anecdotes.
+
+## 2026-11-21 — PORT-034
+- User requested removal of two sections: “From interface to infrastructure.” (toolkit) and “The workshop.” (workspace). Removed from homepage and navigation rather than replacing, per request.
+- Removed dependent in-site CTAs/routes (`#toolkit`, `#workspace`, chat-mode workspace entry points) and updated tests/docs to the new flow. Left unused component/CSS artifacts and backend chat code untouched for potential future cleanup to minimize unrelated churn. No commit/deployment.

@@ -39,7 +39,6 @@ export default function AdventureHero({ onPlayIntro }) {
       <div className="cover-intro">
         <p className="caption">I’m Sourav. I build the interfaces, APIs, and systems that turn a product idea into something people can use.</p>
         <Link to="/#work" className="button primary">Explore the work <Asterisk size={22} weight="bold" /></Link>
-        <Link to="/?mode=chat#workspace" className="cover-ask">Ask about my work</Link>
       </div>
       <p className="caption cover-note">Every good product starts with a little curiosity.</p>
       <span className="cover-credit">STORY & CODE BY SOURAV</span>

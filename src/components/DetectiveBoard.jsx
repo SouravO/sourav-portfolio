@@ -1,11 +1,11 @@
 import { useEffect, useRef, useState } from 'react'
-import { ArrowUpRight, CaretLeft, CaretRight, Flashlight, MagnifyingGlass, X } from '@phosphor-icons/react'
+import { ArrowUpRight, Briefcase, CaretLeft, CaretRight, Flashlight, X } from '@phosphor-icons/react'
 import { createPortal } from 'react-dom'
-import { boardProfile, lifeChapters, personalClues } from '../data/lifeBoard'
+import { boardProfile, experienceChapters } from '../data/lifeBoard'
 import '../detective-board.css'
 
-const entries = [boardProfile, ...lifeChapters, ...personalClues]
-const connections = [['college', 'media'], ['media', 'studio'], ['studio', 'frontier'], ...entries.filter(item => item.id !== 'sourav').map(item => ['sourav', item.id])]
+const entries = [boardProfile, ...experienceChapters]
+const connections = [['college', 'media'], ['media', 'studio'], ['studio', 'frontier'], ...experienceChapters.map(item => ['sourav', item.id])]
 const imageFor = item => item.image || `/illustrations/life-board/${item.id}.webp`
 
 function Threads({ boardRef }) {
@@ -73,12 +73,12 @@ function Inspector({ selected, onClose, onSelect }) {
   return createPortal(
     <dialog ref={dialogRef} className="life-inspector" aria-labelledby="life-inspector-title" onCancel={event => { event.preventDefault(); onClose() }} onClick={event => { if (event.target === event.currentTarget) onClose() }}>
       <div className="life-inspector-sheet">
-        <div className="life-inspector-bar"><span>THE SOURAV FILE / {String(selected + 1).padStart(2, '0')}</span><button type="button" autoFocus onClick={onClose} aria-label="Close chapter"><X size={22} /></button></div>
+        <div className="life-inspector-bar"><span>WORK EXPERIENCE / {String(selected + 1).padStart(2, '0')}</span><button type="button" autoFocus onClick={onClose} aria-label="Close details"><X size={22} /></button></div>
         <div className="life-inspector-grid">
           <figure><Portrait key={item.id} item={item} sizes="(max-width: 700px) 85vw, 440px" /><figcaption>{item.caption}</figcaption></figure>
-          <div className="life-inspector-copy" aria-live="polite"><p className="life-eyebrow">{item.era || 'Away from the keyboard'}</p><h3 id="life-inspector-title">{item.title}</h3><p>{item.story}</p>{item.tags && <ul className="life-tags">{item.tags.map(tag => <li key={tag}>{tag}</li>)}</ul>}<p className="life-art-note">An illustrated interpretation of this chapter.</p>{item.id === 'studio' && <a href="/work/day-one-crm">Explore Day One CRM <ArrowUpRight size={17} /></a>}</div>
+          <div className="life-inspector-copy" aria-live="polite"><p className="life-eyebrow">{item.era}</p><h3 id="life-inspector-title">{item.title}</h3><p>{item.story}</p>{item.tags && <ul className="life-tags">{item.tags.map(tag => <li key={tag}>{tag}</li>)}</ul>}<p className="life-art-note">Illustrated representation of this experience.</p>{item.id === 'studio' && <a href="/work/day-one-crm">Explore Day One CRM <ArrowUpRight size={17} /></a>}</div>
         </div>
-        <nav className="life-inspector-nav" aria-label="Chapter navigation"><button type="button" onClick={() => move(-1)}><CaretLeft size={18} /> Previous chapter</button><span>{selected + 1} / {entries.length}</span><button type="button" onClick={() => move(1)}>Next chapter <CaretRight size={18} /></button></nav>
+        <nav className="life-inspector-nav" aria-label="Experience navigation"><button type="button" onClick={() => move(-1)}><CaretLeft size={18} /> Previous</button><span>{selected + 1} / {entries.length}</span><button type="button" onClick={() => move(1)}>Next <CaretRight size={18} /></button></nav>
       </div>
     </dialog>, document.body,
   )
@@ -95,22 +95,22 @@ export default function DetectiveBoard() {
     boardRef.current.style.setProperty('--light-y', `${event.clientY - rect.top}px`)
   }
   return <section id="about" className="life-section" aria-labelledby="life-heading">
-    <header className="life-header"><div><p className="life-eyebrow"><MagnifyingGlass size={16} /> THE SOURAV FILE · EXPERIENCE & LIFE</p><h2 id="life-heading">Same me.<br /><span>Different chapters.</span></h2></div><div className="life-header-note"><p>Follow the thread.<br />There’s a story behind every pin.</p><button type="button" className="life-torch" aria-pressed={torch} onClick={() => setTorch(value => !value)}><Flashlight size={17} /> Torch {torch ? 'on' : 'off'}</button></div></header>
+    <header className="life-header"><div><p className="life-eyebrow"><Briefcase size={16} /> EXPERIENCE · CAREER JOURNEY</p><h2 id="life-heading">Work experience,<br /><span>chapter by chapter.</span></h2></div><div className="life-header-note"><p>Education, roles, and<br />the work behind them.</p><button type="button" className="life-torch" aria-pressed={torch} onClick={() => setTorch(value => !value)}><Flashlight size={17} /> Torch {torch ? 'on' : 'off'}</button></div></header>
     <div className={`life-board${torch ? ' life-board-lit' : ''}`} ref={boardRef} onPointerMove={followPointer}>
-      <div className="life-board-label" aria-hidden="true">FIELD NOTES / AN ONGOING STORY</div>
+      <div className="life-board-label" aria-hidden="true">FIELD NOTES / PROFESSIONAL EXPERIENCE</div>
       <Threads boardRef={boardRef} />
-      {entries.map((item, index) => <button type="button" key={item.id} className={`life-card life-card-${item.id}${index > 4 ? ' life-card-personal' : ''}`} style={{ '--card-x': `${item.x}%`, '--card-y': `${item.y}%`, '--card-angle': `${item.rotation}deg`, '--card-order': index }} onClick={() => setSelected(index)}>
+      {entries.map((item, index) => <button type="button" key={item.id} className={`life-card life-card-${item.id}`} style={{ '--card-x': `${item.x}%`, '--card-y': `${item.y}%`, '--card-angle': `${item.rotation}deg`, '--card-order': index }} onClick={() => setSelected(index)}>
         <span className="life-pin" aria-hidden="true" />
-        <span className="life-photo"><Portrait item={item} sizes={index === 0 ? '(max-width: 900px) 75vw, 330px' : '(max-width: 900px) 75vw, 260px'} />{item.number && <span className="life-chapter-number" aria-hidden="true">{item.number}</span>}</span>
-        <span className="life-card-meta">{item.era || 'OFF THE CLOCK'}</span>
-        <span className="life-card-title">{index > 4 ? item.label : item.label === 'The connecting thread' ? 'Sourav.' : item.label}</span>
+        <span className="life-photo"><Portrait item={item} sizes={item.id === 'sourav' ? '(max-width: 900px) 75vw, 330px' : '(max-width: 900px) 75vw, 260px'} />{item.number && <span className="life-chapter-number" aria-hidden="true">{item.number}</span>}</span>
+        <span className="life-card-meta">{item.era}</span>
+        <span className="life-card-title">{item.label}</span>
         <span className="life-card-caption">{item.caption}</span>
-        <span className="life-open-hint">{index > 4 ? 'A personal clue' : 'Open this chapter'} <ArrowUpRight size={14} /></span>
+        <span className="life-open-hint">View details <ArrowUpRight size={14} /></span>
       </button>)}
-      <aside className="life-handwritten"><span aria-hidden="true">↳</span> The connecting thread?<br /><strong>Never stop being curious.</strong></aside>
+      <aside className="life-handwritten"><span aria-hidden="true">↳</span> {experienceChapters.length} roles & milestones.<br /><strong>{boardProfile.era}</strong></aside>
       <div className="life-light" aria-hidden="true" />
     </div>
-    <footer className="life-footer"><p><span aria-hidden="true">●</span> A life in progress. More chapters to come.</p><a href="/?mode=chat#workspace">Ask about my work <ArrowUpRight size={17} /></a></footer>
+    <footer className="life-footer"><p><span aria-hidden="true">●</span> Experience grounded in real projects and systems.</p><a href="/#contact">Get in touch <ArrowUpRight size={17} /></a></footer>
     {selected !== null && <Inspector selected={selected} onClose={() => setSelected(null)} onSelect={setSelected} />}
   </section>
 }
