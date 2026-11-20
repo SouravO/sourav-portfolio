@@ -77,3 +77,9 @@ Created four high-fidelity adventure-comic UI concept sections and an implementa
 ## 2026-11-20 — PORT-015
 - Standardized current website name to Sourav across header/footer/hero, shared profile, page/social metadata, SVG preview, assistant instructions and README.
 - Build, eight API tests and homepage navigation browser check pass; no remaining Sourav O name references in current runtime/public content.
+
+## 2026-11-20 — PORT-018
+- Rebuilt Work as a scroll-pinned physical comic on a drawing table, with cover lift/tilt/opening, readable story/art spreads, two-sided page turns and chapter navigation.
+- Added responsive/reduced-motion reading layouts, preserved real statuses/routes and concept entry, and fixed page stretching/cover layering/text-fit issues found in browser review.
+- Repaired inactive FlipBook lint issues, refreshed portfolio work selectors and added five focused book tests.
+- Lint/build and eight API tests pass; 21 current browser cases pass. Old cinema invitation tests remain stale and documented. No commit/deployment.

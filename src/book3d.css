@@ -1,0 +1,119 @@
+/* All book styles are scoped: older experiments remain available but inactive. */
+.folio-section { --folio-paper:#f7edcf; --folio-ink:#242521; --folio-red:#b93525; position:relative; height:650vh; margin-top:70px; color:var(--folio-ink); scroll-margin-top:0; }
+.folio-sticky { position:sticky; top:0; height:100svh; min-height:680px; overflow:clip; padding:26px 36px 18px; background:#e6d9b9; border:2px solid var(--folio-ink); }
+.folio-heading { position:relative; z-index:2; display:flex; align-items:center; justify-content:space-between; max-width:1250px; margin:auto; }
+.folio-heading p { font:700 10px 'Geist Mono Variable',monospace; letter-spacing:.16em; margin:0 0 6px; }
+.folio-heading h2 { font:400 clamp(32px,3.5vw,52px)/1 'Bangers',cursive; margin:0; letter-spacing:.015em; }
+.folio-heading h2 span { color:var(--folio-red); }
+.folio-skip { display:flex; align-items:center; gap:8px; font:700 12px 'Comic Neue',cursive; text-underline-offset:4px; }
+.folio-desktop { height:calc(100% - 70px); display:flex; flex-direction:column; justify-content:center; }
+.folio-table { position:absolute; inset:110px -20px -30px; pointer-events:none; background: repeating-linear-gradient(2deg,transparent 0 7px,#6e4c2e0a 8px 9px,transparent 10px 80px),linear-gradient(120deg,#c9ad80,#ddc59c 48%,#b89669); border-top:1px solid #6d50234d; }
+.folio-table::after { content:''; position:absolute; inset:0; background:radial-gradient(ellipse at 50% 42%,transparent 20%,#4a321f26); }
+.folio-table-note { position:absolute; left:5%; top:10%; transform:rotate(-8deg); font:italic 20px 'Comic Neue',cursive; color:#684c32; border-bottom:1px solid; }
+.folio-pencil { position:absolute; right:6%; top:30%; height:240px; width:9px; background:linear-gradient(90deg,#9b5023 20%,#dd9a37 21% 70%,#9b5023 71%); transform:rotate(20deg); box-shadow:4px 5px 3px #382b2750; }
+.folio-pencil::after { content:''; position:absolute; top:100%; border:4.5px solid transparent; border-top:22px solid #463426; }
+.folio-perspective { perspective:1800px; position:relative; width:100%; margin:18px auto 14px; }
+.folio-book { --lift:0; --cover-angle:0deg; --turn-angle:0deg; width:min(1020px,83vw,calc((100svh - 240px)*1.82)); height:auto; aspect-ratio:1.82; position:relative; margin:auto; transform-style:preserve-3d; transform:translateX(calc(-25%*(1 - var(--lift)))) rotateX(calc(36deg*(1 - var(--lift)) + 3deg)) rotateZ(calc(-9deg*(1 - var(--lift)))) scale(calc(.76 + .24*var(--lift))); }
+.folio-board { position:absolute; inset:-8px -7px -10px; background:#2e403d; border:2px solid #1a2828; border-radius:3px 7px 7px 3px; box-shadow:0 3px 0 #9b946e,0 6px 0 #eee0bb,0 9px 0 #8f8463,0 14px 0 #293a35,12px 35px 30px #33291e55; transform:translateZ(-3px); }
+.folio-spread { display:grid; grid-template-columns:1fr 1fr; position:absolute; inset:0; background:var(--folio-paper); }
+.folio-left,.folio-right { min-width:0; height:100%; }
+.folio-left { visibility:hidden; }
+.folio-book[data-open='true'] .folio-left { visibility:visible; }
+.folio-page { height:100%; padding:5% 6% 3%; display:flex; flex-direction:column; position:relative; overflow:hidden; background:radial-gradient(#73654212 .7px,transparent .8px) 0 0/5px 5px,var(--folio-paper); color:var(--folio-ink); font-family:'Comic Neue',cursive; }
+.folio-story { background-color:#f5e9c8; }
+.folio-running { display:flex; justify-content:space-between; gap:10px; font:700 clamp(7px,.65vw,10px) 'Geist Mono Variable',monospace; text-transform:uppercase; border-bottom:1px solid #282a2460; padding-bottom:8px; letter-spacing:.04em; }
+.folio-category { margin:6% 0 2%; font:700 clamp(9px,.8vw,12px) 'Geist Mono Variable',monospace; text-transform:uppercase; color:#9c3022; }
+.folio-story h3 { font:400 clamp(28px,3.3vw,49px)/.98 'Bangers',cursive; letter-spacing:.02em; margin:0 0 5%; max-width:10ch; }
+.folio-quote { border:2px solid var(--folio-ink); padding:3% 4%; margin:0 0 5%; background:#f5cc5d; box-shadow:3px 3px 0 var(--folio-ink); font-size:clamp(13px,1.3vw,19px); line-height:1.2; font-weight:700; transform:rotate(-1deg); }
+.folio-description { margin:0 0 4%; font-size:clamp(12px,1.13vw,16px); line-height:1.4; }
+.folio-role { border-left:3px solid var(--folio-red); padding-left:10px; }
+.folio-role > span { text-transform:uppercase; font:700 clamp(8px,.7vw,10px) 'Geist Mono Variable',monospace; }
+.folio-role p { margin:4px 0 0; font-size:clamp(12px,1.1vw,16px); line-height:1.25; font-weight:700; }
+.folio-stack { font:500 clamp(9px,.8vw,12px)/1.5 'Geist Mono Variable',monospace; margin:4% 0; }
+.folio-actions { display:flex; align-items:center; flex-wrap:wrap; gap:14px; margin-top:auto; }
+.folio-actions a { display:inline-flex; align-items:center; gap:7px; font-size:clamp(12px,1.1vw,15px); font-weight:700; text-decoration:underline; text-underline-offset:4px; min-height:30px; }
+.folio-actions a:first-child { color:#942c20; }
+.folio-footer { display:flex; justify-content:space-between; align-items:center; border-top:1px solid #282a2460; padding-top:8px; margin-top:4%; font-size:clamp(9px,.8vw,12px); }
+.folio-footer strong { font-weight:700; }
+.folio-art { gap:3%; }
+.folio-art .folio-running { flex-shrink:0; }
+.folio-main-panel { position:relative; height:58%; border:2px solid var(--folio-ink); overflow:hidden; background:#365b60; }
+.folio-main-panel img { width:100%; height:100%; object-fit:cover; }
+.folio-main-panel > p { position:absolute; bottom:8px; left:8px; right:12%; background:#fff3d3; border:2px solid var(--folio-ink); padding:7px 10px; font-size:clamp(12px,1.15vw,16px); font-weight:700; margin:0; box-shadow:3px 3px 0 #242521; }
+.folio-small-panels { display:grid; grid-template-columns:1fr 1fr; gap:9px; min-height:18%; }
+.folio-small-panels > div { position:relative; background:#c5d2ca; border:2px solid var(--folio-ink); padding:8px; }
+.folio-small-panels > div:last-child { background:#e9b44e; }
+.folio-small-panels span { font:700 clamp(7px,.62vw,9px) 'Geist Mono Variable',monospace; text-transform:uppercase; }
+.folio-small-panels p { font:400 clamp(15px,1.6vw,23px)/1.05 'Bangers',cursive; margin:6px 0 0; max-width:80%; }
+.folio-small-panels svg { position:absolute; bottom:6px; right:6px; }
+.folio-art-note { font-size:clamp(9px,.78vw,11px); line-height:1.25; margin:0; }
+.folio-art .folio-footer { margin-top:auto; }
+.folio-gutter { position:absolute; z-index:5; inset:0 auto 0 50%; width:6%; transform:translateX(-50%); pointer-events:none; background:linear-gradient(90deg,transparent,#493d2924 40%,#332a2240 50%,#fff2ce55 54%,transparent); }
+.folio-turn,.folio-cover { position:absolute; left:50%; top:0; width:50%; height:100%; transform-origin:left center; transform-style:preserve-3d; }
+.folio-turn { z-index:8; transform:rotateY(var(--turn-angle)); }
+.folio-cover { z-index:10; transform:rotateY(var(--cover-angle)) translateZ(1px); }
+.folio-book[data-open='true'] .folio-cover { pointer-events:none; }
+.folio-face { position:absolute; inset:0; backface-visibility:hidden; -webkit-backface-visibility:hidden; }
+.folio-back { transform:rotateY(180deg); }
+.folio-front { transform:translateZ(.4px); }
+.folio-cover-art { position:relative; height:100%; overflow:hidden; border:4px solid #233632; background:#b83929; color:#fff0c6; display:flex; flex-direction:column; }
+.folio-cover-top { display:flex; justify-content:space-between; font:700 11px 'Comic Neue',cursive; text-transform:uppercase; padding:10px 14px; border-bottom:2px solid #242521; background:#f1cb60; color:#242521; }
+.folio-cover-art h3 { position:relative; z-index:1; margin:14px 0 0; padding:0 12px; font:400 clamp(32px,4.4vw,62px)/.9 'Bangers',cursive; text-align:center; text-shadow:3px 3px 0 #242521; transform:rotate(-3deg); }
+.folio-cover-art em { font-style:normal; color:#f7cc62; }
+.folio-cover-art > img { position:absolute; width:100%; height:76%; object-fit:cover; bottom:0; left:0; }
+.folio-cover-burst { position:absolute; right:10px; bottom:14%; padding:18px; background:#f5cb58; color:#242521; border:3px solid; border-radius:50%; font:400 clamp(17px,2vw,28px)/1 'Bangers',cursive; transform:rotate(10deg); }
+.folio-cover-bottom { margin:auto 0 0; z-index:1; position:relative; background:#f1cb60; color:#242521; border-top:3px solid; padding:10px; text-align:center; font-weight:700; font-size:13px; }
+.folio-nav { position:relative; display:flex; justify-content:center; gap:4px; margin-top:12px; z-index:12; }
+.folio-nav button { display:flex; align-items:center; justify-content:center; gap:7px; border:1px solid #544937; background:#eee1bf; color:#292922; padding:10px 13px; min-height:42px; font:700 13px 'Comic Neue',cursive; cursor:pointer; }
+.folio-nav button span { font:500 9px 'Geist Mono Variable',monospace; }
+.folio-nav button[aria-current] { background:#293f3e; color:#fff1cf; }
+.folio-nav button:disabled { opacity:.4; cursor:default; }
+.folio-nav button:hover:not(:disabled) { border-color:#a83224; box-shadow:0 2px 0 #a83224; }
+.folio-instruction { position:relative; text-align:center; margin:10px 0 0; font:700 12px 'Comic Neue',cursive; }
+.folio-reading { display:none; }
+@media (min-width:1001px) and (max-height:730px) { .folio-sticky { min-height:570px; padding-top:16px; } .folio-heading h2 { font-size:34px; } .folio-book { width:min(940px,80vw,calc((100svh - 190px)*1.82)); } .folio-perspective { margin:10px auto 5px; } .folio-nav { margin-top:5px; } .folio-instruction { margin-top:5px; } .folio-page { padding:4% 5% 2%; } .folio-category { margin-top:4%; } .folio-story h3 { font-size:35px; margin-bottom:3%; } .folio-description { font-size:13px; } .folio-quote { font-size:15px; margin-bottom:4%; } }
+@media (max-width:1000px), (max-height:600px), (prefers-reduced-motion:reduce) {
+  .folio-section { height:auto; margin-top:50px; }
+  .folio-sticky { position:relative; height:auto; min-height:0; overflow:visible; padding:25px 20px; }
+  .folio-heading { margin-bottom:25px; gap:20px; }
+  .folio-heading h2 { font-size:clamp(30px,5vw,48px); }
+  .folio-skip { max-width:110px; font-size:11px; }
+  .folio-desktop { display:none; }
+  .folio-reading { display:block; }
+  .folio-reading-spread { display:grid; grid-template-columns:1fr 1fr; max-width:1100px; margin:0 auto 32px; border:3px solid #293c36; box-shadow:0 5px 0 #aa9974,0 9px 0 #293c36; }
+  .folio-page { min-height:520px; padding:24px; }
+  .folio-running { font-size:9px; }
+  .folio-category { font-size:11px; }
+  .folio-story h3 { font-size:40px; }
+  .folio-quote { font-size:18px; }
+  .folio-description,.folio-role p { font-size:16px; }
+  .folio-role > span,.folio-stack { font-size:10px; }
+  .folio-actions a { font-size:15px; min-height:40px; }
+  .folio-footer { font-size:11px; }
+  .folio-main-panel { min-height:270px; }
+  .folio-main-panel > p { font-size:15px; }
+  .folio-small-panels { min-height:95px; }
+  .folio-small-panels span { font-size:8px; }
+  .folio-small-panels p { font-size:21px; }
+  .folio-art-note { font-size:11px; }
+}
+@media (max-width:600px) {
+  .folio-sticky { padding:24px 12px; }
+  .folio-heading { align-items:flex-start; }
+  .folio-heading h2 { max-width:220px; }
+  .folio-heading h2 span { display:block; }
+  .folio-reading-spread { grid-template-columns:1fr; }
+  .folio-page { min-height:0; padding:22px 20px; }
+  .folio-story h3 { font-size:46px; }
+  .folio-story { border-bottom:2px solid var(--folio-ink); }
+  .folio-running { font-size:8px; }
+  .folio-role p { margin-bottom:6px; }
+  .folio-main-panel { height:300px; margin:14px 0 10px; }
+  .folio-small-panels { margin-bottom:12px; }
+  .folio-art .folio-footer { margin-top:14px; }
+}
+/* A fixed grid track prevents page contents from stretching the physical book. */
+.folio-spread { grid-template-rows:minmax(0,1fr); background:transparent; clip-path:inset(0 0 0 calc(50%*(1 - var(--lift)))); }
+.folio-left,.folio-right { min-height:0; }
+.folio-board { left:calc(50%*(1 - var(--lift)) - 8px); }
+.folio-cover { visibility:var(--cover-visibility,visible); }

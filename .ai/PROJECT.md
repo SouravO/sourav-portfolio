@@ -33,3 +33,5 @@ Approved 2026-11-20: Implement The Builder’s Adventures concept, correct the l
 2026-11-20 naming refinement (PORT-014): User approved the rest of the cinematic opening and requested the title read SOURAV, without the trailing O. Both cinematic title layers now use SOURAV; loading monogram uses S. Imagery, motion and landing handoff remain unchanged.
 
 2026-11-20 naming preference (PORT-015): Use Sourav throughout all current site copy, navigation/footer, hero credits, browser titles, metadata/social preview and assistant profile/instructions. Do not append O. Contact email/identifiers remain their actual values. Historical generation prompts and development records retain provenance.
+
+2026-11-20 work redesign (PORT-018): User rejected the current work UI and requested a comic book on a table that stays pinned, tilts closer, opens and turns through illustrated project explanations. Implemented desktop physical-book reading with left story/right art, scroll holds and direct chapter controls; compact screens and reduced motion use stacked spreads for readable text. Existing project facts, scope labels and case-study routes retained.

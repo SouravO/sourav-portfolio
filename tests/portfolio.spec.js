@@ -15,9 +15,8 @@ test('homepage navigation, projects, and concept disclosures', async ({
   ).toBeVisible()
   await page.getByRole('link', { name: 'Explore the work', exact: true }).click()
   await expect(page).toHaveURL(/#work/)
-  await page
-    .getByRole('link', { name: /^Read case study for Check Your Deals/ })
-    .click()
+  await page.getByRole('button', { name: '01 CYD' }).click()
+  await page.locator('.folio-left').getByRole('link', { name: 'Read case study: Check Your Deals' }).click()
   await expect(
     page.getByRole('heading', {
       name: 'Check Your Deals',
@@ -35,11 +34,11 @@ test('homepage navigation, projects, and concept disclosures', async ({
   await expect(
     page.getByText(/Built and used internally\. All diagrams/),
   ).toBeAttached()
-  await page.goto('/#concepts')
-  const notwo = page.getByRole('button', { name: /NOTWO/ }).first()
-  await notwo.click()
-  await expect(notwo).toHaveAttribute('aria-expanded', 'true')
-  await expect(page.getByText(/These capabilities are proposed/)).toBeVisible()
+  // Concepts are now flipbook pages — verify section exists and contains them
+  await page.goto('/#work')
+  await expect(page.locator('#work')).toContainText('NOTWO')
+  await expect(page.locator('#work')).toContainText('Founder Versa')
+  await expect(page.locator('#concepts .folio-description')).toBeAttached()
 })
 
 test('workspace project perspectives, local commands and unconfigured live AI fallback', async ({
@@ -156,8 +155,8 @@ test('adventure cover, live project panels and finale match the approved flow', 
   await page.getByRole('button', { name: /INK MODE/ }).click()
   await page.getByRole('link', { name: 'Explore the work', exact: true }).click()
   await expect(page).toHaveURL(/#work/)
-  await expect(page.locator('.featured-projects')).toBeVisible()
-  await page.locator('.featured-projects').screenshot({ path: 'test-results/adventure-projects.png' })
+  await expect(page.locator('#work')).toBeVisible()
+  await page.locator('.folio-sticky').screenshot({ path: 'test-results/adventure-projects.png' })
   await page.emulateMedia({ reducedMotion: 'reduce' })
   await page.goto('/#workspace')
   await expect(page.getByRole('heading', { name: 'The workshop.' })).toBeVisible()
@@ -227,8 +226,10 @@ test('visitor narrative leads with value and proof, and direct questions open th
   await page.goto('/')
   await expect(page.locator('.cover-intro')).toContainText('I’m Sourav.')
   await expect(page.locator('.profile-evidence')).toContainText('Day One Venture Studio')
-  await expect(page.locator('.project-feature-cyd .project-info')).toContainText('deal discovery platform')
-  await expect(page.locator('.project-feature-crm .project-info')).toContainText('My contribution')
+  // Projects are now a 3D flip-book — verify the section and project text exist
+  await expect(page.locator('#work')).toBeAttached()
+  await expect(page.locator('#work')).toContainText('deal discovery platform')
+  await expect(page.locator('#work')).toContainText('Day One CRM')
   const ids = await page.locator('main section[id]').evaluateAll(nodes => nodes.map(node => node.id))
   expect(ids.indexOf('work')).toBeLessThan(ids.indexOf('about'))
   expect(ids.indexOf('about')).toBeLessThan(ids.indexOf('toolkit'))
@@ -247,15 +248,9 @@ test('visitor narrative leads with value and proof, and direct questions open th
 test('project maps explain real workflows and case-study chapters remain navigable', async ({ page }) => {
   await page.emulateMedia({ reducedMotion: 'reduce' })
   await page.goto('/#work')
-  const deals = page.locator('.work-feature.project-feature-cyd')
-  await deals.getByRole('button', { name: 'Connect', exact: true }).click()
-  await expect(deals.getByRole('button', { name: 'Connect', exact: true })).toHaveAttribute('aria-pressed', 'true')
-  await expect(deals.locator('.map-canvas')).toContainText('Further discovery and update automation is planned.')
-  const crm = page.locator('.work-feature.project-feature-crm')
-  await crm.getByRole('button', { name: 'Progress', exact: true }).click()
-  await expect(crm.locator('.map-canvas')).toContainText('Weekly tracking')
+  // ProductMap lives inside case studies; navigate via CYD case-study link
   await page.screenshot({ path: 'test-results/work-index-desktop.png', fullPage: true })
-  await deals.getByRole('link', { name: 'Read case study for Check Your Deals', exact: true }).click()
+  await page.locator('.folio-reading').getByRole('link', { name: 'Read case study: Check Your Deals', exact: true }).click()
   await page.getByRole('navigation', { name: 'Case study sections' }).getByRole('link', { name: 'Inside the product', exact: true }).click()
   await expect(page).toHaveURL(/check-your-deals#system/)
   await page.locator('#system').getByRole('button', { name: 'Explore', exact: true }).click()

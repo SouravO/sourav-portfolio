@@ -14,7 +14,6 @@ import {
   Code,
   TreeStructure,
   Plus,
-  Minus,
   Copy,
   Check,
   List,
@@ -24,7 +23,7 @@ import {
 } from '@phosphor-icons/react'
 import { projects, profile, skills, journey } from './data/portfolio'
 import AdventureHero from './components/AdventureHero'
-import FlowDiagram from './components/FlowDiagram'
+import Book3D from './components/Book3D'
 import ProductMap from './components/ProductMap'
 import Reveal from './components/Reveal'
 import MarvelIntro from './components/MarvelIntro'
@@ -34,6 +33,7 @@ import './comic.css'
 import './work.css'
 import './intro.css'
 import './radio.css'
+import './book3d.css'
 const Workspace = lazy(() => import('./components/Workspace'))
 
 function RouteEffects() {
@@ -135,75 +135,6 @@ function Header({ onReplayIntro }) {
   )
 }
 
-function Work() {
-  const [expanded, setExpanded] = useState(null)
-  return (
-    <section id="work" className="section work-section">
-      <Reveal>
-        <div className="section-heading">
-          <p className="eyebrow">PRODUCT ENGINEERING / CASE STUDIES</p>
-          <h2>Selected <span>work.</span></h2>
-          <p>Two different problems. Product thinking and engineering through the whole build.</p>
-        </div>
-      </Reveal>
-      <div className="featured-projects work-features">
-        {projects.slice(0, 2).map((p) => (
-          <article className={`work-feature project-feature-${p.id}`} key={p.id}>
-            <div className="work-story project-info">
-              <div className="work-meta"><span>{p.category}</span><span className="work-status">{p.status}</span></div>
-              <h3>{p.name}</h3>
-              <p className="work-hook">{p.summary}</p>
-              <p className="work-description">{p.description}</p>
-              <dl className="work-role"><dt>My contribution</dt><dd>{p.role}</dd></dl>
-              <div className="work-stack">{p.stack.map(item => <span key={item}>{item}</span>)}</div>
-              <div className="work-actions">
-                <Link className="work-read" to={`/work/${p.slug}`} aria-label={`Read case study for ${p.name}`}>Read case study <Plus size={19} /></Link>
-                {p.url ? <a className="work-live" href={p.url} target="_blank" rel="noreferrer">Visit live product <Globe size={16} /></a> : <span className="work-internal">Built for internal use</span>}
-              </div>
-            </div>
-            <div className="work-explainer"><div className="work-art-stamp" aria-hidden="true"><img src={`/illustrations/${p.id === 'cyd' ? 'deals' : 'crm'}.webp`} alt="" width="1024" height="1024" loading="lazy" /><span>{p.id === 'cyd' ? 'DISCOVERY → DESTINATION' : 'PEOPLE → EXECUTION'}</span></div><ProductMap project={p} /></div>
-          </article>
-        ))}
-      </div>
-      <div className="concepts" id="concepts">
-        <div className="concepts-heading">
-          <h3>On the drawing board.</h3>
-          <span>Early ideas, clearly marked as planning and concepts.</span>
-        </div>
-        {projects.slice(2).map((p) => (
-          <div className="concept-row" key={p.id}>
-            <button
-              aria-expanded={expanded === p.id}
-              aria-controls={`concept-${p.id}`}
-              onClick={() => setExpanded(expanded === p.id ? null : p.id)}
-            >
-              <span className="concept-name">{p.name}</span>
-              <span className="concept-category">{p.category}</span>
-              <span className="concept-status">{p.status}</span>
-              {expanded === p.id ? <Minus size={21} /> : <Plus size={21} />}
-            </button>
-            {expanded === p.id && (
-              <div id={`concept-${p.id}`} className="concept-details">
-                <p>{p.description}</p>
-                <FlowDiagram project={p} compact />
-                {p.url && (
-                  <a
-                    href={p.url}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="text-link"
-                  >
-                    Visit product website <Globe size={16} />
-                  </a>
-                )}
-              </div>
-            )}
-          </div>
-        ))}
-      </div>
-    </section>
-  )
-}
 
 function About() {
   return (
@@ -350,7 +281,7 @@ function Home({ onPlayIntro }) {
       <div><strong>Full stack</strong><span>Interfaces, APIs & data</span></div>
       <div><strong>Technical leadership</strong><span>Day One Venture Studio</span></div>
     </div>
-    <Work />
+    <Book3D />
     <About />
     <Toolkit />
     <aside id="approach" className="build-note"><p className="eyebrow">MY APPROACH</p><p>Understand the workflow. Connect the system. Build, review, and improve.</p><Link to="/#workspace" className="text-link">Explore a technical perspective <Plus size={17} /></Link></aside>

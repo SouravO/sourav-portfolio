@@ -63,3 +63,10 @@ The user’s supplied urban adventure comic is the new art direction: city scene
 - Generate four complete graphic-novel scenes rather than isolated character sprites: macro laptop work, rain-lit portrait, city street and rooftop. Use the approved landing cover as identity/outfit reference with finer ink/paint rendering, dramatic amber light and dark petrol shadows. Built-in image_gen; no API/provider work required.
 - Use accelerating cinematic cuts and a continuous dimensional comic-sheet camera move, followed by artwork inside the name resolving to a metallic mark on deep red. Remove motivational slide captions and circular character backdrops. Preserve skip, reduced-motion/direct-link entry, audio controls and final actual-hero snapshot.
 - Missing/slow art uses the landing cover after a bounded wait. Preserve existing unrelated deleted character files and untracked cinema invitation tests. No commit or deployment.
+
+## 2026-11-20 — PORT-018
+- Rebuild the rejected work section around an actual reading sequence: closed book on table, lift/open, four two-page project spreads, timed reading holds, reversible physical page turns, release. Use existing comic visual assets and real shared project facts.
+- This is geometric motion of live HTML pages; native CSS 3D and installed Motion provide precise scroll mapping. No image/video generation required. Keep links/text semantic and usable; decorative turning duplicates are inert.
+- Prefer readable stacked pages on <=1000px widths, <=600px viewport height and reduced motion. Narrow tablet inspection exposed text clipping in scaled spreads; do not shrink text further to force the desktop animation.
+- Keep chapter selection/previous/next and a direct experience link so the long pinned section is optional to navigate. Preserve #work/#concepts and case-study routes.
+- Preserve inactive experiments; fix their small lint issues without deleting user work. Leave unrelated obsolete cinema tests documented instead of changing approved intro behavior.

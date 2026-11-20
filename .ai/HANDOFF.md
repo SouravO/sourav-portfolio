@@ -1,82 +1,71 @@
 # Handoff
 
-Updated 2026-11-20 for PORT-007.
+Updated 2026-11-20 for PORT-018.
 
-## Current state
-PORT-007 is DONE. The user approved the four adventure-comic concepts, requested a corrected hero pose, and specifically loved the closing page. The approved concept is now a functional local React site: street-scene cover, illustrated project panels, live workshop spread, origin/toolkit, sunset To be continued contact finale. The landing character stands naturally with both feet flat, legs uncrossed and laptop under one arm, separate from the parked car.
+## Current verified state
+PORT-018 is DONE; PORT-017's rejected implementation is superseded. The homepage Work section is a physical comic on a warm drawing table: illustrated closed cover → scroll-linked lift/tilt/opening → four two-page spreads → release into About. Story/role/stack/status and real case links occupy the left page; existing comic art, workflow panels and captions occupy the right. Long reading holds separate two-sided page turns. Previous/next and chapter buttons jump to holds; native page scrolling remains available and reversible. No scroll interception.
 
-All headings, captions, navigation, project statuses and controls are live HTML over separate text-free artwork. The homepage no longer imports the old sticky ScrollStory/CharacterSequence. Legacy components and all artwork are preserved. PORT-005's pose scope is superseded by this user-approved scene direction.
+Motion useScroll measures ['start start', 'end end']; progress writes CSS variables on the book ref. React only changes discrete scene states. Opening is 0–.2; each project gets .2 with its final quarter reserved for a turn (except the last). Cover is hidden after opening so it cannot obscure subsequent project stories. Fixed minmax(0,1fr) grid track prevents content from stretching the physical pages. All styles use folio-* names, avoiding the preserved old book experiments.
 
-## Files changed
-`src/App.jsx`, new `src/components/AdventureHero.jsx`, rewritten `src/comic.css`, `index.html`, `public/favicon.svg`, new `public/social-preview.jpg`, seven `public/illustrations/*.webp`, seven source masters under `assets/illustrations/builders-adventures/`, `scripts/prepare_adventure_assets.py`, `tests/portfolio.spec.js`, README and memory. The approved reference concepts remain under `assets/concepts/builders-adventures/`.
+At <=1000px width, <=600px viewport height, or reduced motion: unpinned stacked story/art pages keep text and links readable. #work and case routes remain; desktop #concepts opens NOTWO while the reading layout uses its article anchor. Art is illustrative, not a product screenshot. Concepts remain explicitly proposed, CRM internal, CYD live/in development.
 
 ## Verification
-Lint and production build pass. Eight API tests pass. Eight Playwright tests pass, covering navigation/case studies/concepts, workspace, terminal, mocked AI success/cancellation, unconfigured API fallback, actual clipboard email copy, mobile image selection, reduced motion and 320–1440px overflow checks. Mobile, desktop and CRM case-study axe scans have zero violations. Desktop/mobile hero, project, workshop, finale and full-page screenshots were inspected. Final screenshot test loads the lazy finale and returns to page top before the full-page capture.
+- Lint and production build pass; pre-existing >500KB bundle advisory remains.
+- Eight API tests pass.
+- 21 browser tests pass across book.spec.js (5), portfolio.spec.js (11), opening.spec.js (5).
+- Checked desktop reading/turn/reverse/release, chapter navigation, case links, concept deep links, laptop text fit, 320/390/768/820/1440 layouts and axe accessibility.
+- Reviewed closed/open/CRM/turn/phone screenshots. git diff --check passes.
+- The wildcard browser suite still includes stale tests/cinema.spec.js targeting the retired invitation/soundtrack UI. Confirmed failures; interrupted that run and verified the current suites above. Do not change current intro behavior to satisfy obsolete selectors.
 
-## Continuation
-No interrupted implementation. Next exact action: user visual review of the completed local site; run `npm run dev` and open Vite's Local URL. If publication is requested, continue RELEASE-001 using user-managed Vercel/OpenAI/Upstash setup. No live provider integration or production deployment verified. Current experience uses scene illustrations, not continuous character video; VIDEO-001 remains historical blocked provider work.
+## Files changed this session
+src/components/Book3D.jsx, src/book3d.css, src/components/FlipBook.jsx (inactive lint cleanup), tests/book.spec.js (new), tests/portfolio.spec.js (work selectors), and .ai/{TASKS,HANDOFF,PROJECT,ARCHITECTURE,DECISIONS,CHANGELOG}. Existing uncommitted App.jsx/ComicBook/FlipBook/CSS changes were preserved. No new runtime dependencies, generation, commit or deployment.
+
+## Next exact action
+Optional user visual review at http://127.0.0.1:5173/#work (dev server started this session). No required work remains for PORT-018. If requested, clean up obsolete cinema tests separately; keep opening.spec.js as the current intro contract. Production AI/provider setup remains as previously documented.
 
 ## Git state
-Repository baseline is commit 82cfe01 (`new look`). Existing modified `.ai` notes and untracked concept/character assets were present at session start and preserved. Current working tree also contains the implementation/assets/docs listed above. No reset, discard, commit, branch change or deployment performed. Recommend a user-authorized Git checkpoint after visual review.
+Verified HEAD df1e0a2. Working tree remains dirty with prior App.jsx changes, modified project memory/tests, and untracked Book3D/ComicBook/FlipBook CSS/components plus new book tests. No existing changes discarded and no commit made. Recommend a checkpoint after visual review.
 
-## Latest milestone: PORT-008 (2026-11-20)
-Content restructuring is DONE. User supplied https://sivaprasadc.vercel.app/ as inspiration. Direct web-tool fetch failed; actual public HTML was successfully retrieved and parsed locally. Borrowed clear personal positioning, concrete project explanations, experience/stack before deeper interaction, and direct assistant access. Did not copy personal claims, dates, availability, articles or wording.
+---
+## Previous handoff — historical, superseded by PORT-018
 
-Current homepage order: cover with personal/value copy and Explore/Ask actions → verified experience band → projects/concepts → experience (leadership first) → grouped stack → build approach → workshop → loved contact finale. Same approved artwork, theme, routes and API. Project cards now use factual descriptions and roles; CYD includes its existing live URL. Header Experience targets existing #about.
+# Handoff
 
-Changed: src/App.jsx, src/components/AdventureHero.jsx, src/components/Workspace.jsx, src/comic.css, tests/portfolio.spec.js, README and .ai notes. Chat deep link is /?mode=chat#workspace; query handling is allowlisted. Workspace remounts per navigation entry so repeated Ask links reopen chat; conversations remain component-local and clear on unmount as documented. RouteEffects responds to search changes too.
+Updated 2026-11-20 for PORT-017.
 
-Verification: npm run lint/build pass; 8 API tests; 9 Playwright tests, including content order, repeated/reloaded direct chat links, current route/terminal/chat/copy behavior, responsive widths and zero axe violations in mobile/desktop/case-study scans. Screenshot overview reviewed. Tests start/stop their own local preview; no new persistent server was started.
+## Current state
+PORT-017 is IN_PROGRESS. Antigravity's PORT-016 flat comic-book layout has been replaced with an interactive 3D book experience that grows and reveals projects on scroll:
+- **3D book component** — realistic hardcover book using CSS 3D transforms with proper perspective
+- **Scroll-driven animations** — book starts small (60% scale), grows to full size as user scrolls, opens naturally
+- **Page-turn mechanics** — each of 4 project pages flips individually with smooth rotateY transforms based on scroll progress
+- **Front/back covers** — vintage hardcover styling with title, subtitle, edition on front; summary text on back
+- **Realistic spine** — vertical text, proper shadows and depth
+- **Project pages** — each page shows: illustration, category, title, summary quote, description, role, tech stack (4 items), action buttons, status
+- **"COMING SOON" stamps** on concept projects (NOTWO, Founder Versa)
+- **Reduced-motion fallback** — stacked card layout for users who prefer reduced motion
+- **Responsive** — optimized breakpoints for desktop, tablet, mobile (320px+)
 
-Next exact action: User review of updated content; if deployment is requested, continue RELEASE-001. No active implementation. Current Git baseline is 5fd598e (clasic comic); clean tree at start, now contains only PORT-008 source/tests/docs changes. No reset/discard/commit/publication.
+Technical implementation: `useScrollProgress` hook tracks scroll position (0-1), calculates book scale/rotation and individual page flip progress. Each page has its own z-index for proper stacking. Book uses CSS perspective (2500px) with transform-style: preserve-3d.
 
-## Latest milestone: PORT-009 (2026-11-20)
-User rejected the previous result, especially the work UI. Substantial work-section/case-study redesign is implemented and locally verified. Homepage project features are now horizontal editorial rows, with concise project story, role/stack/actions and a shared interactive ProductMap. Large illustrated poster cards are removed; small artwork strips retain the comic connection. Maps explicitly disclose that they are explanatory flows, not screenshots. Case routes have a new overview, fact card, sticky desktop chapter index, mobile wrapping chapter links, reading column, interactive map, capability list and context note. The repeated approach block is now one compact build note. Hero/finale remain unchanged.
+Existing routes, case-study pages, `id="work"` anchor, and all other sections unchanged.
 
-Files: src/App.jsx, new src/components/ProductMap.jsx, new src/work.css (imported after comic.css), tests/portfolio.spec.js and README/memory. Prior PORT-008 working changes preserved.
+## Files changed
+`src/components/Book3D.jsx` (new, replaces ComicBook), `src/book3d.css` (new, replaces comic-book.css), `src/App.jsx` (imports Book3D instead of FlipBook, imports book3d.css).
 
-Checks: lint/build and 8 API tests pass; 10 Playwright tests pass, including flow selections, chapter navigation/focus, next-project navigation, direct AI entry and existing features. Mobile/desktop/case-study axe scans zero violations; 320px CRM case has no horizontal overflow. Screenshots reviewed: test-results/adventure-projects.png, adventure-case-study.png, work-case-mobile.png.
+Superseded/unused: `ComicBook.jsx`, `comic-book.css`. Pre-existing lint errors remain in `FlipBook.jsx` (not touched).
 
-Next exact action: User review of revised work index and case-study pages via local Vite preview. No implementation in progress. Release credentials and production publishing remain separate. No new persistent preview was started; Playwright managed its own server. Git baseline 5fd598e; PORT-008 modifications existed at session start and were preserved. No commit/reset/discard/deployment.
+## Verification
+npm run build: PASSING (pre-existing 500KB chunk advisory unrelated to this work).
+npm run lint: 3 errors in pre-existing FlipBook.jsx (unused file, not caused by PORT-017).
+Dev server: running on port 5173.
 
-## Latest milestone: PORT-010 (2026-11-20)
-Marvel-style comic flipbook intro and GTA 6 / Vice City ambient synthwave audio implemented.
-- Added pure Web Audio engine `src/audio/audioEngine.js`: synthesizes 80s analog rolling synth bass, warm sunset pads, shimmering neon arpeggio, retro kick/snare pulse, comic page flutter SFX, and sub-bass logo impact. Zero external MP3 downloads or copyright issues.
-- Added cinematic Marvel-style comic flipbook bumper `src/components/MarvelIntro.jsx` and `src/intro.css`: accelerated panel flipping through project art, anamorphic letterboxing, vintage halftone/film grain, red Marvel-style logo box with metallic sweep and inner cutout animation. Includes Skip [ESC] controls, sessionStorage gating, and reduced-motion safeguards.
-- Added retro 80s car stereo tuner dock `src/components/ViceCityRadio.jsx` and `src/radio.css`: BGM play/pause, volume mute, animated HTML equalizer bars, WCAG AA compliant contrast (> 13:1), and one-click "INTRO" replay trigger.
-- Added intro replay triggers to navigation header and hero edition bar.
-- Verification: lint/build pass, 8 API tests pass, 11/11 Playwright tests pass (including dedicated intro and audio control specs with zero axe violations).
-- Next exact action: User visual and auditory review with `npm run dev`. No active implementation. Baseline 5fd598e with uncommitted PORT-008/009/010 working tree. No commit or deployment without user instruction.
+## Continuation
+Awaiting user visual review at http://localhost:5173/#work. Implementation complete but user reported "alignment and all are not good" - fixed duplicate JSX code, improved 3D positioning with proper cover/page/spine structure, enhanced CSS with better shadows/textures/spacing. Build now passes.
 
-## Latest milestone: PORT-011 (2026-11-20)
-DONE: Cinematic matched-art landing transition. Existing intro is a React/CSS comic sequence, not a bundled video. One deterministic timeline: montage → logo → decoded actual responsive hero shot → 1.8s camera settle to exact hero bounds → 350ms dissolve → staggered header/edition/headline/captions. Header and hero copy remain hidden until completion; background content/radio are inert during intro. Ordinary root loads automatically play every time; reduced-motion and hash/case deep links bypass. Existing replay/audio behavior remains. Resize exits safely because snapshot geometry becomes stale; failed/slow decoding is bounded and falls back to reveal.
-Changed: src/App.jsx, src/components/MarvelIntro.jsx, src/intro.css, tests/portfolio.spec.js; added tests/opening.spec.js; updated six memory files. No illustration assets changed.
-Verified: lint/build pass; 8 API tests; 14 scoped opening/portfolio Playwright cases, desktop/mobile actual crop alignment (<2px), focus/skip/scroll restoration, reload entry, reduced motion/deep links, existing interactions and axe zero violations. Inspected opening-match-1440.png and opening-reveal-390.png. Production main chunk has >500 KB advisory.
-Pre-existing working tree: untracked .vercel/ and tests/cinema.spec.js. Both preserved. The latter specifies a different invitation/sound API absent from baseline and is outside passing scoped suite. Other prior memory descriptions are historical; current source and this milestone supersede intro/session behavior.
-Next exact action: npm run dev for user visual review; optional Git checkpoint only if authorized. No active implementation, commit or deployment. Release/live-provider limitations remain.
+Next actions:
+1. User visual testing and feedback on scroll behavior, page layout, responsive breakpoints
+2. If approved: update tests (portfolio.spec.js selectors), mark PORT-017 DONE
+3. If adjustments needed: iterate on timing, positioning, or content layout
 
-## Latest milestone: PORT-012 (2026-11-20)
-DONE. User liked PORT-011 final handoff and asked for a more creative initial sequence with new character illustrations. Generated three red-shirt/curly-hair/sunglasses Sourav illustrations from the existing cover reference: idea/sketchbook, seated laptop build, walking with laptop. The opening now presents three readable 1.25s comic shots (paper, petrol blue, vermilion), a 0.6s three-panel spread, then 1.2s printed title. A bounded 1.2s decode prelude handles loading. PORT-011 final matched hero shot/1.8s settle/350ms dissolve and staggered navbar/copy are preserved. This remains browser animation of still illustrations, not model-generated continuous motion or a video asset.
-Changed this task: src/components/MarvelIntro.jsx, src/intro.css, tests/opening.spec.js, new scripts/prepare_intro_assets.py, assets/illustrations/intro/{source,alpha,qa,PROMPTS.md,MOTION-BRIEF.md}, public/illustrations/intro/*.webp, README and six .ai memory documents. Prior PORT-011 changes to App/portfolio tests remain intact.
-Pipeline: built-in image_gen; uniform magenta source → existing dominance-v2 keyer/despill → full-resolution alpha PNG → 1000×1500 desktop and 600×900 mobile WebP. Total new illustration transfer ~684 KiB desktop / 291 KiB mobile. Source/prompt provenance and encoded background matrix/report preserved; CSS owns all scene backgrounds and text. Run python3 scripts/prepare_intro_assets.py to rebuild.
-Verified: lint/build and eight API tests pass; 11 portfolio + five opening Playwright cases pass in scoped runs. Final five opening cases rerun after cleanup guard and screenshot refinements. Covers generated art loading, 320/390/1440 compositions, no small-phone text/face overlap, actual responsive final source/crop alignment <2px, slow art bound, resize/skip/inert/scroll cleanup, reload, reduced motion and deep links. Existing feature and axe checks pass. Reviewed actual encoded assets over four backgrounds, all character scenes, panel spread/title and final hero screenshots. git diff --check clean. Existing main chunk >500 KB advisory remains.
-Working tree: baseline 1dfb569. Prior modified PORT-011 source/docs and untracked .vercel/, tests/cinema.spec.js, tests/opening.spec.js preserved. Twelve public/character deletions were already present when this task started; did not restore them. The intro now uses independent new assets and no longer references deleted files. Retired CharacterSequence still refers to historical paths but is not in production import graph. tests/cinema.spec.js describes an unrelated unimplemented invitation/audio contract and is untouched/excluded from the passing scoped suite.
-Next exact action: npm run dev for user visual review of the new opening; optionally user-authorized Git checkpoint. No active implementation, commit or deployment. Existing release/live-service limitations unchanged.
-
-## Latest milestone: PORT-013 (2026-11-20)
-DONE locally; user artistic review pending. User rejected PORT-012's images/slide feel. Replaced it with four complete cinematic graphic-novel scenes from built-in image_gen: midnight keyboard, rain portrait, rain street and rooftop. Approved landing-cover identity/outfit reference; finer ink/paint style, amber/teal chiaroscuro and environments. No cutout poses or motivational captions in active sequence. Timeline: bounded 1.4s decode → 950/850/700/700ms art cuts → 1.5s perspective comic-sheet flight → 1.9s art-in-letter/silver title pullback → preserved PORT-011 matched hero settle/dissolve and staggered UI. CSS/browser animation of stills, not generated continuous video.
-Changed this revision: src/components/MarvelIntro.jsx, src/intro.css, src/comic.css (tablet fallback-font nav), src/radio.css (320px dock), tests/opening.spec.js, scripts/prepare_cinema_assets.py, assets/illustrations/cinema/{source,PROMPTS.md,DIRECTION.md,asset-report.json}, public/illustrations/cinema/*.webp, README and six memory files. Existing App/portfolio test changes and older asset pipelines preserved. Mobile picture sources and title animation variables both choose mobile assets. Failed/slow art switches through React state to decoded landing cover.
-Assets: 1536×1024 desktop / 1152×768 mobile opaque WebP; ~1.87 MiB desktop / 1.01 MiB mobile total. Sources and exact prompts preserved; deterministic compression only. Prior cutout source/alpha assets remain in assets/illustrations/intro but are unused.
-Verified: final lint/build, eight API tests and 16 scoped Playwright cases pass. Initial run exposed transient 768px navigation overflow before webfonts loaded; traced actual offending nav bounds and fixed tablet spacing, then full scoped suite passed. 320px radio overflow also fixed. New tests cover all four art loads, panel/title stages, mobile title bounds/absence of old captions, missing/slow art cover fallback, resize/skip/inert/scroll restore, reduced motion/deep links, actual final source/crop <2px and delayed UI; existing portfolio/axe checks pass. Reviewed desktop/mobile source/panel/title/landing screenshots and browser-recorded contact sheet. Recorded review artifact: ignored test-results/cinematic-opening-preview.mp4; original browser capture cinematic-opening.webm. Production does not depend on this recording. Existing >500 KB bundle advisory remains.
-Git: baseline 1dfb569; earlier uncommitted source/docs, twelve deleted public/character files, untracked .vercel/ and tests/cinema.spec.js preserved. Historical cinema invitation/audio tests target a different absent contract and remain excluded from scoped verification. No reset, commit or deployment.
-Next exact action: user reviews the recorded preview or runs npm run dev to inspect live entry. No active implementation; previous PORT-012 visual direction is superseded. Existing release/live-provider limitations unchanged.
-Local review server is currently running at http://127.0.0.1:5173 (started for this revision; exec session 94680). The recorded MP4 is also available for review. Stop that server before starting another instance if the port is occupied.
-
-## Latest milestone: PORT-014 (2026-11-20)
-DONE. User approved the remaining opening and requested SOURAV instead of SOURAV O in the cinematic title. Updated both studio-name/studio-art-name text layers in src/components/MarvelIntro.jsx and the prelude monogram to S. Artwork, CSS, timings, effects and matched landing transition unchanged. Historical source prompts/naming records preserved.
-Verified production build, existing small-phone title browser case (passes at 320px), exact source text and git diff --check. Existing bundle advisory unchanged. Updated TASKS/PROJECT/CHANGELOG/HANDOFF. All prior working changes/deletions preserved; no commit/deployment. Next action: live preview visual review if desired; no active implementation. Prior recorded MP4 predates this text correction; live site/current title screenshot reflects SOURAV.
-
-## Latest milestone: PORT-015 (2026-11-20)
-DONE. User requested Sourav, without trailing O, everywhere in the site. Updated src/App.jsx (header/footer/route metadata), src/components/AdventureHero.jsx (collection/kicker/credit), src/data/portfolio.js (shared profile), server/chat.js (assistant identity), index.html, public/social-preview.svg and README. Existing intro already says SOURAV. Active project naming rule updated in PROJECT.md; historical artwork prompts/memory remain provenance records. Existing email/contact identifiers unchanged; raster social preview has no text and needs no alteration.
-Verified production build, eight API tests, existing homepage navigation Playwright case and git diff --check. Scan confirms no old-name occurrences in current src/server/api/public/index/README content. Existing main-chunk advisory unchanged. No new tests needed for text-only correction.
-Git baseline 5a9f7f3; preserved/completed user edit already present in src/App.jsx. Current tree contains this task's source/docs changes. No commit/deployment. Next action: optional visual review; no active work remaining.
+## Git state
+Baseline 5a9f7f3. Current working tree contains all PORT-017 changes plus all prior uncommitted PORT-007–016 work. No commit/deployment performed. Recommend a git checkpoint after user visual approval.

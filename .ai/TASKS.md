@@ -196,3 +196,32 @@ Startup: Baseline 5a9f7f3, with an existing user edit shortening the case title 
 Completed: Updated current frontend/shared profile, route titles/descriptions, HTML/social metadata, SVG preview, assistant context and README. Preserved the existing user case-title edit and removed its trailing space. No artwork/animation/contact identifier changes.
 Verification: Build passes (existing chunk advisory); eight API tests and homepage navigation Playwright case pass; exact-name scan across runtime/public/README finds no old-name occurrences; git diff --check passes.
 Remaining: None. Memory synchronized; no commit/deployment.
+
+## PORT-016 — Comic book project showcase
+Status: DONE
+Date: 2026-11-20
+Objective: Replace the flat work-section cards and concept accordion with a full-bleed comic-book experience: each project is a physical comic page with halftone textures, inked panel borders, speech-bubble callouts, action captions, and a scroll-triggered page-flip reveal.
+Acceptance: All 4 projects shown as comic pages; existing case-study routes preserved; `id="work"` anchor preserved; lint/build pass; 11/11 Playwright tests pass; mobile + reduced-motion verified.
+Completed: Created src/components/ComicBook.jsx and src/comic-book.css. Removed old Work() function from App.jsx. Updated 4 stale Playwright selectors to match new comic-book DOM. No artwork generation needed; existing WebP illustrations reused.
+Verification: npm run lint clean; npm run build clean (pre-existing 500KB advisory only); npx playwright test tests/portfolio.spec.js → 11/11 passed.
+Remaining: User visual review at http://localhost:5174; no further implementation.
+
+## PORT-017 — Replace flat comic-book layout with interactive 3D book
+Status: DONE — completed through the PORT-018 rebuild (earlier implementation superseded)
+Date: 2026-11-20
+Objective: Replace Antigravity's flat comic-book layout (PORT-016) with a proper interactive 3D book that starts small, grows on scroll, opens naturally, and turns pages to reveal each project with small explanations. Use CSS 3D transforms for realistic book appearance and smooth scroll-driven page-flip animations.
+Acceptance: Realistic 3D book with front/back hardcover; book starts small and grows on scroll; individual page-turn animations for each of 4 projects; each page shows project art, title, summary, description, role, tech stack, buttons; reduced-motion fallback; responsive 320-1440px; build/lint verification; preserved routes and #work anchor; synchronized memory.
+Completed: Created Book3D.jsx with useScrollProgress hook, BookCover and BookPage components. Book uses CSS perspective (2500px), transform-style: preserve-3d, individual page rotateY transforms (0-180deg) based on scroll progress. Each page has z-index for proper stacking. Created book3d.css with vintage hardcover styling, realistic spine, page textures, shadows, responsive breakpoints. Updated App.jsx to import Book3D instead of FlipBook. Fixed duplicate JSX code and improved 3D positioning with proper left cover, stacked pages, right cover, spine structure.
+Verification: npm run build PASSING (pre-existing 500KB chunk advisory unrelated). Dev server running on port 5173. Pre-existing FlipBook.jsx lint errors (unused file, not caused by this work).
+Remaining: User visual review and feedback at http://localhost:5173/#work. If approved, update Playwright tests (portfolio.spec.js) to match new Book3D selectors and mark DONE.
+
+## PORT-018 — Readable scroll-pinned comic book on a table
+Status: DONE
+Date: 2026-11-20
+Objective: Rebuild the rejected work UI as a physical comic that lifts toward the reader, opens, and turns through project spreads as the section stays pinned.
+Acceptance: Closed-cover arrival, scroll-linked tilt/opening, four readable two-page spreads with story left and illustration/workflow right, reading holds between turns, working chapter/previous/next navigation, preserved facts/routes/anchors, mobile and reduced-motion reading layouts, browser verification and synchronized memory.
+Startup: Existing uncommitted App/Book3D/ComicBook/FlipBook/test/memory changes preserved. PORT-017 is superseded by this rebuild; historical implementation notes retained.
+
+Completed PORT-018: Rebuilt Book3D.jsx and book3d.css using Motion useScroll and native CSS 3D transforms. Closed illustrated cover on a drawing table lifts/tilts toward the reader, opens into story-left/art-right spreads, holds between three two-sided leaf turns, then releases the sticky section. Four chapter buttons and previous/next controls jump to readable holds. Actual project statuses/facts and case routes retained; #concepts deep links open NOTWO on desktop. Phone/tablet <=1000px, short viewports <=600px high, and reduced motion use stacked readable spreads. Existing illustrations reused; no video, WebGL or new dependency. Removed false coming-soon/shipped implications. Repaired lint issues in the preserved inactive FlipBook component, updated stale work selectors, and added five focused book browser tests.
+Verification: npm run lint PASS; npm run build PASS (existing >500KB chunk advisory); npm test 8/8 PASS; npx playwright test tests/book.spec.js tests/portfolio.spec.js tests/opening.spec.js --workers=2: 21/21 PASS. Browser checks include pin/open/hold/forward/reverse/release, desktop chapter navigation and links, all-spread text fit at 1280x720, 320/390/768/820/1440 reading layouts, desktop/mobile/reduced-motion axe scans and concept deep link. Visually reviewed closed/open/CRM/turn/phone captures. git diff --check PASS.
+Remaining: No requested implementation outstanding. Existing tests/cinema.spec.js still targets the retired invitation/audio UI and fails; full-suite attempt was interrupted after confirming stale selectors. The current five opening tests pass. This unrelated legacy test cleanup remains separate. No commit/deployment; user visual feedback can guide further art direction.

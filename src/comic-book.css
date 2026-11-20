@@ -1,0 +1,602 @@
+/* ═══════════════════════════════════════════════════════════
+   Comic Book Project Showcase — comic-book.css
+   Standalone stylesheet; does NOT modify comic.css (intro),
+   work.css (case studies) or index.css.
+   ═══════════════════════════════════════════════════════════ */
+
+/* ── Design tokens ──────────────────────────────────────────── */
+.cb-section {
+  --cb-ink:        #18140f;
+  --cb-paper:      #fff9ec;
+  --cb-panel-bg:   #f5eddc;
+  --cb-amber:      #f5c518;
+  --cb-border:     3px solid var(--cb-ink);
+  --cb-border-fat: 4px solid var(--cb-ink);
+  --cb-radius:     0px;
+  --cb-accent:     hsl(var(--page-accent-h, 38) var(--page-accent-s, 90%) var(--page-accent-l, 52%));
+  --cb-shadow:     6px 6px 0 var(--cb-ink);
+  --cb-font-bang:  'Bangers', 'Comic Neue', cursive;
+  --cb-font-body:  'Geist Variable', sans-serif;
+  --cb-font-mono:  'Geist Mono Variable', monospace;
+}
+
+/* ── Section wrapper ─────────────────────────────────────────── */
+.cb-section {
+  background: var(--bg);
+  padding: 0 0 80px;
+  position: relative;
+}
+
+/* ── Shared page base ────────────────────────────────────────── */
+.cb-page {
+  position: relative;
+  background: var(--cb-paper);
+  border: var(--cb-border-fat);
+  box-shadow: var(--cb-shadow);
+  margin: 56px var(--outer, 40px);
+  overflow: hidden;
+  /* Page-flip reveal — rotates in from spine edge */
+  transform-origin: left center;
+  perspective: 1200px;
+  opacity: 0;
+  transform: perspective(1200px) rotateY(14deg) scale(0.97);
+  transition:
+    transform 0.65s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity   0.5s ease;
+}
+.cb-page.is-visible {
+  opacity: 1;
+  transform: perspective(1200px) rotateY(0deg) scale(1);
+}
+@media (prefers-reduced-motion: reduce) {
+  .cb-page { transition: none; opacity: 1; transform: none; }
+}
+
+/* ── Halftone dot overlay ────────────────────────────────────── */
+.cb-halftone {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle, #00000015 1px, transparent 1px);
+  background-size: 7px 7px;
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   ISSUE COVER
+   ═══════════════════════════════════════════════════════════ */
+.cb-issue-cover {
+  display: grid;
+  grid-template-columns: 1fr 1.15fr;
+  min-height: 520px;
+}
+
+/* Cover art panel */
+.cb-cover-art {
+  position: relative;
+  border-right: var(--cb-border-fat);
+  overflow: hidden;
+  background: var(--cb-ink);
+}
+.cb-cover-art img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 20%;
+  display: block;
+  filter: sepia(0.3) contrast(1.1);
+}
+.cb-cover-corner {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: var(--cb-ink);
+  color: var(--cb-amber);
+  font-family: var(--cb-font-bang);
+  font-size: 11px;
+  letter-spacing: 2.5px;
+  padding: 8px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  z-index: 3;
+}
+
+/* Cover copy panel */
+.cb-cover-copy {
+  display: flex;
+  flex-direction: column;
+  padding: 36px 36px 32px;
+  background: var(--cb-paper);
+  position: relative;
+}
+.cb-publisher {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: 0 0 20px;
+}
+.cb-issue-num {
+  font-family: var(--cb-font-bang);
+  font-size: 13px;
+  letter-spacing: 2px;
+  background: var(--cb-ink);
+  color: var(--cb-amber);
+  padding: 4px 10px;
+}
+.cb-issue-year {
+  font-family: var(--cb-font-mono);
+  font-size: 11px;
+  color: var(--muted);
+  letter-spacing: 1px;
+}
+.cb-cover-title {
+  font-family: var(--cb-font-bang);
+  font-size: clamp(64px, 7vw, 110px);
+  line-height: 0.95;
+  letter-spacing: 0.03em;
+  margin: 0 0 20px;
+  color: var(--cb-ink);
+}
+.cb-cover-title span { color: var(--accent); }
+
+.cb-cover-deck {
+  font-size: 16px;
+  line-height: 1.65;
+  color: var(--muted);
+  max-width: 400px;
+  margin: 0 0 auto;
+}
+.cb-cover-stats {
+  display: flex;
+  gap: 28px;
+  margin: 28px 0 20px;
+}
+.cb-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.cb-stat strong {
+  font-family: var(--cb-font-bang);
+  font-size: 28px;
+  letter-spacing: 0.04em;
+  line-height: 1;
+  color: var(--cb-ink);
+}
+.cb-stat span {
+  font-family: var(--cb-font-mono);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--muted);
+}
+.cb-cover-caption {
+  margin-top: 4px;
+  align-self: flex-start;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   PROJECT PAGE
+   ═══════════════════════════════════════════════════════════ */
+.cb-project-page {
+  display: grid;
+  /* art | story | cta */
+  grid-template-columns: 280px 1fr 260px;
+  grid-template-rows: 1fr;
+  min-height: 440px;
+}
+
+/* Page number gutter */
+.cb-page-gutter {
+  display: none; /* shown at wider viewports via grid trick */
+}
+
+/* ── Shared panel base ───────────────────────────────────────── */
+.cb-panel {
+  position: relative;
+  overflow: hidden;
+}
+.cb-panel + .cb-panel {
+  border-left: var(--cb-border);
+}
+.cb-panel-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  height: 100%;
+  padding: 28px 26px;
+}
+
+/* ── Panel 1 — Art ───────────────────────────────────────────── */
+.cb-panel-art {
+  background: var(--cb-ink);
+}
+.cb-panel-art img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 25%;
+  display: block;
+  filter: sepia(0.25) contrast(1.08);
+}
+.cb-panel-label {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 3;
+  background: var(--cb-ink);
+  color: var(--cb-amber);
+  font-family: var(--cb-font-bang);
+  font-size: 10px;
+  letter-spacing: 2px;
+  padding: 6px 12px;
+}
+
+/* ── Concept stamp ───────────────────────────────────────────── */
+.cb-concept-stamp {
+  position: absolute;
+  top: 14px;
+  right: -6px;
+  background: var(--accent);
+  color: #fff;
+  font-family: var(--cb-font-bang);
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  line-height: 1.4;
+  padding: 7px 14px;
+  transform: rotate(3deg);
+  border: 2px solid var(--cb-ink);
+  box-shadow: 3px 3px 0 var(--cb-ink);
+  text-align: center;
+  z-index: 4;
+}
+
+/* ── Panel 2 — Story ─────────────────────────────────────────── */
+.cb-panel-story { background: var(--cb-paper); }
+
+.cb-eyebrow {
+  font-family: var(--cb-font-mono);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--muted);
+  margin: 0 0 10px;
+}
+.cb-project-name {
+  font-family: var(--cb-font-bang);
+  font-size: clamp(38px, 4vw, 58px);
+  line-height: 0.98;
+  letter-spacing: 0.03em;
+  margin: 0 0 18px;
+  color: var(--cb-ink);
+}
+
+/* Speech bubble */
+.cb-speech {
+  position: relative;
+  background: var(--cb-paper);
+  border: var(--cb-border);
+  border-radius: 20px 20px 20px 4px;
+  padding: 14px 18px;
+  margin: 0 0 18px;
+  width: 100%;
+  box-shadow: 3px 3px 0 var(--cb-ink);
+}
+.cb-speech::before {
+  /* Tail */
+  content: '';
+  position: absolute;
+  bottom: -16px;
+  left: 22px;
+  border: 8px solid transparent;
+  border-top-color: var(--cb-ink);
+}
+.cb-speech::after {
+  content: '';
+  position: absolute;
+  bottom: -11px;
+  left: 24px;
+  border: 6px solid transparent;
+  border-top-color: var(--cb-paper);
+}
+.cb-speech p {
+  font-family: 'Comic Neue', 'Comic Sans MS', cursive;
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.4;
+  margin: 0;
+  color: var(--cb-ink);
+}
+
+.cb-description {
+  font-size: 14px;
+  line-height: 1.65;
+  color: var(--muted);
+  margin: 0 0 auto;
+  max-width: 400px;
+}
+
+/* Role block */
+.cb-role-block {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  margin-top: 18px;
+  border-left: 3px solid var(--cb-accent);
+  padding-left: 12px;
+}
+.cb-role-label {
+  font-family: var(--cb-font-mono);
+  font-size: 9px;
+  letter-spacing: 1.2px;
+  color: var(--muted);
+  text-transform: uppercase;
+}
+.cb-role-value {
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--cb-ink);
+}
+
+/* Stack tags */
+.cb-stack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 10px;
+  margin-top: 14px;
+}
+.cb-tag {
+  font-family: var(--cb-font-mono);
+  font-size: 10px;
+  letter-spacing: 0.5px;
+  color: var(--muted);
+  border: 1px solid var(--line);
+  padding: 3px 8px;
+  background: var(--cb-panel-bg);
+}
+
+/* Action caption strip */
+.cb-action-caption {
+  display: inline-block;
+  background: var(--cb-amber);
+  border: 2px solid var(--cb-ink);
+  font-family: var(--cb-font-bang);
+  font-size: 11px;
+  letter-spacing: 2px;
+  padding: 5px 12px;
+  transform: rotate(-1deg);
+  box-shadow: 2px 2px 0 var(--cb-ink);
+  margin-top: 16px;
+  color: var(--cb-ink);
+}
+
+/* ── Panel 3 — CTA ───────────────────────────────────────────── */
+.cb-panel-cta {
+  background: var(--cb-panel-bg);
+  border-left: var(--cb-border-fat);
+}
+.cb-panel-cta .cb-panel-inner {
+  gap: 14px;
+  justify-content: center;
+}
+.cb-cta-prompt {
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--muted);
+  margin: 0;
+}
+.cb-concept-note {
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--muted);
+  margin: 0;
+  font-style: italic;
+}
+
+/* Buttons */
+.cb-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 11px 18px;
+  border: 2px solid var(--cb-ink);
+  box-shadow: 3px 3px 0 var(--cb-ink);
+  cursor: pointer;
+  transition: transform 0.15s, box-shadow 0.15s;
+  text-decoration: none;
+  color: var(--cb-ink);
+}
+.cb-btn:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 5px 5px 0 var(--cb-ink);
+}
+.cb-btn:active {
+  transform: translate(1px, 1px);
+  box-shadow: 1px 1px 0 var(--cb-ink);
+}
+.cb-btn-primary {
+  background: var(--cb-ink);
+  color: var(--cb-paper);
+}
+.cb-btn-primary:hover { background: var(--accent); border-color: var(--accent); color: #fff; }
+.cb-btn-secondary { background: var(--cb-paper); }
+.cb-btn-ghost {
+  background: transparent;
+  border-color: var(--line);
+  box-shadow: none;
+  color: var(--muted);
+}
+.cb-btn-ghost:hover {
+  border-color: var(--cb-ink);
+  color: var(--cb-ink);
+  box-shadow: 3px 3px 0 var(--cb-ink);
+}
+
+/* Flow tags */
+.cb-flow {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin-top: 10px;
+  width: 100%;
+}
+.cb-flow-step {
+  font-family: var(--cb-font-mono);
+  font-size: 10px;
+  letter-spacing: 0.5px;
+  color: var(--muted);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.cb-flow-arrow {
+  color: var(--accent);
+  font-size: 12px;
+}
+
+/* Next-issue teaser text */
+.cb-next-issue-teaser {
+  margin-top: auto;
+  font-family: var(--cb-font-bang);
+  font-size: 20px;
+  letter-spacing: 2px;
+  color: var(--line);
+  line-height: 1.3;
+  border-top: 2px dashed var(--line);
+  padding-top: 14px;
+  width: 100%;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   BACK COVER
+   ═══════════════════════════════════════════════════════════ */
+.cb-back-cover {
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  min-height: 400px;
+  background: var(--cb-ink);
+  color: var(--cb-paper);
+}
+.cb-back-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 44px 40px;
+}
+.cb-back-caption {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--cb-paper);
+}
+.cb-back-title {
+  font-family: var(--cb-font-bang);
+  font-size: clamp(44px, 5vw, 76px);
+  line-height: 0.98;
+  letter-spacing: 0.03em;
+  margin: 0;
+  color: var(--cb-paper);
+}
+.cb-back-title span { color: var(--cb-amber); }
+.cb-back-deck {
+  font-size: 15px;
+  line-height: 1.65;
+  color: #c4b8a4;
+  max-width: 380px;
+  margin: 0;
+}
+.cb-back-cover .cb-btn-primary {
+  background: var(--cb-amber);
+  border-color: var(--cb-amber);
+  color: var(--cb-ink);
+}
+.cb-back-cover .cb-btn-primary:hover {
+  background: #fff;
+  border-color: #fff;
+}
+.cb-back-cover .cb-btn-ghost {
+  color: #c4b8a4;
+  border-color: #c4b8a4;
+}
+.cb-back-cover .cb-btn-ghost:hover {
+  color: var(--cb-paper);
+  border-color: var(--cb-paper);
+  box-shadow: 3px 3px 0 var(--cb-paper);
+}
+.cb-back-art {
+  position: relative;
+  border-left: var(--cb-border-fat);
+  overflow: hidden;
+}
+.cb-back-art img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 25%;
+  display: block;
+  filter: sepia(0.6) brightness(0.65) contrast(1.1);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   RESPONSIVE
+   ═══════════════════════════════════════════════════════════ */
+
+/* ── Tablet ≤ 1024px ─────────────────────────────────────────── */
+@media (max-width: 1024px) {
+  .cb-page { margin: 44px 24px; }
+  .cb-issue-cover { grid-template-columns: 1fr 1fr; min-height: 440px; }
+  .cb-cover-title { font-size: 72px; }
+  .cb-project-page {
+    grid-template-columns: 220px 1fr 220px;
+    min-height: 400px;
+  }
+  .cb-project-name { font-size: 40px; }
+}
+
+/* ── Mobile ≤ 768px — stack all panels vertically ───────────── */
+@media (max-width: 768px) {
+  .cb-page { margin: 32px 16px; box-shadow: 4px 4px 0 var(--cb-ink); }
+
+  /* Issue cover: image on top, copy below */
+  .cb-issue-cover { grid-template-columns: 1fr; }
+  .cb-cover-art { border-right: none; border-bottom: var(--cb-border-fat); min-height: 220px; }
+  .cb-cover-copy { padding: 24px 20px; }
+  .cb-cover-title { font-size: 58px; }
+  .cb-cover-stats { gap: 20px; }
+  .cb-stat strong { font-size: 22px; }
+
+  /* Project page: art | story stacked, cta below both */
+  .cb-project-page {
+    grid-template-columns: 1fr;
+    grid-template-rows: 200px auto auto;
+  }
+  .cb-panel-art { min-height: 200px; }
+  .cb-panel + .cb-panel { border-left: none; border-top: var(--cb-border); }
+  .cb-panel-cta { border-left: none; border-top: var(--cb-border-fat); }
+  .cb-project-name { font-size: 38px; }
+
+  /* Back cover: stacked */
+  .cb-back-cover { grid-template-columns: 1fr; }
+  .cb-back-art { border-left: none; border-top: var(--cb-border-fat); min-height: 180px; }
+  .cb-back-inner { padding: 28px 20px; }
+  .cb-back-title { font-size: 48px; }
+}
+
+/* ── Narrow ≤ 420px ──────────────────────────────────────────── */
+@media (max-width: 420px) {
+  .cb-page { margin: 24px 12px; }
+  .cb-cover-title { font-size: 48px; }
+  .cb-project-name { font-size: 32px; }
+  .cb-cover-stats { flex-wrap: wrap; gap: 14px; }
+  .cb-panel-inner { padding: 20px 16px; }
+  .cb-cover-copy { padding: 20px 16px; }
+  .cb-back-inner { padding: 20px 16px; }
+  .cb-back-title { font-size: 40px; }
+  .cb-btn { font-size: 12px; padding: 10px 14px; }
+}
