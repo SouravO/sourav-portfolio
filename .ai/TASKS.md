@@ -244,3 +244,6 @@ PORT-020 completed. The compact project book uses a portrait spiral notebook wit
 DONE. Bend each moving leaf around the binding on both layouts, eliminate the mid-turn content swap and animate page controls.
 
 PORT-021. Desktop leaves bend along the spine and compact leaves curl over the top rings. Five connected CSS strips carry aligned slices of each printed face. Eased rotation and shading follow scroll in either direction. The underlying desktop story changes upon landing. Page controls animate the scroll. Lint and build passed. Book suite exercised desktop, mobile, navigation and reduced motion.
+
+## PORT-022 — Continuous page landing
+DONE. Eliminated the per-page-turn flash by reordering the updateScene function so CSS custom properties (--turn-angle, --bend, --shade, --lift, --cover-angle, --cover-visibility) are written to bookRef BEFORE flushSync commits the React state change. This ensures the folio-turn div always mounts with the correct angle already on the element, and no intermediate 0° snap is painted. Additionally, when a page finishes landing (turn drops to 0 while currentScene.turning was true), --turn-angle is parked at -180deg so the outgoing sheet disappears behind the spread instead of snapping upright before unmounting. Artwork preload IntersectionObserver (from PORT-022 Codex partial) retained. Lint and build pass.

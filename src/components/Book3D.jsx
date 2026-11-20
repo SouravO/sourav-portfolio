@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useRef, useState, useSyncExternalStore } from 'react'
+import { flushSync } from 'react-dom'
 import { useScroll, useMotionValueEvent } from 'motion/react'
 import { Link, useLocation } from 'react-router-dom'
 import { ArrowDown, ArrowRight, CaretLeft, CaretRight, Globe } from '@phosphor-icons/react'
@@ -87,6 +88,7 @@ export default function Book3D() {
   const sectionRef = useRef(null)
   const bookRef = useRef(null)
   const [scene, setScene] = useState({ page: 0, index: 0, turning: false, open: false })
+  const currentScene = useRef(scene)
   const { scrollYProgress } = useScroll({ target: sectionRef, offset: ['start start', 'end end'] })
 
   const updateScene = useCallback((value) => {
@@ -97,17 +99,43 @@ export default function Book3D() {
     const fraction = chapter - page
     const phase = page < count - 1 ? clamp((fraction - .64) / .36) : 0
     const turn = phase * phase * (3 - 2 * phase)
+    const next = { page, index, turning: turn > 0 && turn < 1, open: opening > .64 }
+    // Write CSS vars first so they are correct on the same paint as any React commit.
     if (bookRef.current) {
       bookRef.current.style.setProperty('--lift', opening)
       bookRef.current.style.setProperty('--cover-visibility', opening >= 1 ? 'hidden' : 'visible')
       bookRef.current.style.setProperty('--cover-angle', `${-180 * clamp((opening - .25) / .75)}deg`)
       bookRef.current.style.setProperty('--bend', `${Math.sin(Math.PI * turn) * 9}deg`)
       bookRef.current.style.setProperty('--shade', Math.sin(Math.PI * turn))
-      bookRef.current.style.setProperty('--turn-angle', `${-180 * turn}deg`)
+      // When a page lands (turn just finished), park the sheet fully flipped so it
+      // disappears behind the spread rather than snapping back to 0° before unmounting.
+      const wasturning = currentScene.current.turning
+      bookRef.current.style.setProperty('--turn-angle', turn === 0 && wasturning ? '-180deg' : `${-180 * turn}deg`)
     }
-    const next = { page, index, turning: turn > 0 && turn < 1, open: opening > .64 }
-    setScene(prev => Object.keys(next).every(key => prev[key] === next[key]) ? prev : next)
+    if (Object.keys(next).some(key => currentScene.current[key] !== next[key])) {
+      // Commit face swap in the same frame as the CSS variable that drove it.
+      currentScene.current = next
+      flushSync(() => setScene(next))
+    }
   }, [compact, count])
+  useEffect(() => {
+    const images = []
+    const observer = new IntersectionObserver(([entry]) => {
+      if (!entry.isIntersecting) return
+      observer.disconnect()
+      for (const src of Object.values(artwork)) {
+        const image = new Image()
+        image.src = src
+        images.push(image)
+        image.decode().catch(() => {}) // The visible image can retry normally.
+      }
+    }, { rootMargin: '100% 0px' })
+    observer.observe(sectionRef.current)
+    return () => {
+      observer.disconnect()
+      images.length = 0
+    }
+  }, [])
   useMotionValueEvent(scrollYProgress, 'change', updateScene)
   useEffect(() => {
     const frame = requestAnimationFrame(() => updateScene(scrollYProgress.get()))
