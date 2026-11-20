@@ -41,7 +41,7 @@ class SoundScapeEngine {
     }
 
     if (this.ctx.state === 'suspended') {
-      this.ctx.resume()
+      this.ctx.resume().catch(() => {})
     }
     return this.ctx
   }
@@ -169,6 +169,7 @@ class SoundScapeEngine {
     const ctx = this.ensureContext()
     if (!ctx || this.isPlayingBgm) return
 
+    this.bgmGain.gain.setValueAtTime(0.5, ctx.currentTime)
     this.isPlayingBgm = true
     this.step = 0
     this.notify('bgm_state', { isPlaying: true })
@@ -337,11 +338,17 @@ class SoundScapeEngine {
 
   stopBgm() {
     this.isPlayingBgm = false
+    if (this.bgmGain && this.ctx) this.bgmGain.gain.setValueAtTime(0, this.ctx.currentTime)
     if (this.timerId) {
       clearTimeout(this.timerId)
       this.timerId = null
     }
     this.notify('bgm_state', { isPlaying: false })
+  }
+
+  stopAll() {
+    this.stopBgm()
+    if (this.ctx?.state === 'running') this.ctx.suspend().catch(() => {})
   }
 
   toggleBgm() {

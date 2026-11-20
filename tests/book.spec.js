@@ -158,3 +158,53 @@ test('phone touch controls open the book, turn a leaf and follow a case link', a
   await expect(page).toHaveURL(/work\/check-your-deals/)
   await context.close()
 })
+
+for (const width of [1440, 390]) {
+  test(`prepared ${width}px book faces survive continuous forward and reverse scrolling`, async ({ page }) => {
+    await page.setViewportSize({ width, height: 900 })
+    await page.goto('/#work')
+    await page.getByRole('button', { name: '01 CYD' }).click()
+    await page.locator('.folio-book').evaluate(async book => {
+      await Promise.all([...book.querySelectorAll('img')].map(img => img.decode().catch(() => {})))
+    })
+    const artworkRequests = []
+    page.on('request', request => { if (/\/illustrations\/(deals|crm|cover|workshop)\.webp(?:\?|$)/.test(request.url())) artworkRequests.push(request.url()) })
+    const result = await page.locator('.folio-book').evaluate(async book => {
+      const surfaces = [...book.querySelectorAll('[data-story], [data-art], [data-leaf], [data-turn]')]
+      let rebuilt = 0
+      let invalidFrames = 0
+      const observer = new MutationObserver(records => { rebuilt += records.filter(record => record.type === 'childList').length })
+      surfaces.forEach(surface => observer.observe(surface, { childList: true, subtree: true }))
+      const section = document.querySelector('#work')
+      const start = section.getBoundingClientRect().top + scrollY
+      const distance = section.offsetHeight - innerHeight
+      for (const direction of [1, -1]) {
+        for (let i = 0; i <= 70; i++) {
+          const progress = .23 + .7 * (direction === 1 ? i / 70 : 1 - i / 70)
+          window.scrollTo({ top: start + progress * distance, behavior: 'instant' })
+          await new Promise(requestAnimationFrame)
+          const visible = surfaces.filter(surface => !surface.hidden)
+          const turns = visible.filter(surface => surface.dataset.turn !== undefined)
+          const faces = visible.filter(surface => surface.dataset.turn === undefined)
+          if (faces.length !== (book.dataset.compact === 'true' ? 1 : 2) || turns.length > 1 || turns.some(surface => Number(surface.dataset.turn) !== Number(book.dataset.page))) invalidFrames++
+        }
+      }
+      await new Promise(resolve => setTimeout(resolve, 160))
+      observer.disconnect()
+      return { rebuilt, invalidFrames, connected: surfaces.every(surface => surface.isConnected), page: Number(book.dataset.page), angle: parseFloat(book.style.getPropertyValue('--turn-angle')) }
+    })
+    expect(result).toEqual({ rebuilt: 0, invalidFrames: 0, connected: true, page: 0, angle: 0 })
+    expect(artworkRequests).toEqual([])
+    await page.locator('.folio-sticky').screenshot({ path: `test-results/book-stable-${width}.png` })
+  })
+}
+
+test('unavailable artwork keeps paper and story content usable', async ({ page }) => {
+  await page.route('**/illustrations/deals.webp', route => route.abort())
+  await page.goto('/#work')
+  await page.getByRole('button', { name: '01 CYD' }).click()
+  await expect(page.locator('.folio-left h3')).toHaveText('Check Your Deals')
+  await expect(page.locator('.folio-paper-bed')).toBeVisible()
+  await page.getByRole('button', { name: '02 DAY ONE' }).click()
+  await expect(page.locator('.folio-left h3')).toHaveText('Day One CRM')
+})

@@ -116,3 +116,15 @@ PORT-021. Desktop leaves bend along the spine and compact leaves curl over the t
 - Added /projects illustrated comic archive with four project stories, accessible filters, expandable scope, evidence links and contact CTA.
 - Added navigation/home book entry points, page metadata, active nav state and direct-route Vercel rewrite.
 - Lint/build, 9 portfolio and 2 archive browser tests pass; responsive and desktop/mobile axe checks pass; screenshots reviewed. Existing bundle advisory remains. No commit/deployment.
+
+
+## 2026-11-21 — PORT-037
+- Restricted soundtrack and controls to cinematic intro; removed persistent landing player.
+- Show original synthwave/106 BPM details; stop music scheduler and suspend audio on completion/skip/cleanup.
+- Made intro controls keyboard reachable; preserved mute state on replay. Lint/build and all 14 opening/portfolio checks pass across scoped runs, including natural completion/audio shutdown and control axe scan. Existing bundle advisory remains; no deployment.
+
+
+## 2026-11-21 — PORT-038
+- Removed book-turn lag and boundary remounting with persistent prepared faces, synchronized geometry/visibility, consistent short scroll smoothing and stale-frame cleanup on jumps/resize.
+- Retained desktop/spiral motion, artwork, chapter controls, accessibility and reduced-motion reading.
+- Lint/build and all 20 book/portfolio tests pass, including new desktop/phone continuous-scroll stability, no additional book-art requests and unavailable-art checks. Reviewed recorded boundary captures and verified resizing/chapter jumps. Existing bundle advisory remains. No commit/deployment.

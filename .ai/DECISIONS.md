@@ -100,3 +100,14 @@ PORT-020 completed. The compact project book uses a portrait spiral notebook wit
 - Implement requested separate creative projects page as a comic publisher archive matching existing art and typography; retain homepage book.
 - Showcase all four documented projects from shared data, with built/live and concept filters, always visible status labels and proposed-versus-shipped disclosures. Concepts expand inline; existing built-project case-study routes remain. No invented achievements or product screenshots.
 - Work in current local repository and existing Vercel setup. Preserve unrelated untracked Strengths.jsx/Strengths.css without restoring removed homepage integration.
+
+
+## 2026-11-21 — PORT-037
+- User requested music only during introduction with music details visible, stopping on landing. Move existing player into intro rather than retaining an inactive global dock.
+- Label procedural music accurately as original synthwave at 106 BPM rather than a GTA recording. Retain play/pause/mute and user mute preference on replay. Suspend all audio on every intro exit, including skip/resize/unmount.
+
+
+## 2026-11-21 — PORT-038
+- User reported both pauses and flashes after book turns on desktop/mobile; preserve approved visual design and fix render/scroll mechanics.
+- Prepare all four desktop spreads/eight compact leaves and decorative turn surfaces once per layout. Accept a bounded increase in initial DOM to eliminate five-strip remount/decode work during page transitions. Hidden surfaces remain inert and accessibility-hidden.
+- Drive visible surfaces and geometry synchronously in the animation frame, with React reserved for chapter/status UI. Replace special turn throttling with consistent short smoothing; large scroll jumps settle immediately. Preserve existing art preload and paper fallback without gating navigation on asset success.

@@ -10,6 +10,8 @@ for (const width of [1440, 390]) {
     await expect(page.locator('.site-shell')).toHaveAttribute('inert', '')
     await expect(page.getByRole('button', { name: 'Skip cinematic introduction' })).toBeFocused()
     await page.keyboard.press('Tab')
+    await expect(page.getByRole('button', { name: 'Pause intro music' })).toBeFocused()
+    await page.keyboard.press('Shift+Tab')
     await expect(page.getByRole('button', { name: 'Skip cinematic introduction' })).toBeFocused()
     await expect(dialog).toHaveClass(/phase-story/, { timeout: 4000 })
     for (const shot of ['midnight', 'portrait', 'street', 'rooftop']) {
@@ -40,6 +42,11 @@ for (const width of [1440, 390]) {
     expect(match.copy).toBe('hidden')
     await page.screenshot({ path: `test-results/opening-match-${width}.png` })
     await expect(dialog).toHaveCount(0, { timeout: 3000 })
+    await expect(page.getByRole('region', { name: 'Audio controls' })).toHaveCount(0)
+    expect(await page.evaluate(async () => {
+      const { default: engine } = await import(performance.getEntriesByType('resource').find(entry => new URL(entry.name).pathname === '/src/audio/audioEngine.js').name)
+      return { playing: engine.isPlayingBgm, timer: engine.timerId, state: engine.ctx?.state }
+    })).toEqual({ playing: false, timer: null, state: 'suspended' })
     await expect(page.locator('.site-shell')).not.toHaveAttribute('inert')
     await page.waitForTimeout(1600)
     await expect(page.locator('.header')).toHaveCSS('opacity', '1')

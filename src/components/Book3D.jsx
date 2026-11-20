@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState, useSyncExternalStore } from 'react'
+import { memo, useCallback, useEffect, useLayoutEffect, useRef, useState, useSyncExternalStore } from 'react'
 import { useScroll, useMotionValueEvent } from 'motion/react'
 import { Link, useLocation } from 'react-router-dom'
 import { ArrowDown, ArrowRight, CaretLeft, CaretRight, Globe } from '@phosphor-icons/react'
@@ -80,6 +80,23 @@ function PaperStrip({ part = 0, front, back, compact }) {
   </div>
 }
 
+// Every face stays mounted. Scroll only selects prepared surfaces; no image or
+// five-strip subtree is created at the moment a page starts turning.
+const BookSurfaces = memo(function BookSurfaces({ compact, count }) {
+  return <>
+    {!compact && <div className="folio-spread">
+      {projects.map((project, index) => <div key={project.id} className="folio-story-surface" data-story={index} hidden inert><StoryPage project={project} index={index} /></div>)}
+      {projects.map((project, index) => <div key={project.id} className="folio-art-surface" data-art={index} hidden inert><ArtPage project={project} index={index} /></div>)}
+    </div>}
+    {compact && Array.from({ length: count }, (_, page) => <div key={page} className="folio-mobile-surface" data-leaf={page} hidden inert><MobilePage page={page} /></div>)}
+    {Array.from({ length: count - 1 }, (_, page) => <div key={page} className="folio-turn-surface" data-turn={page} hidden aria-hidden="true" inert>
+      <PaperStrip compact={compact}
+        front={compact ? <MobilePage page={page} /> : <ArtPage project={projects[page]} index={page} />}
+        back={compact ? null : <StoryPage project={projects[page + 1]} index={page + 1} />} />
+    </div>)}
+  </>
+})
+
 export default function Book3D() {
   const compact = useSyncExternalStore(subscribeCompact, getCompact, () => false)
   const count = compact ? projects.length * 2 : projects.length
@@ -88,6 +105,7 @@ export default function Book3D() {
   const bookRef = useRef(null)
   const [scene, setScene] = useState({ page: 0, index: 0, turning: false, open: false })
   const currentScene = useRef(scene)
+  const surfacesRef = useRef([])
   const { scrollYProgress } = useScroll({ target: sectionRef, offset: ['start start', 'end end'] })
 
   const targetProgress = useRef(0)
@@ -96,7 +114,7 @@ export default function Book3D() {
   const isRunningRef = useRef(false)
   const animIdRef = useRef(null)
 
-  const applyProgress = useCallback((value) => {
+  const applyProgress = useCallback((value, force = false) => {
     const opening = clamp((value - .025) / .175)
     const chapter = clamp((value - .2) / .8) * count
     const page = Math.min(count - 1, Math.floor(chapter))
@@ -105,8 +123,21 @@ export default function Book3D() {
     const phase = page < count - 1 ? clamp((fraction - .64) / .36) : 0
     const turn = phase * phase * (3 - 2 * phase)
     const next = { page, index, turning: turn > 0 && turn < 1, open: opening > .64 }
+    const changed = Object.keys(next).some(key => currentScene.current[key] !== next[key])
 
     if (bookRef.current) {
+      // Visibility, active face, and geometry change together in this frame.
+      if (force || changed) for (const surface of surfacesRef.current) {
+        const kind = surface.dataset.story !== undefined ? 'story' : surface.dataset.art !== undefined ? 'art' : surface.dataset.leaf !== undefined ? 'leaf' : 'turn'
+        const position = Number(surface.dataset[kind])
+        const selected = kind === 'story' ? position === index : kind === 'art' ? position === Math.min(projects.length - 1, index + (next.turning ? 1 : 0)) : kind === 'leaf' ? position === Math.min(count - 1, page + (next.turning ? 1 : 0)) : position === page && next.turning
+        surface.hidden = !selected
+        surface.inert = kind === 'turn' || !selected || !next.open || next.turning
+        surface.setAttribute('aria-hidden', String(kind === 'turn' || !selected))
+        surface.classList.toggle({ story: 'folio-left', art: 'folio-right', leaf: 'folio-mobile-sheet', turn: 'folio-turn' }[kind], selected)
+      }
+      bookRef.current.dataset.open = String(next.open)
+      bookRef.current.dataset.page = String(page)
       bookRef.current.style.setProperty('--lift', opening)
       bookRef.current.style.setProperty('--cover-visibility', opening >= 1 ? 'hidden' : 'visible')
       bookRef.current.style.setProperty('--cover-angle', `${-180 * clamp((opening - .25) / .75)}deg`)
@@ -114,15 +145,14 @@ export default function Book3D() {
       bookRef.current.style.setProperty('--shade', Math.sin(Math.PI * turn))
       bookRef.current.style.setProperty('--turn-angle', `${-180 * turn}deg`)
     }
-    if (Object.keys(next).some(key => currentScene.current[key] !== next[key])) {
+    if (changed) {
       currentScene.current = next
       setScene(next)
     }
   }, [compact, count])
 
-  // On-demand animation loop: wakes up when scroll progress changes,
-  // rate-limits page turns so fast scrolling never skips the animation,
-  // and sleeps when caught up so CPU usage is zero.
+  // A short, frame-rate independent catch-up follows native scroll equally in
+  // holds and turns. Large jumps settle immediately instead of queuing leaves.
   const startLoop = useCallback(() => {
     if (isRunningRef.current) return
     isRunningRef.current = true
@@ -144,18 +174,7 @@ export default function Book3D() {
         return
       }
 
-      // Compute current chapter/fraction to know if we are in a turn window
-      const chapter = clamp((current - .2) / .8) * count
-      const page = Math.floor(chapter)
-      const fraction = chapter - page
-      const inTurn = page < count - 1 && fraction >= 0.60 && fraction <= 0.99
-
-      // In turn window: rate-limit progress velocity so the leaf turn lasts at least ~180-220ms
-      // Outside turn window: track scroll swiftly so opening and holds never lag
-      const maxRate = inTurn ? 0.65 : Math.max(3.0, Math.abs(diff) * 12)
-      const maxStep = maxRate * dt
-      const move = Math.sign(diff) * Math.min(Math.abs(diff), maxStep)
-      const nextProgress = current + move
+      const nextProgress = Math.abs(diff) > .12 ? target : current + diff * (1 - Math.exp(-dt / .025))
       animatedProgress.current = nextProgress
       applyProgress(nextProgress)
 
@@ -163,13 +182,32 @@ export default function Book3D() {
     }
 
     animIdRef.current = requestAnimationFrame(step)
-  }, [applyProgress, count])
+  }, [applyProgress])
 
-  useEffect(() => {
-    return () => {
-      if (animIdRef.current) cancelAnimationFrame(animIdRef.current)
-    }
+  const cancelLoop = useCallback(() => {
+    if (animIdRef.current) cancelAnimationFrame(animIdRef.current)
+    animIdRef.current = null
+    isRunningRef.current = false
   }, [])
+
+  useLayoutEffect(() => {
+    surfacesRef.current = [...bookRef.current.querySelectorAll('[data-story], [data-art], [data-leaf], [data-turn]')]
+    cancelLoop()
+    const initial = scrollYProgress.get()
+    targetProgress.current = initial
+    animatedProgress.current = initial
+    applyProgress(initial, true)
+    const onResize = () => {
+      cancelLoop()
+      const section = sectionRef.current
+      const progress = clamp((window.scrollY - (section.getBoundingClientRect().top + window.scrollY)) / Math.max(1, section.offsetHeight - innerHeight))
+      targetProgress.current = progress
+      animatedProgress.current = progress
+      applyProgress(progress, true)
+    }
+    window.addEventListener('resize', onResize)
+    return () => { cancelLoop(); window.removeEventListener('resize', onResize) }
+  }, [applyProgress, cancelLoop, scrollYProgress])
 
   useEffect(() => {
     const images = []
@@ -196,13 +234,6 @@ export default function Book3D() {
   })
 
   useEffect(() => {
-    const initial = scrollYProgress.get()
-    targetProgress.current = initial
-    animatedProgress.current = initial
-    applyProgress(initial)
-  }, [scrollYProgress, applyProgress])
-
-  useEffect(() => {
     if (hash !== '#concepts' || window.matchMedia('(max-height: 500px), (prefers-reduced-motion: reduce)').matches) return
     const frame = requestAnimationFrame(() => {
       const section = sectionRef.current
@@ -216,39 +247,28 @@ export default function Book3D() {
     if (!section) return
     const target = Math.max(0, Math.min(count - 1, index))
     const pos = pagePosition(target, count)
+    cancelLoop()
     targetProgress.current = pos
     animatedProgress.current = pos
     applyProgress(pos)
     const start = section.getBoundingClientRect().top + window.scrollY
     window.scrollTo({ top: start + pos * (section.offsetHeight - innerHeight), behavior: 'instant' })
-  }, [count, applyProgress])
+  }, [count, applyProgress, cancelLoop])
 
-  const turning = scene.turning && (compact ? scene.page < count - 1 : scene.index < projects.length - 1)
-  const left = scene.index
-  const right = Math.min(3, scene.index + (turning ? 1 : 0))
   return <section id="work" ref={sectionRef} className="folio-section" aria-labelledby="folio-title">
     <div className="folio-sticky">
       <header className="folio-heading"><div><p>THE PROJECT ISSUE</p><h2 id="folio-title">Good work. <span>Great stories.</span></h2></div><div className="folio-browse"><Link to="/projects" className="folio-skip">Browse all projects</Link><a href="#about" className="folio-skip">Continue to experience <ArrowDown size={16} /></a></div></header>
       <div className="folio-desktop">
         <div className="folio-table" aria-hidden="true"><span className="folio-table-note">The builder’s desk</span><span className="folio-pencil" /></div>
         <div className="folio-perspective">
-          <div className="folio-book" ref={bookRef} data-open={scene.open} data-page={scene.page} data-compact={compact}>
+          <div className="folio-book" ref={bookRef} data-compact={compact}>
             <div className="folio-board" aria-hidden="true" />
             {compact && <div className="folio-rings" aria-hidden="true">
               {Array.from({ length: 7 }, (_, i) => <i key={i} />)}
             </div>}
             <div className="folio-paper-bed" aria-hidden="true" />
-            {!compact && <div className="folio-spread">
-              <div className="folio-left" inert={!scene.open || turning}><StoryPage project={projects[left]} index={left} /></div>
-              <div className="folio-right"><ArtPage project={projects[right]} index={right} /></div>
-            </div>}
-            {compact && <div className="folio-mobile-sheet" inert={!scene.open || turning}><MobilePage page={Math.min(count - 1, scene.page + (turning ? 1 : 0))} /></div>}
+            <BookSurfaces compact={compact} count={count} />
             <div className="folio-gutter" aria-hidden="true" />
-            {turning && <div className="folio-turn" aria-hidden="true" inert>
-              <PaperStrip compact={compact}
-                front={compact ? <MobilePage page={scene.page} /> : <ArtPage project={projects[scene.index]} index={scene.index} />}
-                back={compact ? null : <StoryPage project={projects[scene.index + 1]} index={scene.index + 1} />} />
-            </div>}
             <div className="folio-cover" aria-hidden="true" inert><div className="folio-face folio-front"><Cover /></div><div className="folio-face folio-back"><StoryPage project={projects[0]} index={0} /></div></div>
           </div>
         </div>

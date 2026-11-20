@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react'
-import { Play, Pause, SpeakerHigh, SpeakerSimpleSlash, FilmStrip } from '@phosphor-icons/react'
+import { Play, Pause, SpeakerHigh, SpeakerSimpleSlash } from '@phosphor-icons/react'
 import soundscape from '../audio/audioEngine'
 
-export default function ViceCityRadio({ onReplayIntro }) {
-  const [isPlaying, setIsPlaying] = useState(false)
-  const [isMuted, setIsMuted] = useState(false)
+export default function ViceCityRadio() {
+  const [isPlaying, setIsPlaying] = useState(soundscape.isPlayingBgm)
+  const [isMuted, setIsMuted] = useState(soundscape.volume === 0)
 
   useEffect(() => {
     const unsub = soundscape.subscribe((event, data) => {
@@ -45,15 +45,15 @@ export default function ViceCityRadio({ onReplayIntro }) {
           type="button"
           className={`radio-play-btn ${isPlaying ? 'playing' : ''}`}
           onClick={togglePlay}
-          aria-label={isPlaying ? 'Pause Vice City synth BGM' : 'Play Vice City synth BGM'}
-          title={isPlaying ? 'Pause music' : 'Play GTA 6 / Vice City BGM'}
+          aria-label={isPlaying ? 'Pause intro music' : 'Play intro music'}
+          title={isPlaying ? 'Pause music' : 'Play intro music'}
         >
           {isPlaying ? <Pause size={14} weight="fill" /> : <Play size={14} weight="fill" />}
         </button>
 
         <div className="radio-label-group">
-          <span className="radio-station">VICE CITY FM 98.6</span>
-          <span className="radio-track-title">{isPlaying ? 'SUNSET CRUISE · GTA VI' : 'CHILL SYNTH (OFF)'}</span>
+          <span className="radio-station">INTRO SOUNDTRACK</span>
+          <span className="radio-track-title">Original synthwave · 106 BPM</span>
         </div>
 
         {/* Real-time HTML Equalizer Visualizer (No canvas element, preserving Three.js test assumptions) */}
@@ -76,18 +76,7 @@ export default function ViceCityRadio({ onReplayIntro }) {
           {isMuted ? <SpeakerSimpleSlash size={14} /> : <SpeakerHigh size={14} />}
         </button>
 
-        {/* Replay Marvel Intro Button */}
-        {onReplayIntro && (
-          <button
-            type="button"
-            className="radio-intro-btn"
-            onClick={onReplayIntro}
-            title="Replay cinematic Marvel comic intro"
-          >
-            <FilmStrip size={14} weight="bold" />
-            <span>INTRO</span>
-          </button>
-        )}
+
       </div>
     </div>
   )

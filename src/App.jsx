@@ -24,7 +24,6 @@ import Book3D from './components/Book3D'
 import ProductMap from './components/ProductMap'
 import Reveal from './components/Reveal'
 import MarvelIntro from './components/MarvelIntro'
-import ViceCityRadio from './components/ViceCityRadio'
 import DetectiveBoard from './components/DetectiveBoard'
 import ProjectsPage from './components/ProjectsPage'
 import './App.css'
@@ -301,7 +300,6 @@ export default function App() {
           </main>
           <Footer />
         </div>
-        <div inert={playIntro ? true : undefined} className={playIntro ? 'entry-radio-hidden' : ''}><ViceCityRadio onReplayIntro={triggerIntro} /></div>
       </MotionConfig>
     </BrowserRouter>
   )

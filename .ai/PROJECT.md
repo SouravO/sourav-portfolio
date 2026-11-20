@@ -47,3 +47,6 @@ PORT-020 completed. The compact project book uses a portrait spiral notebook wit
 
 
 2026-11-21 — PORT-036: Dedicated /projects archive showcases all four documented projects with a comic publisher cover, illustrated shelf, built/concept filters, scope disclosures, and links to existing detailed case studies. Homepage book retained; navigation and book link to archive.
+
+
+2026-11-21 — PORT-037: Music and its details/controls belong only to the cinematic introduction. Landing and all portfolio pages have no persistent music player; intro exits stop audio. Existing header/hero intro replay retained.

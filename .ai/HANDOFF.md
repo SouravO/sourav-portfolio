@@ -1,5 +1,52 @@
 # Handoff
 
+Updated 2026-11-21 for PORT-038.
+
+## Current state
+PORT-038 DONE: Project book uses persistent memoized page faces/turn strips and synchronous frame-driven visibility and geometry. No per-turn face remounting; 25ms consistent smoothing replaces turn-specific speed cap, with immediate sync for large scroll jumps. Resize/layout changes and chapter jumps cancel stale RAF work. Artwork decoding, paper fallback, content, scroll-section length, links, reduced-motion reading and visual style preserved.
+
+## Verification
+Lint/build PASS; all 20 book/portfolio browser cases PASS. New phone/desktop regressions watch prepared DOM across 140 forward/reverse samples: zero rebuilt subtrees, no new book-art requests, valid visible layers and settled initial page/zero angle within 160ms. Failed-art test retains content/paper and navigation. Existing axe, touch, chapter, concept-link and reduced-motion checks pass. Recorded boundary runs and inspected desktop/phone frames in /tmp/portfolio-book-qa (temporary); manually verified breakpoint resizing and final chapter reset (compact page 6/desktop page 3, angle 0).
+
+## Files changed this task
+src/components/Book3D.jsx; src/book3d.css; tests/book.spec.js; .ai/TASKS.md, HANDOFF.md, ARCHITECTURE.md, DECISIONS.md, CHANGELOG.md. Product scope unchanged.
+
+## Limitations
+Existing >500KB build advisory remains. Persistent faces increase bounded initial DOM in exchange for less turn-time work. Local Chromium checks do not guarantee identical frame rates on every device. No commit/deployment.
+
+## Next exact action
+Optional user review at /#work with slow/fast forward/reverse scrolling on their devices. No requested implementation remains. Recommend a Git checkpoint after review.
+
+## Git state
+Startup HEAD 5e447f0. Existing uncommitted PORT-037 source/test/memory changes preserved. Current tree additionally contains PORT-038 book/CSS/test and memory changes. No reset or unrelated edits.
+
+---
+## Previous handoff (historical)
+
+# Handoff
+
+Updated 2026-11-21 for PORT-037.
+
+## Current state
+PORT-037 DONE: Intro-only original synthwave soundtrack (106 BPM). Music controls/details render inside MarvelIntro; no persistent landing dock. Intro starts BGM; completion/skip/resize/unmount stop scheduling, silence BGM bus and suspend audio context. Play restores gain, mute preference retained, and Tab/Shift+Tab traverse skip/play/mute controls. Existing header/hero replay retained.
+
+## Verification
+Lint/build PASS. All 14 opening/portfolio cases pass across scoped runs: 11 unchanged cases and final 3 targeted audio/natural-completion cases. Tests confirm context suspended and scheduler stopped on desktop/phone natural completion and Escape, controls only inside intro, keyboard navigation and control axe scan. Tests import actual Vite-loaded audio module URL to avoid inspecting a separate HMR module instance. Existing >500KB bundle advisory remains. Autoplay may require pressing Play, depending on browser policy. No commit/deployment.
+
+## Files changed
+src/App.jsx, src/components/MarvelIntro.jsx, ViceCityRadio.jsx, src/audio/audioEngine.js, src/radio.css, tests/opening.spec.js, tests/portfolio.spec.js, all six .ai documents.
+
+## Next exact action
+Optional user review of intro music/landing silence. No requested work remains. Recommend Git checkpoint after review.
+
+## Git state
+Startup working tree clean; current changes are PORT-037 only. Prior project archive present and preserved. No automatic commit or deployment.
+
+---
+## Previous handoff (historical)
+
+# Handoff
+
 Updated 2026-11-21 for PORT-036.
 
 ## Current state

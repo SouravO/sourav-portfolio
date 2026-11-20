@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import soundscape from '../audio/audioEngine'
+import ViceCityRadio from './ViceCityRadio'
 
 const SCENES = ['midnight', 'portrait', 'street', 'rooftop']
 const COMIC_PAGES = ['street', 'midnight', 'portrait', 'rooftop', 'portrait', 'midnight', 'rooftop', 'street', 'midnight']
@@ -16,12 +17,13 @@ export default function MarvelIntro({ onComplete }) {
   const handleFinish = useCallback(() => {
     if (finished.current) return
     finished.current = true
-    soundscape.startBgm()
+    soundscape.stopAll()
     onComplete?.()
   }, [onComplete])
 
   // One timeline per mount: phase changes must never restart the story.
   useEffect(() => {
+    soundscape.startBgm()
     let active = true
     const timers = new Set()
     const later = (fn, delay) => {
@@ -105,17 +107,23 @@ export default function MarvelIntro({ onComplete }) {
       later(playStory, 100)
     })
     const onKey = event => {
-      if (event.key === 'Escape' || event.key === 'Enter' || event.key === ' ') {
+      if (event.key === 'Escape') {
         event.preventDefault()
         handleFinish()
       }
-      if (event.key === 'Tab') { event.preventDefault(); skipRef.current?.focus() }
+      if (event.key === 'Tab') {
+        const buttons = [...skipRef.current.closest('[role=dialog]').querySelectorAll('button')]
+        const index = buttons.indexOf(document.activeElement)
+        event.preventDefault()
+        buttons[(index + (event.shiftKey ? -1 : 1) + buttons.length) % buttons.length]?.focus()
+      }
     }
     window.addEventListener('keydown', onKey)
     // Resizing invalidates the measured match; reveal the responsive page safely.
     window.addEventListener('resize', handleFinish)
     return () => {
       active = false
+      soundscape.stopAll()
       timers.forEach(clearTimeout)
       window.removeEventListener('keydown', onKey)
       window.removeEventListener('resize', handleFinish)
@@ -132,6 +140,7 @@ export default function MarvelIntro({ onComplete }) {
       aria-label="Cinematic comic introduction"
       onClick={handleFinish}
     >
+      <div onClick={event => event.stopPropagation()}><ViceCityRadio /></div>
       {landing && (
         <div className="intro-landing-frame" style={landing.frame} aria-hidden="true">
           <img src={landing.src} style={landing.image} alt="" />

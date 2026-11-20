@@ -185,3 +185,11 @@
 @media (max-width:360px) {
   .radio-tuner-unit { gap:.4rem; padding-inline:.6rem; }
 }
+
+/* The soundtrack belongs to the cinematic dialog only. */
+.marvel-intro-container .vice-city-radio-bar { z-index: 70; }
+.marvel-intro-container .radio-label-group { max-width: none; }
+.marvel-intro-container .radio-track-title { font-size: 10px; }
+@media (max-width: 360px) {
+  .marvel-intro-container .radio-visualizer-wrap { display: none; }
+}

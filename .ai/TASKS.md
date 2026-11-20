@@ -550,3 +550,24 @@ Acceptance: discoverable from homepage/navigation; accessible filters and expand
 Completed: /projects publisher-style archive, illustrated cover and shelf, all four data-driven projects, built/concept filters with live count, native expandable scope notes, existing case-study and related-site links, contact CTA, header and homepage book entry links, route metadata and Vercel direct-route rewrite.
 Verification: lint/build pass; 9 existing portfolio tests and 2 new archive tests pass. Keyboard expansion, filter state/count, case navigation, responsive fit at 320/390/768/1024/1440 and desktop/mobile axe verified. Desktop/phone screenshots visually reviewed.
 Limitations: Existing >500KB build advisory; Vercel rewrite configured but not verified on hosted deployment. Existing unrelated untracked Strengths files preserved. No commit or deployment. Remaining: none.
+
+
+## PORT-037 — Introduction-only music
+Status: DONE
+Date: 2026-11-21
+Objective: Play music only inside introduction, show music details there, and stop sound on landing/skip/cleanup.
+Acceptance: No persistent landing player; intro playback controls and accurate details; audio stopped on all exits; replay works; keyboard controls accessible; relevant verification and memory synchronized.
+
+Completed: Music starts in intro; accurate original-synthwave/106 BPM details and playback/mute controls live inside the dialog. Removed persistent landing player. Finish, skip, resize and unmount stop scheduler, silence BGM bus and suspend audio. Tab/Shift+Tab now reach all intro buttons; Escape exits. Replay retains mute state.
+Verification: lint/build pass. All 14 opening/portfolio cases pass across scoped runs (11 unchanged cases plus final 3 audio/natural-completion cases). Confirmed scheduler stopped and context suspended after natural landing and Escape; controls and metadata visible only during intro; axe controls scan passes. Existing bundle advisory remains. Browser autoplay may require pressing Play inside intro. No commit/deployment. Remaining: none.
+
+
+## PORT-038 — Continuous book rendering
+Status: DONE
+Date: 2026-11-21
+Objective: Remove page-boundary flashes and scroll lag on desktop and compact book while preserving design/content/navigation.
+Acceptance: Stable page/turn surfaces; short consistent smoothing; synchronized transforms/visibility; predecoded art and paper fallback; forward/reverse/jump/resize checks, book/portfolio tests and lint/build; updated memory.
+
+Completed: Memoized persistent BookSurfaces prepares story/art/mobile faces and five-strip turns once per layout. Animation updates visible/inert surfaces and transform variables together, without page-boundary React subtree construction. Replaced turn-window speed cap with 25ms exponential smoothing and immediate large-jump sync. Chapter jumps, resize and layout changes cancel stale RAF work. Existing image decoding/paper backing retained; added explicit illustration paper background.
+Verification: npm run lint/build pass; all 20 book/portfolio browser tests pass. New desktop/phone regressions verify no subtree rebuilding, no extra book-art requests, consistent selected faces across 140 forward/reverse scroll samples and settling within 160ms at rest. Missing-art navigation and existing axe/touch/reduced-motion checks pass. Recorded desktop/phone boundary sequences and inspected boundary frames; manually verified resize across breakpoint and chapter jump produce page 6/3 with zero turn angle. QA media in /tmp/portfolio-book-qa (temporary).
+Limitations: Pre-existing >500KB bundle advisory remains. Persistent faces trade more initial DOM for less work during turns; no hardware-wide frame-rate guarantee. Prior PORT-037 working changes preserved. No commit or deployment. Remaining: none.

@@ -82,3 +82,11 @@ Section-scoped `src/detective-board.css` (life-* classes) renders an angled cork
 
 ## 2026-11-21 — PORT-036
 Added /projects route rendered by src/components/ProjectsPage.jsx with component-scoped ProjectsPage.css. Shared projects data remains authoritative; filtering is local React state and scope inspection uses native details/summary. No new dependencies or APIs. RouteEffects sets archive title/description; header marks active Projects link. Vercel rewrites /projects to index.html for direct loading. Existing /work routes and homepage book retained.
+
+
+## 2026-11-21 — PORT-037
+MarvelIntro owns soundtrack lifecycle and renders ViceCityRadio inside its modal; App no longer renders a global dock. Intro effect starts BGM and cleanup/finish invoke soundscape.stopAll(), which stops scheduling, silences the BGM bus and suspends the AudioContext. Playback restart restores BGM gain; browser autoplay restrictions still apply. Intro keyboard loop traverses skip and audio buttons.
+
+
+## 2026-11-21 — PORT-038
+Book3D renders a memoized BookSurfaces subtree with stable keyed desktop story/art surfaces, compact leaves and all decorative five-strip turn surfaces. The frame loop owns surface hidden/inert/aria-hidden state, active classes and book data/style geometry; React scene state only updates chapter UI. Visibility changes only at scene boundaries and geometry updates each frame, preventing asynchronous content/angle mismatches. UseLayoutEffect initializes/rebinds surfaces and cancels animation work across layout/resize; chapter jumps cancel pending RAF. Frame-independent smoothing uses 25ms time constant, snaps >.12 progress jumps and sleeps at rest. Existing eager art and near-book decode warming retained. No dependencies, routes or APIs changed.

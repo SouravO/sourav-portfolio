@@ -182,31 +182,24 @@ test('project maps explain real workflows and case-study chapters remain navigab
   await page.screenshot({ path: 'test-results/work-case-mobile.png', fullPage: true })
 })
 
-test('Marvel comic intro bumper and Vice City synthwave radio audio controls', async ({ page }) => {
+test('intro music controls disappear and audio stops on landing', async ({ page }) => {
   await page.goto('/')
-  const introBtn = page.getByRole('button', { name: /MARVEL INTRO/ }).first()
-  await expect(introBtn).toBeVisible()
-  await introBtn.click()
-  const introDialog = page.getByRole('dialog', { name: 'Cinematic comic introduction' })
-  await expect(introDialog).toBeVisible()
-  await expect(page.getByRole('button', { name: 'Skip cinematic introduction' })).toBeVisible()
+  await expect(page.getByRole('region', { name: 'Audio controls' })).toHaveCount(0)
+  await page.getByRole('button', { name: /MARVEL INTRO/ }).first().click()
+  const dialog = page.getByRole('dialog', { name: 'Cinematic comic introduction' })
+  const radio = dialog.getByRole('region', { name: 'Audio controls' })
+  await expect(radio).toContainText('Original synthwave · 106 BPM')
+  await radio.getByRole('button', { name: 'Pause intro music' }).click()
+  await expect(dialog).toBeVisible()
+  await radio.getByRole('button', { name: 'Play intro music' }).click()
+  await radio.getByRole('button', { name: 'Mute sound' }).click()
+  await expect(radio.getByRole('button', { name: 'Unmute sound' })).toBeVisible()
+  expect((await new AxeBuilder({ page }).include('.vice-city-radio-bar').analyze()).violations).toEqual([])
   await page.keyboard.press('Escape')
-  await expect(introDialog).not.toBeVisible()
-
-  const radio = page.getByRole('region', { name: 'Audio controls' })
-  await expect(radio).toBeVisible()
-  // Intro completion automatically starts the Vice City synthwave BGM
-  const pauseBtn = radio.getByRole('button', { name: /Pause Vice City synth BGM/ })
-  await expect(pauseBtn).toBeVisible()
-  await expect(radio.locator('.eq-bar.active')).toHaveCount(5)
-  // Clicking pause stops the BGM
-  await pauseBtn.click()
-  const playBtn = radio.getByRole('button', { name: /Play Vice City synth BGM/ })
-  await expect(playBtn).toBeVisible()
-  // Mute toggle
-  const muteBtn = radio.getByRole('button', { name: /Mute sound/ })
-  await muteBtn.click()
-  await expect(radio.getByRole('button', { name: /Unmute sound/ })).toBeVisible()
-  const axeResults = await new AxeBuilder({ page }).include('.vice-city-radio-bar').analyze()
-  expect(axeResults.violations).toEqual([])
+  await expect(dialog).toHaveCount(0)
+  await expect(page.getByRole('region', { name: 'Audio controls' })).toHaveCount(0)
+  await expect.poll(() => page.evaluate(async () => {
+    const { default: engine } = await import(performance.getEntriesByType('resource').find(entry => new URL(entry.name).pathname === '/src/audio/audioEngine.js').name)
+    return { playing: engine.isPlayingBgm, timer: engine.timerId, state: engine.ctx?.state }
+  })).toEqual({ playing: false, timer: null, state: 'suspended' })
 })
