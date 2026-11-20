@@ -239,3 +239,8 @@ Remaining: None for this request. Existing obsolete cinema tests/provider releas
 DONE. Give the compact book a visible binding, layered sheets and a top-hinged scroll turn while keeping every project readable.
 
 PORT-020 completed. The compact project book uses a portrait spiral notebook with seven visible rings, a layered paper edge and scroll-driven top-hinged cover and sheets. Book3D.jsx and book3d.css implement the change. Lint, build and all eight book browser tests passed, including phone fit, touch navigation and reduced motion. No outstanding implementation work. Next action is optional mobile visual review.
+
+## PORT-021 — Smooth page turns
+DONE. Bend each moving leaf around the binding on both layouts, eliminate the mid-turn content swap and animate page controls.
+
+PORT-021. Desktop leaves bend along the spine and compact leaves curl over the top rings. Five connected CSS strips carry aligned slices of each printed face. Eased rotation and shading follow scroll in either direction. The underlying desktop story changes upon landing. Page controls animate the scroll. Lint and build passed. Book suite exercised desktop, mobile, navigation and reduced motion.

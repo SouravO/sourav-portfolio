@@ -1,5 +1,7 @@
 # Handoff
 
+PORT-021. Desktop leaves bend along the spine and compact leaves curl over the top rings. Five connected CSS strips carry aligned slices of each printed face. Eased rotation and shading follow scroll in either direction. The underlying desktop story changes upon landing. Page controls animate the scroll. Book3D.jsx and book3d.css modified locally. No outstanding implementation steps.
+
 PORT-020 completed. The compact project book uses a portrait spiral notebook with seven visible rings, a layered paper edge and scroll-driven top-hinged cover and sheets. Book3D.jsx and book3d.css implement the change. Lint, build and all eight book browser tests passed, including phone fit, touch navigation and reduced motion. No outstanding implementation work. Next action is optional mobile visual review. Working tree contains uncommitted PORT-019 and PORT-020 updates.
 
 Updated 2026-11-20 for PORT-019.

@@ -67,13 +67,26 @@ function MobilePage({ page }) {
     : <ArtPage project={projects[index]} index={index} />
 }
 
+// Connected strips share an edge. Each carries its own slice of the same
+// full-size printed face, so text follows the curve of the paper.
+function PaperStrip({ part = 0, front, back, compact }) {
+  const axis = compact ? 'top' : 'left'
+  const extent = compact ? 'height' : 'width'
+  const slice = (offset) => ({ [axis]: `${-100 * offset}%`, [extent]: '500%' })
+  return <div className="folio-strip" style={{ '--part': part }}>
+    <div className="folio-strip-face"><div style={slice(part)}>{front}</div></div>
+    <div className="folio-strip-face folio-back"><div style={slice(4 - part)}>{back}</div></div>
+    {part < 4 && <PaperStrip part={part + 1} front={front} back={back} compact={compact} />}
+  </div>
+}
+
 export default function Book3D() {
   const compact = useSyncExternalStore(subscribeCompact, getCompact, () => false)
   const count = compact ? projects.length * 2 : projects.length
   const { hash } = useLocation()
   const sectionRef = useRef(null)
   const bookRef = useRef(null)
-  const [scene, setScene] = useState({ page: 0, index: 0, turning: false, half: false, open: false })
+  const [scene, setScene] = useState({ page: 0, index: 0, turning: false, open: false })
   const { scrollYProgress } = useScroll({ target: sectionRef, offset: ['start start', 'end end'] })
 
   const updateScene = useCallback((value) => {
@@ -82,14 +95,17 @@ export default function Book3D() {
     const page = Math.min(count - 1, Math.floor(chapter))
     const index = compact ? Math.floor(page / 2) : page
     const fraction = chapter - page
-    const turn = page < count - 1 ? clamp((fraction - .75) / .25) : 0
+    const phase = page < count - 1 ? clamp((fraction - .64) / .36) : 0
+    const turn = phase * phase * (3 - 2 * phase)
     if (bookRef.current) {
       bookRef.current.style.setProperty('--lift', opening)
       bookRef.current.style.setProperty('--cover-visibility', opening >= 1 ? 'hidden' : 'visible')
       bookRef.current.style.setProperty('--cover-angle', `${-180 * clamp((opening - .25) / .75)}deg`)
+      bookRef.current.style.setProperty('--bend', `${Math.sin(Math.PI * turn) * 9}deg`)
+      bookRef.current.style.setProperty('--shade', Math.sin(Math.PI * turn))
       bookRef.current.style.setProperty('--turn-angle', `${-180 * turn}deg`)
     }
-    const next = { page, index, turning: turn > 0 && turn < 1, half: turn >= .5, open: opening > .64 }
+    const next = { page, index, turning: turn > 0 && turn < 1, open: opening > .64 }
     setScene(prev => Object.keys(next).every(key => prev[key] === next[key]) ? prev : next)
   }, [compact, count])
   useMotionValueEvent(scrollYProgress, 'change', updateScene)
@@ -112,11 +128,11 @@ export default function Book3D() {
     if (!section) return
     const target = Math.max(0, Math.min(count - 1, index))
     const start = section.getBoundingClientRect().top + window.scrollY
-    window.scrollTo({ top: start + pagePosition(target, count) * (section.offsetHeight - innerHeight), behavior: 'instant' })
+    window.scrollTo({ top: start + pagePosition(target, count) * (section.offsetHeight - innerHeight), behavior: 'smooth' })
   }
 
   const turning = scene.turning && (compact ? scene.page < count - 1 : scene.index < projects.length - 1)
-  const left = Math.min(3, scene.index + (turning && scene.half ? 1 : 0))
+  const left = scene.index
   const right = Math.min(3, scene.index + (turning ? 1 : 0))
   return <section id="work" ref={sectionRef} className="folio-section" aria-labelledby="folio-title">
     <div className="folio-sticky">
@@ -137,8 +153,9 @@ export default function Book3D() {
             {compact && <div className="folio-mobile-sheet" inert={!scene.open || turning}><MobilePage page={Math.min(count - 1, scene.page + (turning ? 1 : 0))} /></div>}
             <div className="folio-gutter" aria-hidden="true" />
             {turning && <div className="folio-turn" aria-hidden="true" inert>
-              <div className="folio-face folio-front">{compact ? <MobilePage page={scene.page} /> : <ArtPage project={projects[scene.index]} index={scene.index} />}</div>
-              <div className="folio-face folio-back">{compact ? <MobilePage page={scene.page + 1} /> : <StoryPage project={projects[scene.index + 1]} index={scene.index + 1} />}</div>
+              <PaperStrip compact={compact}
+                front={compact ? <MobilePage page={scene.page} /> : <ArtPage project={projects[scene.index]} index={scene.index} />}
+                back={compact ? null : <StoryPage project={projects[scene.index + 1]} index={scene.index + 1} />} />
             </div>}
             <div className="folio-cover" aria-hidden="true" inert><div className="folio-face folio-front"><Cover /></div><div className="folio-face folio-back"><StoryPage project={projects[0]} index={0} /></div></div>
           </div>
