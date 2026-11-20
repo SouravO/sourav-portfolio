@@ -16,7 +16,7 @@ export default function AdventureHero({ onPlayIntro }) {
         <img src="/illustrations/cover.webp" alt="Sourav in a red shirt, standing naturally with a laptop on an illustrated city street" width="1536" height="1024" fetchPriority="high" />
       </motion.picture>
       <div className="cover-edition">
-        <span>THE SOURAV O COLLECTION</span>
+        <span>THE SOURAV COLLECTION</span>
         <div className="cover-edition-controls">
           {onPlayIntro && (
             <button
@@ -33,7 +33,7 @@ export default function AdventureHero({ onPlayIntro }) {
         </div>
       </div>
       <div className="cover-title-wrap">
-        <p className="caption cover-kicker">Sourav O / Full-stack engineer & technical lead</p>
+        <p className="caption cover-kicker">Sourav / Full-stack engineer & technical lead</p>
         <h1 id="cover-title"><span>Ideas into</span><strong>real products.</strong></h1>
       </div>
       <div className="cover-intro">
@@ -42,7 +42,7 @@ export default function AdventureHero({ onPlayIntro }) {
         <Link to="/?mode=chat#workspace" className="cover-ask">Ask about my work</Link>
       </div>
       <p className="caption cover-note">Every good product starts with a little curiosity.</p>
-      <span className="cover-credit">STORY & CODE BY SOURAV O</span>
+      <span className="cover-credit">STORY & CODE BY SOURAV</span>
     </section>
   )
 }

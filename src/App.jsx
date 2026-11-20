@@ -43,11 +43,11 @@ function RouteEffects() {
       pathname.endsWith(p.slug || '__none__'),
     )
     document.title = project
-      ? `${project.name} · Sourav O`
-      : 'Sourav O · Engineer & Product Builder'
+      ? `${project.name} · Sourav`
+      : 'Sourav · Engineer & Product Builder'
     document.querySelector('meta[name="description"]').content = project
       ? project.description
-      : 'Sourav O is a full-stack software engineer, technical lead, and product builder. Explore real projects, architecture, and an interactive AI workspace.'
+      : 'Sourav is a full-stack software engineer, technical lead, and product builder. Explore real projects, architecture, and an interactive AI workspace.'
     const id = setTimeout(() => {
       if (hash) {
         const target = document.getElementById(hash.slice(1))
@@ -81,7 +81,7 @@ function Header({ onReplayIntro }) {
         className="wordmark"
         onClick={() => setOpen(false)}
       >
-        Sourav O<span className="wordmark-edition" aria-hidden="true">THE BUILDER’S ADVENTURES</span>
+        Sourav<span className="wordmark-edition" aria-hidden="true">THE BUILDER’S ADVENTURES</span>
         <span className="wordmark-symbol">
           <Asterisk size={24} weight="bold" />
         </span>
@@ -220,7 +220,7 @@ function About() {
         <Link to="/#contact" className="text-link experience-contact">Talk through a product idea <EnvelopeSimple size={17} /></Link>
         <div className="about-facts">
           <div>
-            <strong>3+ years</strong>
+            <strong>4+ years</strong>
             <span>Building software</span>
           </div>
           <div>
@@ -331,7 +331,7 @@ function Footer() {
   return (
     <footer className="footer">
       <Link to="/" className="footer-name">
-        Sourav O <Asterisk size={14} />
+        Sourav <Asterisk size={14} />
       </Link>
       <span>Words, code & a little comic-book magic. Made in India.</span>
       <a href="#top">Back to top</a>
@@ -346,7 +346,7 @@ function Home({ onPlayIntro }) {
   return <>
     <AdventureHero onPlayIntro={onPlayIntro} />
     <div className="profile-evidence" aria-label="Experience at a glance">
-      <div><strong>3+ years</strong><span>Building software</span></div>
+      <div><strong>4+ years</strong><span>Building software</span></div>
       <div><strong>Full stack</strong><span>Interfaces, APIs & data</span></div>
       <div><strong>Technical leadership</strong><span>Day One Venture Studio</span></div>
     </div>

@@ -73,3 +73,7 @@ Created four high-fidelity adventure-comic UI concept sections and an implementa
 ## 2026-11-20 — PORT-014
 - Changed cinematic metallic/art-filled title to SOURAV and its loading monogram to S per user preference.
 - Production build and existing 320px title browser check pass; effects and landing transition unchanged.
+
+## 2026-11-20 — PORT-015
+- Standardized current website name to Sourav across header/footer/hero, shared profile, page/social metadata, SVG preview, assistant instructions and README.
+- Build, eight API tests and homepage navigation browser check pass; no remaining Sourav O name references in current runtime/public content.

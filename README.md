@@ -1,4 +1,4 @@
-# Sourav O · Portfolio
+# Sourav · Portfolio
 
 Vintage adventure-comic React + Vite portfolio with an illustrated street-scene cover, two case studies, an interactive workshop, an origin story, and a sunset contact finale. All headings and controls are live HTML; illustrations are separate optimized assets.
 
@@ -92,7 +92,7 @@ The work index uses editorial project rows and interactive explanatory maps rath
 
 ### Cinematic comic opening
 
-The homepage runs an art-first graphic-novel sequence: late-night keyboard close-up → portrait → rain-lit city → rooftop → a dimensional camera move across comic pages → artwork-filled SOURAV O lettering resolving into a metallic studio mark → the exact responsive landing hero. The final hero settle and staggered navbar/copy reveal remain intact. `MarvelIntro.jsx` controls the cancelable timeline; `intro.css` owns the camera/title motion. It is a browser-rendered sequence of generated illustrations, not an encoded production video.
+The homepage runs an art-first graphic-novel sequence: late-night keyboard close-up → portrait → rain-lit city → rooftop → a dimensional camera move across comic pages → artwork-filled SOURAV lettering resolving into a metallic studio mark → the exact responsive landing hero. The final hero settle and staggered navbar/copy reveal remain intact. `MarvelIntro.jsx` controls the cancelable timeline; `intro.css` owns the camera/title motion. It is a browser-rendered sequence of generated illustrations, not an encoded production video.
 
 Source masters, exact built-in image_gen prompts, asset report and direction are saved in `assets/illustrations/cinema/`. Run `python3 scripts/prepare_cinema_assets.py` (Pillow) to regenerate desktop/mobile WebP under `public/illustrations/cinema/`. Full scenes replace the rejected PORT-012 cutout presentation; previous art remains preserved. New scene transfer totals about 1.87 MiB desktop / 1.01 MiB mobile. Loading is bounded; missing/slow art falls back to the landing cover. Reduced-motion/deep-link visits bypass automatic entry; Skip/Escape and replay remain available.
 

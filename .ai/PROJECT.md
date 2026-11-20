@@ -1,6 +1,6 @@
 # Project
 
-Updated 2026-11-20. Portfolio for **Sourav O**, a full-stack software engineer, technical lead, and product builder based in India with 3+ years of experience. B.Tech, MES College of Engineering, Kuttippuram (2018–2022). Public contact: o.sourav5@gmail.com.
+Updated 2026-11-20. Portfolio for **Sourav**, a full-stack software engineer, technical lead, and product builder based in India with 4+ years of experience. B.Tech, MES College of Engineering, Kuttippuram (2018–2022). Public contact: o.sourav5@gmail.com.
 
 ## Confirmed scope
 
@@ -31,3 +31,5 @@ Approved 2026-11-20: Implement The Builder’s Adventures concept, correct the l
 2026-11-20 revision (PORT-013): User rejected PORT-012's image quality/slide presentation and requested a more creative Marvel-inspired cinematic opening. Active direction now uses full-scene dramatic graphic-novel art, accelerating cuts, comic-page camera travel and a dimensional studio title. The approved exact landing-image transition remains a requirement. Previous cutout assets are retained but unused.
 
 2026-11-20 naming refinement (PORT-014): User approved the rest of the cinematic opening and requested the title read SOURAV, without the trailing O. Both cinematic title layers now use SOURAV; loading monogram uses S. Imagery, motion and landing handoff remain unchanged.
+
+2026-11-20 naming preference (PORT-015): Use Sourav throughout all current site copy, navigation/footer, hero credits, browser titles, metadata/social preview and assistant profile/instructions. Do not append O. Contact email/identifiers remain their actual values. Historical generation prompts and development records retain provenance.

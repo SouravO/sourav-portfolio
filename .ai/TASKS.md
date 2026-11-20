@@ -187,3 +187,12 @@ Acceptance: Both artwork-filled and metallic title layers show SOURAV; title rem
 Completed: Both cinematic title layers now read SOURAV; prelude monogram is S. No imagery/style/timing/handoff changes.
 Verification: Production build passes (existing chunk advisory remains); existing small-phone cinematic-title Playwright case passes; source text and git diff --check verified.
 Remaining: None for this title correction. Persistent project memory synchronized; no commit/deployment.
+
+## PORT-015 — Use Sourav throughout the site
+Status: DONE
+Objective: Remove trailing O from all current website name references, metadata and assistant context per user preference.
+Acceptance: Header/footer/hero/shared profile/browser titles/social metadata/assistant use Sourav; historical source prompts and records preserved; relevant checks pass and memory synchronized.
+Startup: Baseline 5a9f7f3, with an existing user edit shortening the case title in src/App.jsx; preserve and complete it consistently.
+Completed: Updated current frontend/shared profile, route titles/descriptions, HTML/social metadata, SVG preview, assistant context and README. Preserved the existing user case-title edit and removed its trailing space. No artwork/animation/contact identifier changes.
+Verification: Build passes (existing chunk advisory); eight API tests and homepage navigation Playwright case pass; exact-name scan across runtime/public/README finds no old-name occurrences; git diff --check passes.
+Remaining: None. Memory synchronized; no commit/deployment.

@@ -1,9 +1,9 @@
 export const profile = {
-  name: 'Sourav O',
+  name: 'Sourav',
   role: 'Full-Stack Software Engineer · Technical Lead · Product Builder',
   email: 'o.sourav5@gmail.com',
   location: 'India',
-  experience: '3+ years',
+  experience: '4+ years',
   bio: 'I build digital products from the first idea to the working application. My work connects software architecture, thoughtful interfaces, and the business behind them.',
   education: 'B.Tech, MES College of Engineering, Kuttippuram (2018–2022)',
 }
