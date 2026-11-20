@@ -39,3 +39,6 @@ Approved 2026-11-20: Implement The Builder’s Adventures concept, correct the l
 2026-11-20 refinement (PORT-019): User requested fixing the dark area beneath the opening cover and making the animated book available on mobile. Paper lining fixes the opening; <=1000px now reads eight full-size story/art leaves with scroll-linked turns and touch page/chapter controls. Static reading remains for reduced motion and <=500px-high landscape.
 
 PORT-020 completed. The compact project book uses a portrait spiral notebook with seven visible rings, a layered paper edge and scroll-driven top-hinged cover and sheets. Book3D.jsx and book3d.css implement the change. Lint, build and all eight book browser tests passed, including phone fit, touch navigation and reduced motion. No outstanding implementation work. Next action is optional mobile visual review.
+
+
+2026-11-21 — PORT-032: Experience now follows the approved “many sides of Sourav” personal detective-board direction: four career chapters, central identity portrait, and gaming/travel/music interests selected by the user. Seven distinct likeness-based comic illustrations, warm cork/paper/red thread, short captions and optional chapter details. Readable scrolling tablet/phone layouts supersede PORT-031's single-viewport mobile constraint. Personal scenes are conceptual, with no invented destinations or anecdotes.

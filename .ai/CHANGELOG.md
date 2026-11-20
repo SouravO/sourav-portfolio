@@ -93,3 +93,10 @@ Created four high-fidelity adventure-comic UI concept sections and an implementa
 PORT-020 completed. The compact project book uses a portrait spiral notebook with seven visible rings, a layered paper edge and scroll-driven top-hinged cover and sheets. Book3D.jsx and book3d.css implement the change. Lint, build and all eight book browser tests passed, including phone fit, touch navigation and reduced motion. No outstanding implementation work. Next action is optional mobile visual review.
 
 PORT-021. Desktop leaves bend along the spine and compact leaves curl over the top rings. Five connected CSS strips carry aligned slices of each printed face. Eased rotation and shading follow scroll in either direction. The underlying desktop story changes upon landing. Page controls animate the scroll. Lint and build passed. Book suite exercised desktop, mobile, navigation and reduced motion.
+
+
+## 2026-11-21 — PORT-032
+- Redesigned Experience as “Same me. Different chapters.” with warm cork, red thread, a central Sourav portrait, four career chapters, and three personal interests.
+- Generated seven separate comic portraits with consistent likeness and distinct outfits/scenes; saved masters, prompts, responsive WebPs and preparation script.
+- Added readable tablet/phone layouts, measured thread endpoints, optional torch, reduced-motion-aware entrance/hover, and a keyboard-accessible native chapter inspector.
+- Added responsive/keyboard/focus/image-fallback/thread-alignment/accessibility coverage; existing portfolio/book behavior retained.

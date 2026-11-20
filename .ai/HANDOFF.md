@@ -1,5 +1,35 @@
 # Handoff
 
+Updated 2026-11-21 for PORT-032.
+
+## Current state
+PORT-032 DONE: Experience (#about) is a portrait-led personal detective board, “Same me. Different chapters.” Four career portraits (college, electronic media, Day One leadership, current experimentation), a central approved Sourav portrait and gaming/travel/music snapshots. Distinct scenes generated with built-in image_gen; exact prompts and PNG masters retained. Only confirmed college dates shown; no historical photo claims or invented travel stories.
+
+Desktop: warm physical corkboard with angled paper portraits and measured red threads. <=900px: scrolling two-column layout; <=540px: single-column readable board. Optional torch defaults off and leaves touch scrolling alone. Native dialog supports keyboard opening, browser focus containment/inert background, Escape, previous/next and opener focus restoration. Images lazy-load with responsive sources and portrait fallback. Reduced motion disables decorative transitions/entrance.
+
+## Verification
+- Lint and production build pass; eight API tests pass. Existing >500KB main chunk advisory remains.
+- All 23 tests across portfolio.spec.js, book.spec.js and life-board.spec.js pass. After final thread/layout refinements, all four focused board tests pass again, including real endpoint alignment and 320/390/768/1024/1440 responsive coverage.
+- Zero axe violations on mobile/desktop board and open inspector; existing whole-page/case-study axe tests pass.
+- Reviewed generated portraits, desktop/phone boards and phone inspector screenshots in test-results/life-*.png.
+- Unrelated stale cinema.spec.js and provider deployment setup remain outside this task.
+
+## Files changed
+- src/components/DetectiveBoard.jsx, src/detective-board.css, src/data/lifeBoard.js
+- assets/illustrations/life-board/{PROMPTS.json,source/*.png}, public/illustrations/life-board/*.webp
+- scripts/prepare_life_board_assets.py, tests/life-board.spec.js and all six project-memory documents
+
+## Next exact action
+Optional user visual review at http://localhost:5173/#about. No requested implementation remains. Do not restore PORT-031's compressed single-screen phone layout.
+
+## Git state
+Startup HEAD 99fad56; startup working tree clean. Current working tree contains only PORT-032 source, assets, tests, script and memory changes. No commit or deployment performed. Recommend a Git checkpoint after review. Existing server at port 5173 retained; redundant server started at 5174 was stopped.
+
+---
+## Previous handoff — historical, superseded for Experience by PORT-032
+
+# Handoff
+
 Updated 2026-11-21 for PORT-031.
 
 ## Current verified state

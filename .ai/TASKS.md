@@ -482,3 +482,18 @@ Verification:
 - `npx playwright test tests/portfolio.spec.js tests/book.spec.js`: 19/19 PASS (all tests pass, 0 accessibility violations).
 - Visual verification: Captured `single-viewport-detective-desktop.png` (1280x800), `single-viewport-detective-mobile.png` (390x844), and `single-viewport-dossier-modal.png` (1280x800).
 Remaining: None. Ready for user review.
+
+
+## PORT-032 — The many sides of Sourav
+Status: DONE
+Date: 2026-11-21
+Objective: Replace the compressed experience board with a portrait-led personal detective board.
+Acceptance: Distinct comic career portraits and gaming/travel/music clues; readable vertical mobile board; connected pins; optional torch off by default; accessible chapter inspector with keyboard/focus handling; verified responsive layouts and relevant checks.
+Progress: Repository and existing board inspected; implementation started. Preserve unrelated content and existing assets.
+
+PORT-032 completion:
+- Implemented central identity, four illustrated career chapters, three personal interest snapshots, handwritten curiosity note, pin-measured SVG thread, and off-by-default torch.
+- Added native dialog with previous/next, focus containment/restoration, Escape dismissal, mobile scrolling and responsive image fallback.
+- Saved seven generated PNG masters and exact built-in image_gen prompts, 14 responsive WebPs, and asset preparation script. No old artwork deleted.
+- Verification: lint/build pass; eight API tests pass; all 23 portfolio/book/life-board browser tests pass. After final thread/layout refinements, all four focused board tests pass, including endpoint alignment at 320/390/768/1024/1440 widths and zero axe violations on phone/desktop board and inspector.
+- Known limitation: existing >500KB main JavaScript chunk advisory remains; unrelated stale cinema.spec.js excluded as previously documented. No commit or deployment. Remaining implementation: none.

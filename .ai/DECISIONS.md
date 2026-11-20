@@ -77,3 +77,11 @@ The user’s supplied urban adventure comic is the new art direction: city scene
 - Keep reduced motion and very short landscape (<=500px) in static document-flow mode. Fit smallest portrait phones through spacing and hiding only decorative running headers, without removing project facts.
 
 PORT-020 completed. The compact project book uses a portrait spiral notebook with seven visible rings, a layered paper edge and scroll-driven top-hinged cover and sheets. Book3D.jsx and book3d.css implement the change. Lint, build and all eight book browser tests passed, including phone fit, touch navigation and reduced motion. No outstanding implementation work. Next action is optional mobile visual review.
+
+
+## 2026-11-21 — PORT-032
+- User approved comic portraits, detective mood, career plus personality, and a readable scrolling phone board. Their “all” answer selected gaming, travel and music; do not invent personal anecdotes, accomplishments or destinations.
+- Preserve the existing approved likeness/style and generate seven independent conceptual scenes with different outfits/settings. Retain the central portrait and all prior art; source prompts and reproducible WebP preparation are checked in.
+- Replace compressed surveillance copy and unsupported performance/employment-date claims with concise documented facts. Only the confirmed college dates are displayed; current agent work remains experimentation.
+- Use a native modal dialog for keyboard focus containment and background inertness. Keep torch optional/off and avoid touch tracking that interferes with scrolling.
+- The user's approved vertical mobile plan supersedes PORT-031's single-viewport constraint. Measure thread endpoints from real pin positions instead of guessing responsive SVG coordinates.
