@@ -1,5 +1,35 @@
 # Handoff
 
+PORT-020 completed. The compact project book uses a portrait spiral notebook with seven visible rings, a layered paper edge and scroll-driven top-hinged cover and sheets. Book3D.jsx and book3d.css implement the change. Lint, build and all eight book browser tests passed, including phone fit, touch navigation and reduced motion. No outstanding implementation work. Next action is optional mobile visual review. Working tree contains uncommitted PORT-019 and PORT-020 updates.
+
+Updated 2026-11-20 for PORT-019.
+
+## Current verified state
+PORT-019 DONE: fixed the user-reported dark opening page area and enabled the animated book on phones/tablets. This supersedes PORT-018's compact-screen static-only behavior.
+
+A folio-paper-bed layer above the backing follows the book expansion and supplies warm paper wherever the opening cover previously exposed the dark board. Desktop spreads/cover/turn holds are preserved. At <=1000px, render one full-size leaf: project story followed by illustration (eight leaves). The mobile cover and turning leaf use full-width faces; page holds and native scroll remain reversible. Compact chapter buttons jump to each project's story; previous/next advance a single leaf. Touch targets are >=44px. Short-phone spacing includes 320x568, with page text/links and navigation clear of the radio dock. Enlarged text can still scroll within a compact leaf rather than clip. Reduced motion and viewport height <=500px retain static reading layout.
+
+Motion scroll update is useCallback-backed and refreshed on responsive mode changes. useSyncExternalStore observes compact media state. Guards prevent rendering a nonexistent desktop next-project face when resizing a mobile turn. #concepts now opens the planning chapter on both animated modes; static reading uses the original article anchor.
+
+## Verification
+- npm run lint and npm run build PASS; pre-existing main chunk >500KB advisory remains.
+- 19/19 tests in book.spec.js (8) + portfolio.spec.js (11) PASS. Final small-phone heading spacing then verified with all 8 book cases passing again.
+- Tests cover opening/reverse paper lining, desktop pin/turn/release, 320/375/390/768 mobile page sequence, story fit, chapter/page navigation, no horizontal overflow, radio clearance, accessibility and touch-enabled case-link navigation.
+- Manual visual review: desktop opening at reported angle, 390px story/art and final 320x568 NOTWO page. Phone→desktop resize during last-project turn emitted no page errors. git diff --check PASS.
+- Existing stale cinema.spec.js and provider release configuration remain as previously documented; no unrelated behavior changes.
+
+## Files changed / next action
+src/components/Book3D.jsx, src/book3d.css, tests/book.spec.js and all six .ai memory documents. Preserve the user's concurrent PROJECT.md edit changing experience text to “4 + years”. No dependencies/assets generated.
+Next exact action: optional visual review at http://127.0.0.1:5173/#work, including phone width. No requested implementation remains.
+
+## Git state
+Verified startup/current HEAD d79e64e No commit/deployment performed in this task. Working tree has the book component/CSS/tests and memory edits; unrelated user PROJECT.md edit preserved.
+
+---
+## Previous handoff — historical, superseded where noted above
+
+# Handoff
+
 Updated 2026-11-20 for PORT-018.
 
 ## Current verified state

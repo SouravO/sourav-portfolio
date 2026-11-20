@@ -83,3 +83,11 @@ Created four high-fidelity adventure-comic UI concept sections and an implementa
 - Added responsive/reduced-motion reading layouts, preserved real statuses/routes and concept entry, and fixed page stretching/cover layering/text-fit issues found in browser review.
 - Repaired inactive FlipBook lint issues, refreshed portfolio work selectors and added five focused book tests.
 - Lint/build and eight API tests pass; 21 current browser cases pass. Old cinema invitation tests remain stale and documented. No commit/deployment.
+
+## 2026-11-20 — PORT-019
+- Fixed exposed dark backing during cover opening/reverse with a paper lining layer.
+- Added animated phone/tablet book: eight readable story/art leaves, native scroll page turns, chapter jumps and touch page controls. Preserved desktop/reduced-motion behavior and project links.
+- Tuned 320x568 layout, prevented fallback-font panel overflow and guarded resize during turns.
+- Lint/build pass; 19 book+portfolio browser checks pass, with final spacing rechecked through all eight book cases. No commit/deployment.
+
+PORT-020 completed. The compact project book uses a portrait spiral notebook with seven visible rings, a layered paper edge and scroll-driven top-hinged cover and sheets. Book3D.jsx and book3d.css implement the change. Lint, build and all eight book browser tests passed, including phone fit, touch navigation and reduced motion. No outstanding implementation work. Next action is optional mobile visual review.

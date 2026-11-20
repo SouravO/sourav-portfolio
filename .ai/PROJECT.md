@@ -1,6 +1,6 @@
 # Project
 
-Updated 2026-11-20. Portfolio for **Sourav**, a full-stack software engineer, technical lead, and product builder based in India with 4+ years of experience. B.Tech, MES College of Engineering, Kuttippuram (2018–2022). Public contact: o.sourav5@gmail.com.
+Updated 2026-11-20. Portfolio for **Sourav**, a full-stack software engineer, technical lead, and product builder based in India with 4 + years of experience. B.Tech, MES College of Engineering, Kuttippuram (2018–2022). Public contact: o.sourav5@gmail.com.
 
 ## Confirmed scope
 
@@ -35,3 +35,7 @@ Approved 2026-11-20: Implement The Builder’s Adventures concept, correct the l
 2026-11-20 naming preference (PORT-015): Use Sourav throughout all current site copy, navigation/footer, hero credits, browser titles, metadata/social preview and assistant profile/instructions. Do not append O. Contact email/identifiers remain their actual values. Historical generation prompts and development records retain provenance.
 
 2026-11-20 work redesign (PORT-018): User rejected the current work UI and requested a comic book on a table that stays pinned, tilts closer, opens and turns through illustrated project explanations. Implemented desktop physical-book reading with left story/right art, scroll holds and direct chapter controls; compact screens and reduced motion use stacked spreads for readable text. Existing project facts, scope labels and case-study routes retained.
+
+2026-11-20 refinement (PORT-019): User requested fixing the dark area beneath the opening cover and making the animated book available on mobile. Paper lining fixes the opening; <=1000px now reads eight full-size story/art leaves with scroll-linked turns and touch page/chapter controls. Static reading remains for reduced motion and <=500px-high landscape.
+
+PORT-020 completed. The compact project book uses a portrait spiral notebook with seven visible rings, a layered paper edge and scroll-driven top-hinged cover and sheets. Book3D.jsx and book3d.css implement the change. Lint, build and all eight book browser tests passed, including phone fit, touch navigation and reduced motion. No outstanding implementation work. Next action is optional mobile visual review.

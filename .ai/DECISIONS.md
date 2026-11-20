@@ -70,3 +70,10 @@ The user’s supplied urban adventure comic is the new art direction: city scene
 - Prefer readable stacked pages on <=1000px widths, <=600px viewport height and reduced motion. Narrow tablet inspection exposed text clipping in scaled spreads; do not shrink text further to force the desktop animation.
 - Keep chapter selection/previous/next and a direct experience link so the long pinned section is optional to navigate. Preserve #work/#concepts and case-study routes.
 - Preserve inactive experiments; fix their small lint issues without deleting user work. Leave unrelated obsolete cinema tests documented instead of changing approved intro behavior.
+
+## 2026-11-20 — PORT-019
+- The reported black patch is exposed backing while left-story visibility is delayed; cover that geometric gap with a separate paper lining, retaining real page/cover layers.
+- User explicitly requested mobile animation, superseding PORT-018's static compact-only decision. Show a full-size story leaf then full-size art leaf, rather than shrinking desktop spreads. Preserve native scroll and add touch-sized page controls.
+- Keep reduced motion and very short landscape (<=500px) in static document-flow mode. Fit smallest portrait phones through spacing and hiding only decorative running headers, without removing project facts.
+
+PORT-020 completed. The compact project book uses a portrait spiral notebook with seven visible rings, a layered paper edge and scroll-driven top-hinged cover and sheets. Book3D.jsx and book3d.css implement the change. Lint, build and all eight book browser tests passed, including phone fit, touch navigation and reduced motion. No outstanding implementation work. Next action is optional mobile visual review.
