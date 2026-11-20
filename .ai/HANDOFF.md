@@ -1,5 +1,27 @@
 # Handoff
 
+Updated 2026-11-21 for PORT-036.
+
+## Current state
+PORT-036 DONE: Dedicated /projects comic publisher archive shows all four projects from shared data. Illustrated cover and two-column shelf (single column on phones), built/concept filters with announced count, native keyboard-accessible scope disclosures, honest status labels, existing case-study/live/related-site links and contact CTA. Header Projects link and homepage book Browse all projects link provide discovery. Homepage book retained. Archive bypasses automatic homepage intro and has specific title/description. Vercel direct-route rewrite added.
+
+## Verification
+Lint/build PASS; existing >500KB bundle advisory remains. All 9 portfolio tests and 2 new archive tests PASS. Verified filtering, keyboard expansion, concept disclosure, case-study/navigation links, no horizontal overflow at 320/390/768/1024/1440px and zero desktop/mobile axe violations. Desktop/phone full-page screenshots reviewed in test-results/projects-*.png. Hosted rewrite not live-tested; no deployment.
+
+## Files changed
+src/components/ProjectsPage.jsx, ProjectsPage.css; src/App.jsx; src/components/Book3D.jsx; vercel.json; tests/projects.spec.js; all six .ai documents.
+
+## Next exact action
+Optional user review at http://localhost:5173/projects. No requested implementation remains. Recommend Git checkpoint after review; no commit or deployment performed.
+
+## Git state
+Startup HEAD 8baffee. Pre-existing untracked src/components/Strengths.jsx and Strengths.css preserved untouched; prior strengths integration was absent in source and not restored. Other current changes belong to PORT-036.
+
+---
+## Previous handoff (historical)
+
+# Handoff
+
 Updated 2026-11-21 for PORT-034.
 
 ## Current state

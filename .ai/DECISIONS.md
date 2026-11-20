@@ -94,3 +94,9 @@ PORT-020 completed. The compact project book uses a portrait spiral notebook wit
 ## 2026-11-21 — PORT-034
 - User requested removal of two sections: “From interface to infrastructure.” (toolkit) and “The workshop.” (workspace). Removed from homepage and navigation rather than replacing, per request.
 - Removed dependent in-site CTAs/routes (`#toolkit`, `#workspace`, chat-mode workspace entry points) and updated tests/docs to the new flow. Left unused component/CSS artifacts and backend chat code untouched for potential future cleanup to minimize unrelated churn. No commit/deployment.
+
+
+## 2026-11-21 — PORT-036
+- Implement requested separate creative projects page as a comic publisher archive matching existing art and typography; retain homepage book.
+- Showcase all four documented projects from shared data, with built/live and concept filters, always visible status labels and proposed-versus-shipped disclosures. Concepts expand inline; existing built-project case-study routes remain. No invented achievements or product screenshots.
+- Work in current local repository and existing Vercel setup. Preserve unrelated untracked Strengths.jsx/Strengths.css without restoring removed homepage integration.

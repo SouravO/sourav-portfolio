@@ -3,7 +3,7 @@
   "outputDirectory": "dist",
   "framework": "vite",
   "functions": { "api/chat.js": { "maxDuration": 30 } },
-  "rewrites": [{ "source": "/work/:path*", "destination": "/index.html" }],
+  "rewrites": [{ "source": "/projects", "destination": "/index.html" }, { "source": "/work/:path*", "destination": "/index.html" }],
   "headers": [
     {
       "source": "/(.*)",

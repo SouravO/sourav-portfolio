@@ -228,7 +228,7 @@ export default function Book3D() {
   const right = Math.min(3, scene.index + (turning ? 1 : 0))
   return <section id="work" ref={sectionRef} className="folio-section" aria-labelledby="folio-title">
     <div className="folio-sticky">
-      <header className="folio-heading"><div><p>THE PROJECT ISSUE</p><h2 id="folio-title">Good work. <span>Great stories.</span></h2></div><a href="#about" className="folio-skip">Continue to experience <ArrowDown size={16} /></a></header>
+      <header className="folio-heading"><div><p>THE PROJECT ISSUE</p><h2 id="folio-title">Good work. <span>Great stories.</span></h2></div><div className="folio-browse"><Link to="/projects" className="folio-skip">Browse all projects</Link><a href="#about" className="folio-skip">Continue to experience <ArrowDown size={16} /></a></div></header>
       <div className="folio-desktop">
         <div className="folio-table" aria-hidden="true"><span className="folio-table-note">The builder’s desk</span><span className="folio-pencil" /></div>
         <div className="folio-perspective">

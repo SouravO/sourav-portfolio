@@ -26,6 +26,7 @@ import Reveal from './components/Reveal'
 import MarvelIntro from './components/MarvelIntro'
 import ViceCityRadio from './components/ViceCityRadio'
 import DetectiveBoard from './components/DetectiveBoard'
+import ProjectsPage from './components/ProjectsPage'
 import './App.css'
 import './comic.css'
 import './work.css'
@@ -41,10 +42,10 @@ function RouteEffects() {
     )
     document.title = project
       ? `${project.name} · Sourav`
-      : 'Sourav · Engineer & Product Builder'
+      : pathname === '/projects' ? 'Projects · Sourav' : 'Sourav · Engineer & Product Builder'
     document.querySelector('meta[name="description"]').content = project
       ? project.description
-      : 'Sourav is a full-stack software engineer, technical lead, and product builder. Explore real projects, architecture, and experience.'
+      : pathname === '/projects' ? 'Explore Sourav’s project collection: live products, internal systems, and clearly labeled architecture concepts.' : 'Sourav is a full-stack software engineer, technical lead, and product builder. Explore real projects, architecture, and experience.'
     const id = setTimeout(() => {
       if (hash) {
         const target = document.getElementById(hash.slice(1))
@@ -86,6 +87,7 @@ function Header({ onReplayIntro }) {
       <nav className={open ? 'nav open' : 'nav'} aria-label="Main navigation">
         {[
           ['Work', '/#work'],
+          ['Projects', '/projects'],
           ['Experience', '/#about'],
         ].map(([title, href]) => (
           <Link
@@ -93,7 +95,7 @@ function Header({ onReplayIntro }) {
             to={href}
             onClick={() => setOpen(false)}
             aria-current={
-              location.hash === href.slice(1) ? 'location' : undefined
+              href === '/projects' ? (location.pathname === href ? 'page' : undefined) : (location.pathname === '/' && location.hash === href.slice(1) ? 'location' : undefined)
             }
           >
             {title}
@@ -293,6 +295,7 @@ export default function App() {
                 path="/work/day-one-crm"
                 element={<CaseStudy id="crm" />}
               />
+              <Route path="/projects" element={<ProjectsPage />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </main>

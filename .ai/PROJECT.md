@@ -44,3 +44,6 @@ PORT-020 completed. The compact project book uses a portrait spiral notebook wit
 2026-11-21 — PORT-032: Experience introduced as a portrait-led detective board with career chapters and personal interests (historical, superseded in content focus by PORT-033).
 
 2026-11-21 — PORT-033: Experience (#about) refocused on work experience. Detective/corkboard presentation retained with 5 entries: profile plus four confirmed professional chapters (B.Tech CS, MES College of Engineering 2018–2022; software engineering in eletronikmedia/broadcasting; CTO/Technical lead at Day One Venture Studio including Day One CRM, built and used internally; current 4+ years full-stack/product building and ongoing human-reviewed agentic workflow exploration). Personal-interest clues removed; content limited to confirmed facts only. Responsive board, measured threads, optional torch, and accessible native-dialog inspector preserved.
+
+
+2026-11-21 — PORT-036: Dedicated /projects archive showcases all four documented projects with a comic publisher cover, illustrated shelf, built/concept filters, scope disclosures, and links to existing detailed case studies. Homepage book retained; navigation and book link to archive.

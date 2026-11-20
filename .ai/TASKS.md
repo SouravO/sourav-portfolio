@@ -539,3 +539,14 @@ Verification:
 - `npm test`: 8/8 API tests PASS.
 - `npx playwright test tests/portfolio.spec.js tests/life-board.spec.js tests/opening.spec.js`: 18/18 PASS.
 Remaining: Optional visual review. Unused component files (`src/components/Workspace.jsx`, `src/components/Chat.jsx`) and legacy CSS/classes for removed sections remain in repo but are no longer referenced by the app; can be cleaned up separately if desired. No commit or deployment performed.
+
+
+## PORT-036 — Dedicated project archive
+Status: DONE
+Date: 2026-11-21
+Objective: Build a creative comic publisher archive at /projects showcasing all four documented projects.
+Acceptance: discoverable from homepage/navigation; accessible filters and expandable scope notes; honest statuses and existing case-study/live links; responsive/reduced-motion support; direct-route hosting rewrite; lint/build/browser verification; synchronized memory.
+
+Completed: /projects publisher-style archive, illustrated cover and shelf, all four data-driven projects, built/concept filters with live count, native expandable scope notes, existing case-study and related-site links, contact CTA, header and homepage book entry links, route metadata and Vercel direct-route rewrite.
+Verification: lint/build pass; 9 existing portfolio tests and 2 new archive tests pass. Keyboard expansion, filter state/count, case navigation, responsive fit at 320/390/768/1024/1440 and desktop/mobile axe verified. Desktop/phone screenshots visually reviewed.
+Limitations: Existing >500KB build advisory; Vercel rewrite configured but not verified on hosted deployment. Existing unrelated untracked Strengths files preserved. No commit or deployment. Remaining: none.

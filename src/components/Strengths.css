@@ -1,0 +1,83 @@
+.strengths-section {
+  padding: 76px 22px 64px;
+  scroll-margin-top: 110px;
+}
+
+.strengths-heading { max-width: 850px; margin-bottom: 32px; }
+.strengths-heading h2 { text-wrap: balance; }
+.strengths-intro {
+  max-width: 58ch;
+  margin-top: 20px;
+  font-family: var(--lettering);
+  font-size: 23px;
+  line-height: 1.5;
+}
+
+.strengths-panels {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.strength-panel {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  padding: clamp(20px, 2.2vw, 32px);
+  border: 2px solid var(--ink);
+  background: var(--surface);
+  box-shadow: 4px 4px 0 var(--ink);
+}
+
+.strength-panel-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 20px;
+  margin-bottom: 22px;
+  border-bottom: 2px solid var(--ink);
+  color: var(--accent);
+}
+.strength-panel-top span { font-family: var(--display); font-size: 44px; line-height: 1; }
+.strength-label {
+  font-family: 'Geist Mono Variable', monospace;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--muted);
+  margin-bottom: 12px;
+}
+.strength-panel h3 { font-size: clamp(29px, 2.7vw, 40px); line-height: 1.12; text-wrap: balance; }
+.strength-description { margin: 20px 0 28px; font-family: var(--lettering); font-size: 20px; line-height: 1.55; }
+.strength-evidence {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: auto;
+  min-height: 48px;
+  padding: 12px 0 4px;
+  border-top: 1px solid var(--line);
+  font-family: var(--lettering);
+  font-size: 18px;
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+.strength-evidence svg { flex-shrink: 0; transition: transform .15s; }
+.strength-evidence:hover svg { transform: translateX(3px); }
+
+@media (max-width: 1000px) {
+  .strengths-panels { grid-template-columns: 1fr; }
+  .strength-panel h3 { font-size: 36px; }
+  .strength-description { max-width: 65ch; }
+}
+@media (max-width: 600px) {
+  .strengths-section { padding: 48px 4px; }
+  .strengths-intro { font-size: 21px; }
+  .strength-panel h3 { font-size: 32px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .strength-evidence, .strength-evidence svg { transition: none; }
+  .strength-evidence:hover svg { transform: none; }
+}

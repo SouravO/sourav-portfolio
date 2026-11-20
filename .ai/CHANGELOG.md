@@ -110,3 +110,9 @@ PORT-021. Desktop leaves bend along the spine and compact leaves curl over the t
 - Removed toolkit (`#toolkit`, “From interface to infrastructure.”) and workshop/workspace (`#workspace`, interactive perspectives/terminal/AI chat) sections from home/navigation and deleted their CTAs/links.
 - Updated hero, experience footer, approach note, and data sources to remove workspace/toolkit references; updated portfolio and opening tests for the reduced section flow.
 - Lint, build, 8 API tests, and 18 Playwright tests (portfolio, life-board, opening) pass. No commit/deployment.
+
+
+## 2026-11-21 — PORT-036
+- Added /projects illustrated comic archive with four project stories, accessible filters, expandable scope, evidence links and contact CTA.
+- Added navigation/home book entry points, page metadata, active nav state and direct-route Vercel rewrite.
+- Lint/build, 9 portfolio and 2 archive browser tests pass; responsive and desktop/mobile axe checks pass; screenshots reviewed. Existing bundle advisory remains. No commit/deployment.
