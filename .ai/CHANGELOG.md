@@ -128,3 +128,13 @@ PORT-021. Desktop leaves bend along the spine and compact leaves curl over the t
 - Removed book-turn lag and boundary remounting with persistent prepared faces, synchronized geometry/visibility, consistent short scroll smoothing and stale-frame cleanup on jumps/resize.
 - Retained desktop/spiral motion, artwork, chapter controls, accessibility and reduced-motion reading.
 - Lint/build and all 20 book/portfolio tests pass, including new desktop/phone continuous-scroll stability, no additional book-art requests and unavailable-art checks. Reviewed recorded boundary captures and verified resizing/chapter jumps. Existing bundle advisory remains. No commit/deployment.
+
+
+## 2026-11-21 — PORT-039
+- Kept desktop story endpaper visible beneath opening cover to eliminate exposed blank sheet during initial scroll and reverse.
+- Expanded opening regression to edge-on progress and printed-content visibility. Lint/build, all 11 book tests and focused rerun pass; screenshot reviewed. Existing bundle advisory and unrelated board callback error recorded in handoff. No commit/deployment.
+
+
+## 2026-11-21 — PORT-040
+- Corrected initial opening footprint: left side stays collapsed until cover passes spine, then unfolds with rotation in either scroll direction. Supersedes PORT-039 fill approach.
+- Shared cover-projected geometry drives backing and printed spread clipping. Lint/build and all 12 book tests pass; opening screenshot reviewed. No commit/deployment.

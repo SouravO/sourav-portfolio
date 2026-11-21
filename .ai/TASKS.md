@@ -571,3 +571,22 @@ Acceptance: Stable page/turn surfaces; short consistent smoothing; synchronized 
 Completed: Memoized persistent BookSurfaces prepares story/art/mobile faces and five-strip turns once per layout. Animation updates visible/inert surfaces and transform variables together, without page-boundary React subtree construction. Replaced turn-window speed cap with 25ms exponential smoothing and immediate large-jump sync. Chapter jumps, resize and layout changes cancel stale RAF work. Existing image decoding/paper backing retained; added explicit illustration paper background.
 Verification: npm run lint/build pass; all 20 book/portfolio browser tests pass. New desktop/phone regressions verify no subtree rebuilding, no extra book-art requests, consistent selected faces across 140 forward/reverse scroll samples and settling within 160ms at rest. Missing-art navigation and existing axe/touch/reduced-motion checks pass. Recorded desktop/phone boundary sequences and inspected boundary frames; manually verified resize across breakpoint and chapter jump produce page 6/3 with zero turn angle. QA media in /tmp/portfolio-book-qa (temporary).
 Limitations: Pre-existing >500KB bundle advisory remains. Persistent faces trade more initial DOM for less work during turns; no hardware-wide frame-rate guarantee. Prior PORT-037 working changes preserved. No commit or deployment. Remaining: none.
+
+
+## PORT-039 — Initial book opening blank sheet
+Status: DONE
+Date: 2026-11-21
+Objective: Remove the empty left sheet during the initial desktop opening.
+Acceptance: Printed story remains beneath the moving cover throughout forward/reverse opening; chapter turns and compact reading preserved; lint/build/book browser checks pass; memory synchronized.
+Completed: Keep desktop folio-left printed endpaper visible beneath opening cover instead of delaying visibility until data-open. Existing spread clipping, paper fallback, mobile and interaction gates preserved.
+Verification: lint/build and 11 book tests pass; focused forward/reverse regression includes edge-on .1344 progress and printed story visibility. Screenshot reviewed. git diff --check passes.
+Remaining: None for this fix. Existing bundle advisory; unrelated DetectiveBoard.jsx:29 null svgRef error logged during case navigation in full book suite (tests passed), recorded for separate follow-up. No commit/deployment.
+
+
+## PORT-040 — Unfold book footprint with cover
+Status: DONE
+Objective: Supersede PORT-039 filling approach; remove left footprint until cover unfolds over it.
+Acceptance: Left board/paper/printed spread reveal follows cover rotation after edge-on, reverses symmetrically; compact preserved; verify opening geometry and book suite.
+Completed: Separate --unfold geometry derives from cover rotation (zero before 90 degrees, cosine projection afterwards). Left board, paper bed and printed spread clipping share it; lift remains responsible only for book positioning. Reverses with cover and preserves compact overrides. Supersedes PORT-039 approach.
+Verification: lint/build, all 12 book tests pass; new forward/reverse geometry regression covers edge-on interval and backing alignment; unfolding screenshot visually reviewed. git diff --check passes.
+Remaining: None. Existing bundle advisory and previously recorded unrelated board callback issue remain. No commit/deployment.

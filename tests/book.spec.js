@@ -95,13 +95,15 @@ test('opening has a paper lining throughout forward and reverse movement', async
   await page.setViewportSize({ width: 1440, height: 900 })
   await page.goto('/#work')
   await page.getByRole('button', { name: '01 CYD' }).click()
-  for (const progress of [.05, .1, .13, .16, .2, .13, .1, .05]) {
+  for (const progress of [.05, .1, .13, .1344, .14, .16, .2, .14, .1344, .13, .1, .05]) {
     await scrub(page, progress)
     await expect(page.locator('.folio-paper-bed')).toBeVisible()
+    await expect(page.locator('.folio-left')).toHaveCSS('visibility', 'visible')
+    await expect(page.locator('.folio-left h3')).toHaveText('Check Your Deals')
     const color = await page.locator('.folio-paper-bed').evaluate(el => getComputedStyle(el).backgroundColor)
     expect(color).toBe('rgb(247, 237, 207)')
   }
-  await scrub(page, .1)
+  await scrub(page, .1344)
   await page.screenshot({ path: 'test-results/book-opening-paper.png' })
 })
 
@@ -207,4 +209,26 @@ test('unavailable artwork keeps paper and story content usable', async ({ page }
   await expect(page.locator('.folio-paper-bed')).toBeVisible()
   await page.getByRole('button', { name: '02 DAY ONE' }).click()
   await expect(page.locator('.folio-left h3')).toHaveText('Day One CRM')
+})
+
+
+test('desktop left footprint unfolds only as the cover crosses the spine', async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 900 })
+  await page.goto('/#work')
+  for (const progress of [.025, .08, .12, .1344, .15, .175, .2, .175, .15, .1344, .12, .08]) {
+    await scrub(page, progress)
+    const geometry = await page.locator('.folio-book').evaluate(book => {
+      const style = getComputedStyle(book)
+      return { angle: parseFloat(style.getPropertyValue('--cover-angle')), unfold: parseFloat(style.getPropertyValue('--unfold')),
+        width: book.clientWidth, paperLeft: parseFloat(getComputedStyle(book.querySelector('.folio-paper-bed')).left),
+        boardLeft: parseFloat(getComputedStyle(book.querySelector('.folio-board')).left) }
+    })
+    const projected = Math.max(0, -Math.cos(geometry.angle * Math.PI / 180))
+    expect(geometry.unfold).toBeCloseTo(projected, 4)
+    expect(geometry.paperLeft).toBeCloseTo(geometry.width * .5 * (1 - projected), 0)
+    expect(geometry.boardLeft + 8).toBeCloseTo(geometry.paperLeft, 0)
+    if (geometry.angle >= -90) expect(geometry.unfold).toBe(0)
+  }
+  await scrub(page, .16)
+  await page.screenshot({ path: 'test-results/book-unfolding.png' })
 })

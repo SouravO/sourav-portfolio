@@ -116,6 +116,10 @@ export default function Book3D() {
 
   const applyProgress = useCallback((value, force = false) => {
     const opening = clamp((value - .025) / .175)
+    const coverTurn = clamp((opening - .25) / .75)
+    // The cover occupies the right half until it passes the spine. Its
+    // horizontal projection then unfolds the left footprint from zero to full.
+    const unfold = Math.max(0, -Math.cos(Math.PI * coverTurn))
     const chapter = clamp((value - .2) / .8) * count
     const page = Math.min(count - 1, Math.floor(chapter))
     const index = compact ? Math.floor(page / 2) : page
@@ -139,8 +143,9 @@ export default function Book3D() {
       bookRef.current.dataset.open = String(next.open)
       bookRef.current.dataset.page = String(page)
       bookRef.current.style.setProperty('--lift', opening)
+      bookRef.current.style.setProperty('--unfold', unfold)
       bookRef.current.style.setProperty('--cover-visibility', opening >= 1 ? 'hidden' : 'visible')
-      bookRef.current.style.setProperty('--cover-angle', `${-180 * clamp((opening - .25) / .75)}deg`)
+      bookRef.current.style.setProperty('--cover-angle', `${-180 * coverTurn}deg`)
       bookRef.current.style.setProperty('--bend', `${Math.sin(Math.PI * turn) * 9}deg`)
       bookRef.current.style.setProperty('--shade', Math.sin(Math.PI * turn))
       bookRef.current.style.setProperty('--turn-angle', `${-180 * turn}deg`)

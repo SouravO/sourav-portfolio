@@ -13,12 +13,12 @@
 .folio-pencil { position:absolute; right:6%; top:30%; height:240px; width:9px; background:linear-gradient(90deg,#9b5023 20%,#dd9a37 21% 70%,#9b5023 71%); transform:rotate(20deg); box-shadow:4px 5px 3px #382b2750; }
 .folio-pencil::after { content:''; position:absolute; top:100%; border:4.5px solid transparent; border-top:22px solid #463426; }
 .folio-perspective { perspective:1800px; position:relative; width:100%; margin:18px auto 14px; }
-.folio-book { --lift:0; --cover-angle:0deg; --turn-angle:0deg; width:min(1020px,83vw,calc((100svh - 240px)*1.82)); height:auto; aspect-ratio:1.82; position:relative; margin:auto; transform-style:preserve-3d; transform:translateX(calc(-25%*(1 - var(--lift)))) rotateX(calc(36deg*(1 - var(--lift)) + 3deg)) rotateZ(calc(-9deg*(1 - var(--lift)))) scale(calc(.76 + .24*var(--lift))); }
+.folio-book { --lift:0; --unfold:0; --cover-angle:0deg; --turn-angle:0deg; width:min(1020px,83vw,calc((100svh - 240px)*1.82)); height:auto; aspect-ratio:1.82; position:relative; margin:auto; transform-style:preserve-3d; transform:translateX(calc(-25%*(1 - var(--lift)))) rotateX(calc(36deg*(1 - var(--lift)) + 3deg)) rotateZ(calc(-9deg*(1 - var(--lift)))) scale(calc(.76 + .24*var(--lift))); }
 .folio-board { position:absolute; inset:-8px -7px -10px; background:#2e403d; border:2px solid #1a2828; border-radius:3px 7px 7px 3px; box-shadow:0 3px 0 #9b946e,0 6px 0 #eee0bb,0 9px 0 #8f8463,0 14px 0 #293a35,12px 35px 30px #33291e55; transform:translateZ(-3px); }
 .folio-spread { display:grid; grid-template-columns:1fr 1fr; position:absolute; inset:0; background:var(--folio-paper); }
 .folio-left,.folio-right { min-width:0; height:100%; }
-.folio-left { visibility:hidden; }
-.folio-book[data-open='true'] .folio-left { visibility:visible; }
+/* Printed paper is clipped with the unfolding footprint beneath the cover. */
+.folio-left { visibility:visible; }
 .folio-page { height:100%; padding:5% 6% 3%; display:flex; flex-direction:column; position:relative; overflow:hidden; background:radial-gradient(#73654212 .7px,transparent .8px) 0 0/5px 5px,var(--folio-paper); color:var(--folio-ink); font-family:'Comic Neue',cursive; }
 .folio-story { background-color:#f5e9c8; }
 .folio-running { display:flex; justify-content:space-between; gap:10px; font:700 clamp(7px,.65vw,10px) 'Geist Mono Variable',monospace; text-transform:uppercase; border-bottom:1px solid #282a2460; padding-bottom:8px; letter-spacing:.04em; }
@@ -73,7 +73,7 @@
 .folio-reading { display:none; }
 @media (min-width:1001px) and (max-height:730px) { .folio-sticky { min-height:570px; padding-top:16px; } .folio-heading h2 { font-size:34px; } .folio-book { width:min(940px,80vw,calc((100svh - 190px)*1.82)); } .folio-perspective { margin:10px auto 5px; } .folio-nav { margin-top:5px; } .folio-instruction { margin-top:5px; } .folio-page { padding:4% 5% 2%; } .folio-category { margin-top:4%; } .folio-story h3 { font-size:35px; margin-bottom:3%; } .folio-description { font-size:13px; } .folio-quote { font-size:15px; margin-bottom:4%; } }
 /* Phones read one full-size leaf at a time instead of shrinking a spread. */
-.folio-paper-bed { position:absolute; inset:0; left:calc(50%*(1 - var(--lift))); background:var(--folio-paper); transform:translateZ(-1px); }
+.folio-paper-bed { position:absolute; inset:0; left:calc(50%*(1 - var(--unfold))); background:var(--folio-paper); transform:translateZ(-1px); }
 .folio-mobile-sheet { position:absolute; inset:0; }
 .folio-nav button .folio-chapter-name { font:inherit; }
 @media (max-width:1000px) {
@@ -175,9 +175,9 @@
   .folio-reading .folio-art .folio-footer { margin-top:14px; }
 }
 /* A fixed grid track prevents page contents from stretching the physical book. */
-.folio-spread { grid-template-rows:minmax(0,1fr); background:transparent; clip-path:inset(0 0 0 calc(50%*(1 - var(--lift)))); }
+.folio-spread { grid-template-rows:minmax(0,1fr); background:transparent; clip-path:inset(0 0 0 calc(50%*(1 - var(--unfold)))); }
 .folio-left,.folio-right { min-height:0; }
-.folio-board { left:calc(50%*(1 - var(--lift)) - 8px); }
+.folio-board { left:calc(50%*(1 - var(--unfold)) - 8px); }
 .folio-cover { visibility:var(--cover-visibility,visible); }
 
 @media (max-width:1000px) { .folio-board { left:-6px; } }

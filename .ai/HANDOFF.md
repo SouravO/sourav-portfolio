@@ -1,5 +1,49 @@
 # Handoff
 
+Updated 2026-11-21 for PORT-040.
+
+## Current state
+PORT-040 DONE. User clarified that the exposed left area must be removed and unfold gradually with the cover, superseding PORT-039 filling fix. New --unfold is zero until cover passes 90 degrees, then follows its horizontal cosine projection to full width. Board left edge, paper bed and printed spread clipping use this shared geometry. --lift still positions/scales the book; compact overrides retained.
+
+## Verification
+Lint/build and all 12 book tests PASS. New regression checks forward/reverse cover projection, no left expansion before edge-on, and aligned paper/board bounds. Mid-opening screenshot reviewed; diff check passes.
+
+## Files changed
+src/components/Book3D.jsx; src/book3d.css; tests/book.spec.js; .ai/TASKS.md, HANDOFF.md, DECISIONS.md, CHANGELOG.md. No product scope change.
+
+## Issues and next action
+No requested work remains. Optional user visual review at /#work and Git checkpoint. Existing bundle advisory remains; previously recorded unrelated DetectiveBoard.jsx:29 null svgRef callback error remains outside this fix. No commit/deployment.
+
+## Git state
+HEAD 07d9c3c. Prior PORT-039 uncommitted changes preserved and refined by PORT-040. Only listed task files modified.
+
+---
+## Previous handoff (historical)
+
+# Handoff
+
+Updated 2026-11-21 for PORT-039.
+
+## Current state
+PORT-039 DONE: Desktop opening now retains printed left story beneath rotating cover, removing the blank paper exposed before data-open. Existing paper backing/clipping and compact animation remain.
+
+## Verification
+Lint/build and all 11 book tests PASS. Expanded opening regression checks printed story visibility around edge-on rotation (.1344), forward/reverse. Focused rerun passes; screenshot reviewed. git diff --check passes.
+
+## Files changed
+src/book3d.css; tests/book.spec.js; .ai/TASKS.md, HANDOFF.md, CHANGELOG.md. No architecture/product scope change.
+
+## Known issues and next action
+No remaining work for requested opening fix. Optional visual review at /#work, then Git checkpoint. Existing build chunk advisory remains. Full book run logged unrelated DetectiveBoard.jsx:29 svgRef.current null error during case navigation, although all tests passed; inspect callback cleanup if addressing experience board separately.
+
+## Git state
+Startup clean at 07d9c3c. Only above task files changed; no commit/deployment.
+
+---
+## Previous handoff (historical)
+
+# Handoff
+
 Updated 2026-11-21 for PORT-038.
 
 ## Current state

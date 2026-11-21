@@ -111,3 +111,8 @@ PORT-020 completed. The compact project book uses a portrait spiral notebook wit
 - User reported both pauses and flashes after book turns on desktop/mobile; preserve approved visual design and fix render/scroll mechanics.
 - Prepare all four desktop spreads/eight compact leaves and decorative turn surfaces once per layout. Accept a bounded increase in initial DOM to eliminate five-strip remount/decode work during page transitions. Hidden surfaces remain inert and accessibility-hidden.
 - Drive visible surfaces and geometry synchronously in the animation frame, with React reserved for chapter/status UI. Replace special turn throttling with consistent short smoothing; large scroll jumps settle immediately. Preserve existing art preload and paper fallback without gating navigation on asset success.
+
+
+## 2026-11-21 — PORT-040
+- User clarified: remove premature left opening area, gradually unfold with cover. Supersedes PORT-039 fill-only interpretation.
+- Separate lift/position from footprint. Derive footprint from cover cosine projection after crossing 90 degrees; synchronize board, paper and spread clipping in same frame, retaining compact layout.
