@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import {
   BrowserRouter,
   Link,
@@ -23,18 +23,15 @@ import AdventureHero from './components/AdventureHero'
 import Book3D from './components/Book3D'
 import ProductMap from './components/ProductMap'
 import Reveal from './components/Reveal'
-import MarvelIntro from './components/MarvelIntro'
 import DetectiveBoard from './components/DetectiveBoard'
 import ProjectsPage from './components/ProjectsPage'
 import './App.css'
 import './comic.css'
 import './work.css'
-import './intro.css'
-import './radio.css'
 import './book3d.css'
 
 function RouteEffects() {
-  const { pathname, hash, search } = useLocation()
+  const { pathname, hash, search, key } = useLocation()
   useEffect(() => {
     const project = projects.find((p) =>
       pathname.endsWith(p.slug || '__none__'),
@@ -44,7 +41,7 @@ function RouteEffects() {
       : pathname === '/projects' ? 'Projects · Sourav' : 'Sourav · Engineer & Product Builder'
     document.querySelector('meta[name="description"]').content = project
       ? project.description
-      : pathname === '/projects' ? 'Explore Sourav’s project collection: live products, internal systems, and clearly labeled architecture concepts.' : 'Sourav is a full-stack software engineer, technical lead, and product builder. Explore real projects, architecture, and experience.'
+      : pathname === '/projects' ? 'Explore Sourav’s project collection: live products, internal systems, and architecture concepts.' : 'Sourav is a full-stack software engineer, technical lead, and product builder. Explore real projects, architecture, and experience.'
     const id = setTimeout(() => {
       if (hash) {
         const target = document.getElementById(hash.slice(1))
@@ -56,11 +53,11 @@ function RouteEffects() {
       } else window.scrollTo({ top: 0, behavior: 'instant' })
     }, 40)
     return () => clearTimeout(id)
-  }, [pathname, hash, search])
+  }, [pathname, hash, search, key])
   return null
 }
 
-function Header({ onReplayIntro }) {
+function Header() {
   const [open, setOpen] = useState(false)
   const location = useLocation()
   useEffect(() => {
@@ -100,18 +97,6 @@ function Header({ onReplayIntro }) {
             {title}
           </Link>
         ))}
-        {onReplayIntro && (
-          <button
-            type="button"
-            className="header-intro-pill"
-            onClick={() => {
-              setOpen(false)
-              onReplayIntro()
-            }}
-          >
-            🎬 INTRO
-          </button>
-        )}
         <Link
           to="/#contact"
           className="nav-contact"
@@ -188,15 +173,15 @@ function Footer() {
       <Link to="/" className="footer-name">
         Sourav <Asterisk size={14} />
       </Link>
-      <span>Words, code & a little comic-book magic. Made in India.</span>
+      <span>Full-stack engineering · Made in India.</span>
       <a href="#top">Back to top</a>
     </footer>
   )
 }
 
-function Home({ onPlayIntro }) {
+function Home() {
   return <>
-    <AdventureHero onPlayIntro={onPlayIntro} />
+    <AdventureHero />
     <div className="profile-evidence" aria-label="Experience at a glance">
       <div><strong>4+ years</strong><span>Building software</span></div>
       <div><strong>Full stack</strong><span>Interfaces, APIs & data</span></div>
@@ -229,7 +214,7 @@ function CaseStudy({ id }) {
           <section id="contribution" className="case-chapter"><p className="eyebrow">MY CONTRIBUTION</p><h2>{id === 'cyd' ? 'From discovery to the destination.' : 'Connecting the people and the platform.'}</h2><p>{p.contribution}</p><div className="case-role-note"><Code size={22} /><span>{p.role}</span></div></section>
           <section id="system" className="case-chapter case-system"><p className="eyebrow">INSIDE THE PRODUCT</p><h2>See how the pieces connect.</h2><p>Choose a view to explore the product’s key workflows.</p><ProductMap project={p} headingLevel={3} /></section>
           <section id="scope" className="case-chapter"><p className="eyebrow">BUILT SCOPE</p><h2>What’s in the product.</h2><ul className="case-capabilities">{p.capabilities.map(item => <li key={item}><Check size={19} /><span>{item}</span></li>)}</ul></section>
-          <section id="context" className="case-chapter case-context"><p className="eyebrow">STATUS & CONTEXT</p><h2>{id === 'cyd' ? 'Live, with more on the drawing board.' : 'Internal work, explained in public.'}</h2><p>{p.planned}</p></section>
+          <section id="context" className="case-chapter case-context"><p className="eyebrow">STATUS & CONTEXT</p><h2>{id === 'cyd' ? 'Live, with more on the drawing board.' : 'Built for startup operations.'}</h2><p>{p.planned}</p></section>
           <div className="case-end"><span>THE NEXT STORY</span><Link to={`/work/${next.slug}`}><strong>{next.name}</strong><Plus size={28} /></Link><Link className="case-back" to="/#work">All selected work</Link></div>
         </div>
       </div>
@@ -251,41 +236,19 @@ function NotFound() {
 }
 
 export default function App() {
-  const [playIntro, setPlayIntro] = useState(() => {
-    if (typeof window === 'undefined') return false
-    if (window.location.hash || (window.location.pathname && window.location.pathname !== '/')) return false
-    if (window.sessionStorage?.getItem('skip_intro_test')) return false
-    return !window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches
-  })
-  const [entryRevealed, setEntryRevealed] = useState(false)
-
-  const triggerIntro = () => {
-    if (window.location.pathname === '/') window.scrollTo({ top: 0, behavior: 'instant' })
-    setEntryRevealed(false)
-    setPlayIntro(true)
-  }
-
-  const handleIntroComplete = useCallback(() => {
-    setPlayIntro(false)
-    setEntryRevealed(true)
-  }, [])
-
   return (
     <BrowserRouter>
       <MotionConfig reducedMotion="user">
         <RouteEffects />
-        {playIntro && (
-          <MarvelIntro onComplete={handleIntroComplete} />
-        )}
         <div id="top" />
         <a href="#main" className="skip-link">
           Skip to content
         </a>
-        <div className={`site-shell ${playIntro ? 'entry-pending' : ''} ${entryRevealed ? 'entry-revealed' : ''}`} inert={playIntro ? true : undefined}>
-          <Header onReplayIntro={triggerIntro} />
+        <div className="site-shell">
+          <Header />
           <main id="main">
             <Routes>
-              <Route path="/" element={<Home onPlayIntro={triggerIntro} />} />
+              <Route path="/" element={<Home />} />
               <Route
                 path="/work/check-your-deals"
                 element={<CaseStudy id="cyd" />}

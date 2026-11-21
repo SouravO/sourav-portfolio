@@ -1,5 +1,125 @@
 # Handoff
 
+Updated 2026-11-21 for PORT-046.
+
+## Current state
+PORT-046 DONE: User requested removing Marvel intro and unnecessary prompt-derived website elements. App now opens directly without intro/audio/replay or entry gating; hero ink mode and experience torch removed. Cleaned art/process disclaimers across book/maps/inspector and verbose CRM context, archive banner and footer. SEO/social metadata no longer advertise retired workspace. Comic artwork/book and useful project/experience/contact functionality retained. Built/internal/concept/planned statuses stay factual. This supersedes historical intro/music requirements.
+
+## Verification
+Lint/build and 8 API tests pass. All 35 browser cases pass across scoped runs: full run 34 passed; keyboard test needed explicit initial hash-focus wait after removed torch assertion, then all four experience cases passed. New direct-entry tests cover 320/390/1440, reload, no intro/audio module requests or controls; content audit covers all four active routes. Existing action/book/archive/case/responsive/axe checks pass. Phone direct-entry screenshot visually reviewed. diff check passes. JS ~502KB and CSS ~120KB (reduced from ~532KB/~134KB); existing >500KB advisory remains.
+
+## Files changed this task
+index.html; src/App.jsx; src/comic.css; src/components/{AdventureHero,Book3D,DetectiveBoard,ProductMap,ProjectsPage}.jsx; src/data/portfolio.js; tests/{actions,book,life-board,opening,portfolio}.spec.js; deleted obsolete tests/cinema.spec.js; all six .ai memory documents. Prior task edits preserved.
+
+## Limitations and next exact action
+No requested work remains. Optional user visual review and Git checkpoint. Intro/audio source/assets remain inactive historical artifacts (no runtime imports/requests); do not delete all cinema art because experience profile reuses portrait.webp. No commit/deployment.
+
+## Git state
+Startup HEAD 68c2b79 with prior PORT-041–045 uncommitted changes. Preserved and extended; no reset or unrelated deletions.
+
+---
+## Previous handoff (historical)
+
+# Handoff
+
+Updated 2026-11-21 for PORT-045.
+
+## Current state
+PORT-045 DONE: Audited all actions on active public routes (home, archive, both case studies, not-found). Fixed repeat same-route/hash clicks by adding location.key to RouteEffects dependencies, so logo/section navigation scrolls/focuses again. Experience inspector CRM link now uses React Router Link and unlocks body on exit without document reload. Threads RAF guards detached/unmounted refs, addressing previously logged navigation-time error. Existing filters, details, book navigation, intro/audio, ink mode, experience previous/next/close/torch, mobile menu, anchors, contact/copy and case maps remain functional; no dead control required removal.
+
+## Verification
+Lint/build, 8 API tests pass. All 37 current browser cases pass across scoped runs: broad run passed 36, repeat navigation test expectation corrected for root scroll padding + section margin, then all 5 action tests passed. Book (12), experience (4), opening (5), portfolio (9), archive (2), actions (5). New audit checks all route/anchor targets, repeated navigation, mobile archive actions, every experience card and no-reload/unlocked CRM exit, all map/chapter actions. External HTTP checks: CYD redirects to www then 200; NOTWO 200. Actual clipboard copy verified; no email sent.
+
+## Files changed this task
+src/App.jsx; src/components/DetectiveBoard.jsx; tests/actions.spec.js (new); tests/portfolio.spec.js (stale copy assertion); .ai/TASKS.md, HANDOFF.md, CHANGELOG.md.
+
+## Limitations and next exact action
+No requested work remains. Optional device review and Git checkpoint. Existing build chunk advisory remains. External availability and native mail/browser audio permissions remain visitor-environment dependent. Excluded obsolete cinema.spec.js per historical documentation; opening.spec.js is current intro contract. No commit/deployment.
+
+## Git state
+Startup HEAD 68c2b79 with uncommitted PORT-041–044 JSX/CSS/data/test/memory edits. Preserved them; only added listed audit fixes/tests/memory. No resets or unrelated deletions.
+
+---
+## Previous handoff (historical)
+
+# Handoff
+
+Updated 2026-11-21 for PORT-044.
+
+## Current state
+PORT-044 DONE: Rewrote NOTWO description around skincare concept/MVP planning and Versa around book purchases/verified reading access. Removed marked trailing explanatory paragraphs from CRM and concept archive details. Kept live CYD planned-next note; concept status and proposed-workflow labels remain visible. Original engineering/context data retained for other consumers.
+
+## Verification
+Lint/build and both archive tests pass, including responsive/axe checks. Updated workflow assertion to replace removed paragraph assertion. Existing bundle advisory remains. No requested work remains.
+
+## Files and Git state
+Changed src/data/portfolio.js, src/components/ProjectsPage.jsx, tests/projects.spec.js and .ai/TASKS.md, HANDOFF.md, CHANGELOG.md. Prior uncommitted PORT-041–043 edits preserved. No commit/deployment.
+
+## Next exact action
+Optional copy review at /projects and Git checkpoint after review.
+
+---
+## Previous handoff (historical)
+
+# Handoff
+
+Updated 2026-11-21 for PORT-043.
+
+## Current state
+PORT-043 DONE: Removed requested sentence below archive cards (“Illustrated project worlds…”), plus its unused .archive-art-note CSS rule.
+
+## Verification
+Production build passes; diff check passes. Existing bundle advisory remains. No requested work remains.
+
+## Files and Git state
+Changed src/components/ProjectsPage.jsx, ProjectsPage.css and .ai/TASKS.md, HANDOFF.md, CHANGELOG.md. Prior PORT-041/042 uncommitted copy/bullet changes preserved. No commit/deployment.
+
+## Next exact action
+Optional user review at /projects; Git checkpoint after review.
+
+---
+## Previous handoff (historical)
+
+# Handoff
+
+Updated 2026-11-21 for PORT-042.
+
+## Current state
+PORT-042 DONE: CYD expanded build copy rewritten concisely; four scope bullets describe browse, search/categories, product details and affiliate destinations. Automation remains explicitly planned. Archive scope lists now explicitly use disc markers and item spacing (CSS reset previously hid markers). Shared data change also flows to CYD case study.
+
+## Verification
+Lint/build and both projects.spec.js tests pass, including responsive and axe checks. Existing bundle advisory remains. No work remains for this request.
+
+## Files and Git state
+Changed src/data/portfolio.js, src/components/ProjectsPage.css and .ai/TASKS.md, HANDOFF.md, CHANGELOG.md. Prior uncommitted PORT-041 JSX and memory updates preserved. No commit/deployment.
+
+## Next exact action
+Optional review of expanded CYD card at /projects; Git checkpoint after review. Prior unrelated board callback issue recorded in historical handoff.
+
+---
+## Previous handoff (historical)
+
+# Handoff
+
+Updated 2026-11-21 for PORT-041.
+
+## Current state
+PORT-041 DONE: All four /projects archive cards use Contribution and Technical focus instead of My part and Working with/Exploring. Card content/statuses unchanged.
+
+## Verification
+Lint/build pass; shared card template confirms all four receive the same labels. Existing build chunk advisory remains. No remaining work for this request.
+
+## Files and Git state
+Startup working tree clean. Changed src/components/ProjectsPage.jsx and .ai/TASKS.md, HANDOFF.md, CHANGELOG.md. No commit/deployment.
+
+## Next exact action
+Optional user copy review and Git checkpoint. Prior unrelated board callback issue remains documented below.
+
+---
+## Previous handoff (historical)
+
+# Handoff
+
 Updated 2026-11-21 for PORT-040.
 
 ## Current state

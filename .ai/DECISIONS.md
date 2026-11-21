@@ -116,3 +116,8 @@ PORT-020 completed. The compact project book uses a portrait spiral notebook wit
 ## 2026-11-21 — PORT-040
 - User clarified: remove premature left opening area, gradually unfold with cover. Supersedes PORT-039 fill-only interpretation.
 - Separate lift/position from footprint. Derive footprint from cover cosine projection after crossing 90 degrees; synchronize board, paper and spread clipping in same frame, retaining compact layout.
+
+
+## 2026-11-21 — PORT-046
+- User requested removing Marvel intro and unnecessary prompt-like website content. Remove entire cinematic/audio entry/replay, ink mode and torch; keep the approved comic art/book and useful navigation. Supersedes previous cinematic/music/control requirements.
+- Remove redundant artwork/process disclaimers across active pages; preserve factual built/internal/concept/planned status. Clean stale workspace metadata. Retain unused historical intro source/assets rather than deleting unrelated artwork (experience profile reuses cinema portrait).

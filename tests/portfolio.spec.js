@@ -1,10 +1,5 @@
-// General feature checks bypass the automatic opening; opening.spec.js tests real entry.
 import { test, expect } from '@playwright/test'
 import AxeBuilder from '@axe-core/playwright'
-
-test.beforeEach(async ({ page }) => {
-  await page.addInitScript(() => sessionStorage.setItem('skip_intro_test', 'true'))
-})
 
 test('homepage navigation, projects, and concept disclosures', async ({
   page,
@@ -25,14 +20,14 @@ test('homepage navigation, projects, and concept disclosures', async ({
     }),
   ).toBeVisible()
   await expect(
-    page.getByText(/Automation for product discovery/),
+    page.getByText(/Planned next: automate product discovery/),
   ).toBeAttached()
   await page.goto('/work/day-one-crm')
   await expect(
     page.getByRole('heading', { name: 'Day One CRM', exact: true, level: 1 }),
   ).toBeVisible()
   await expect(
-    page.getByText(/Built and used internally\. All diagrams/),
+    page.getByText(/Built and used internally at Day One Venture Studio/),
   ).toBeAttached()
   // Concepts are now flipbook pages — verify section exists and contains them
   await page.goto('/#work')
@@ -78,9 +73,6 @@ test('adventure cover, live project panels and finale match the approved flow', 
   await expect(page.getByRole('heading', { level: 1, name: /Ideas into real products./ })).toBeVisible()
   await expect.poll(() => page.locator('.cover-picture img').evaluate(img => img.complete && img.naturalWidth > 0)).toBeTruthy()
   await page.screenshot({ path: 'test-results/adventure-desktop-hero.png' })
-  await page.getByRole('button', { name: /INK MODE/ }).click()
-  await expect(page.locator('.adventure-cover')).toHaveClass(/ink-mode/)
-  await page.getByRole('button', { name: /INK MODE/ }).click()
   await page.getByRole('link', { name: 'Explore the work', exact: true }).click()
   await expect(page).toHaveURL(/#work/)
   await expect(page.locator('#work')).toBeVisible()
@@ -180,26 +172,4 @@ test('project maps explain real workflows and case-study chapters remain navigab
   const results = await new AxeBuilder({ page }).analyze()
   expect(results.violations).toEqual([])
   await page.screenshot({ path: 'test-results/work-case-mobile.png', fullPage: true })
-})
-
-test('intro music controls disappear and audio stops on landing', async ({ page }) => {
-  await page.goto('/')
-  await expect(page.getByRole('region', { name: 'Audio controls' })).toHaveCount(0)
-  await page.getByRole('button', { name: /MARVEL INTRO/ }).first().click()
-  const dialog = page.getByRole('dialog', { name: 'Cinematic comic introduction' })
-  const radio = dialog.getByRole('region', { name: 'Audio controls' })
-  await expect(radio).toContainText('Original synthwave · 106 BPM')
-  await radio.getByRole('button', { name: 'Pause intro music' }).click()
-  await expect(dialog).toBeVisible()
-  await radio.getByRole('button', { name: 'Play intro music' }).click()
-  await radio.getByRole('button', { name: 'Mute sound' }).click()
-  await expect(radio.getByRole('button', { name: 'Unmute sound' })).toBeVisible()
-  expect((await new AxeBuilder({ page }).include('.vice-city-radio-bar').analyze()).violations).toEqual([])
-  await page.keyboard.press('Escape')
-  await expect(dialog).toHaveCount(0)
-  await expect(page.getByRole('region', { name: 'Audio controls' })).toHaveCount(0)
-  await expect.poll(() => page.evaluate(async () => {
-    const { default: engine } = await import(performance.getEntriesByType('resource').find(entry => new URL(entry.name).pathname === '/src/audio/audioEngine.js').name)
-    return { playing: engine.isPlayingBgm, timer: engine.timerId, state: engine.ctx?.state }
-  })).toEqual({ playing: false, timer: null, state: 'suspended' })
 })

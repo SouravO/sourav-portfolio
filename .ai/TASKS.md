@@ -590,3 +590,55 @@ Acceptance: Left board/paper/printed spread reveal follows cover rotation after 
 Completed: Separate --unfold geometry derives from cover rotation (zero before 90 degrees, cosine projection afterwards). Left board, paper bed and printed spread clipping share it; lift remains responsible only for book positioning. Reverses with cover and preserves compact overrides. Supersedes PORT-039 approach.
 Verification: lint/build, all 12 book tests pass; new forward/reverse geometry regression covers edge-on interval and backing alignment; unfolding screenshot visually reviewed. git diff --check passes.
 Remaining: None. Existing bundle advisory and previously recorded unrelated board callback issue remain. No commit/deployment.
+
+
+## PORT-041 — Project card headings
+Status: DONE
+Objective: Replace My part / Working with / Exploring labels across all four archive cards with Contribution / Technical focus.
+Acceptance: All four cards use consistent descriptive headings; existing values and status disclosures preserved; lint/build verified; memory updated.
+Completed: Shared archive card template now uses Contribution and Technical focus for all four projects.
+Verification: npm run lint/build pass; shared template inspected for consistent headings. Existing bundle advisory remains. Remaining: none. No commit/deployment.
+
+
+## PORT-042 — Built scope copy and bullets
+Status: DONE
+Objective: Rewrite CYD build details concisely and show clear bullet markers in archive scope lists.
+Acceptance: Confirmed built features in concise bullets, automation clearly planned; visible markers on all archive scope lists; lint/build and archive checks pass; memory updated.
+Completed: Concise CYD contribution, four action-led built scope items and shorter planned automation note. Explicit disc list styling/spacing restores markers removed by CSS reset for every archive scope list. Shared CYD data also updates case study.
+Verification: lint/build and both archive browser tests pass, including responsive/axe checks. Existing bundle advisory remains. Remaining: none; no commit/deployment.
+
+
+## PORT-043 — Remove archive footer note
+Status: DONE
+Objective: Remove circled illustrated-project-worlds sentence below project cards.
+Acceptance: Sentence removed; card content retained; build verified; memory synchronized.
+Completed: Removed archive footer note and its unused CSS rule.
+Verification: production build passes; diff check passes. Existing bundle advisory remains. Remaining: none. No commit/deployment.
+
+
+## PORT-044 — Simplify archive project descriptions
+Status: DONE
+Objective: Rewrite NOTWO/Versa descriptions and remove marked repetitive CRM/concept trailing notes.
+Acceptance: Concise factual concept descriptions; remove marked notes in archive while preserving project statuses/proposed workflow labels; lint/build/archive tests pass; memory updated.
+Completed: Concise NOTWO and Versa descriptions in shared data; archive omits trailing CRM/concept explanation paragraphs, retaining live CYD planned note. Concept statuses and proposed-workflow labels remain. Existing archive test updated to verify workflow instead of removed note.
+Verification: lint/build and both archive browser tests pass, including responsive and axe checks. Existing bundle advisory remains. Remaining: none; no commit/deployment.
+
+
+## PORT-045 — Site action audit
+Status: DONE
+Objective: Verify all active public routes' links/buttons/actions, repair broken behavior or remove unusable actions.
+Acceptance: Homepage/book/experience/intro/archive/case-study/mobile navigation actions exercised; internal anchors resolve and external destinations checked; meaningful regressions for defects; lint/build/relevant browser checks; memory synchronized.
+Progress: Verified CYD/NOTWO external destinations return HTTP 200 (CYD redirects to www). Fixed same-destination router actions by including navigation key in route effects; experience CRM link uses SPA routing and thread RAF checks disposal/ref connectivity. Added five action-audit browser cases for all route/anchor targets, repeated navigation, mobile disclosures/filters/contact, all experience cards/CRM navigation, all product-map/section actions. Wider suites running; no commit/deployment.
+Completed: Audited active homepage, archive, two case studies and not-found route. Repeated router navigation now reruns destination scrolling/focus using location.key. Experience inspector CRM link uses client navigation; thread RAF ignores detached/unmounted refs. All visible action families verified; no dead actions needed removal. Updated stale portfolio assertion for PORT-042 copy.
+Verification: Lint/build and 8 API tests pass. All 37 current browser cases pass across scoped runs: wider run passed 36/37; action rerun passed all 5 after correcting test expectation to include existing 100px root scroll padding plus section scroll margin. Actions cover all link/anchor targets, repeat navigation, mobile archive/filters/disclosures/contact/back-top, all experience cards and no-reload CRM exit, every case-map view/chapter. Existing book/life-board/opening/portfolio/archive suites pass. External CYD redirects to www and returns 200; NOTWO returns 200. Mailto address and actual clipboard copy verified; no emails sent.
+Limitations: External-site availability/email-client/browser audio permissions depend on visitor environment. Existing build chunk advisory remains. Obsolete cinema.spec.js excluded per existing documented contract. No commit/deployment. Remaining: none.
+
+
+## PORT-046 — Remove intro and unnecessary presentation controls/copy
+Status: DONE
+Objective: Remove Marvel intro and audit active site for prompt-like labels, optional gimmicks, repetitive process notes.
+Acceptance: Direct homepage entry without cinematic/audio dependencies or replay controls; remove ink/torch controls and redundant art/process disclaimers; preserve comic identity, project facts/statuses and useful navigation; update metadata/tests and memory; verify whole active site.
+Progress: Removed runtime cinematic entry/replay/audio imports/state, ink mode, torch tracking and repeat art/process notes across home/book/experience/cases. Simplified archive banner and CRM context; removed obsolete workspace metadata. Replaced intro tests with direct-entry/no-clutter checks, removed obsolete cinema tests and adjusted removed-feature assertions. Lint/build pass; full 35-case browser suite running. Prior source/assets for retired intro remain unused, preserving history.
+Completed: Direct entry with no cinematic/audio imports or replay/ink/torch UI. Removed art/process disclaimers from book, map and experience inspector; simplified archive banner, footer and CRM context. Fixed stale workspace social/SEO metadata. Preserve comic visuals, functional book/maps/filters/dialogs/contact and truthful project statuses. Retired obsolete cinema tests; opening suite verifies direct first/reload entry, no intro/audio module requests, no gimmick controls, no redundant notes across active routes.
+Verification: lint/build and 8 API tests pass. All 35 current browser tests pass across scoped runs: full run 34 passed, one keyboard test raced initial hash focus after obsolete torch wait was removed; fixed test to await #about route focus and reran entire life-board suite (4/4 pass). Phone direct-entry screenshot visually reviewed. git diff --check passes.
+Limitations: Existing >500KB build advisory remains (JS now ~502KB versus ~532KB, CSS ~120KB versus ~134KB). Inactive intro source/assets preserved and not loaded by site. No commit/deployment. Remaining: none.

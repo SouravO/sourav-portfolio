@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
-import { ArrowUpRight, Briefcase, CaretLeft, CaretRight, Flashlight, X } from '@phosphor-icons/react'
+import { ArrowUpRight, Briefcase, CaretLeft, CaretRight, X } from '@phosphor-icons/react'
 import { createPortal } from 'react-dom'
+import { Link } from 'react-router-dom'
 import { boardProfile, experienceChapters } from '../data/lifeBoard'
 import '../detective-board.css'
 
@@ -17,7 +18,7 @@ function Threads({ boardRef }) {
     function measure() {
       cancelAnimationFrame(frame)
       frame = requestAnimationFrame(() => {
-        if (disposed) return
+        if (disposed || !svgRef.current || !board.isConnected) return
         const bounds = board.getBoundingClientRect()
         const pins = Object.fromEntries(entries.map(item => {
           const pin = board.querySelector(`.life-card-${item.id} .life-pin`).getBoundingClientRect()
@@ -76,7 +77,7 @@ function Inspector({ selected, onClose, onSelect }) {
         <div className="life-inspector-bar"><span>WORK EXPERIENCE / {String(selected + 1).padStart(2, '0')}</span><button type="button" autoFocus onClick={onClose} aria-label="Close details"><X size={22} /></button></div>
         <div className="life-inspector-grid">
           <figure><Portrait key={item.id} item={item} sizes="(max-width: 700px) 85vw, 440px" /><figcaption>{item.caption}</figcaption></figure>
-          <div className="life-inspector-copy" aria-live="polite"><p className="life-eyebrow">{item.era}</p><h3 id="life-inspector-title">{item.title}</h3><p>{item.story}</p>{item.tags && <ul className="life-tags">{item.tags.map(tag => <li key={tag}>{tag}</li>)}</ul>}<p className="life-art-note">Illustrated representation of this experience.</p>{item.id === 'studio' && <a href="/work/day-one-crm">Explore Day One CRM <ArrowUpRight size={17} /></a>}</div>
+          <div className="life-inspector-copy" aria-live="polite"><p className="life-eyebrow">{item.era}</p><h3 id="life-inspector-title">{item.title}</h3><p>{item.story}</p>{item.tags && <ul className="life-tags">{item.tags.map(tag => <li key={tag}>{tag}</li>)}</ul>}{item.id === 'studio' && <Link to="/work/day-one-crm">Explore Day One CRM <ArrowUpRight size={17} /></Link>}</div>
         </div>
         <nav className="life-inspector-nav" aria-label="Experience navigation"><button type="button" onClick={() => move(-1)}><CaretLeft size={18} /> Previous</button><span>{selected + 1} / {entries.length}</span><button type="button" onClick={() => move(1)}>Next <CaretRight size={18} /></button></nav>
       </div>
@@ -86,17 +87,10 @@ function Inspector({ selected, onClose, onSelect }) {
 
 export default function DetectiveBoard() {
   const [selected, setSelected] = useState(null)
-  const [torch, setTorch] = useState(false)
   const boardRef = useRef(null)
-  function followPointer(event) {
-    if (!torch || event.pointerType === 'touch') return
-    const rect = event.currentTarget.getBoundingClientRect()
-    boardRef.current.style.setProperty('--light-x', `${event.clientX - rect.left}px`)
-    boardRef.current.style.setProperty('--light-y', `${event.clientY - rect.top}px`)
-  }
   return <section id="about" className="life-section" aria-labelledby="life-heading">
-    <header className="life-header"><div><p className="life-eyebrow"><Briefcase size={16} /> EXPERIENCE · CAREER JOURNEY</p><h2 id="life-heading">Work experience,<br /><span>chapter by chapter.</span></h2></div><div className="life-header-note"><p>Education, roles, and<br />the work behind them.</p><button type="button" className="life-torch" aria-pressed={torch} onClick={() => setTorch(value => !value)}><Flashlight size={17} /> Torch {torch ? 'on' : 'off'}</button></div></header>
-    <div className={`life-board${torch ? ' life-board-lit' : ''}`} ref={boardRef} onPointerMove={followPointer}>
+    <header className="life-header"><div><p className="life-eyebrow"><Briefcase size={16} /> EXPERIENCE · CAREER JOURNEY</p><h2 id="life-heading">Work experience,<br /><span>chapter by chapter.</span></h2></div><div className="life-header-note"><p>Education, roles, and<br />the work behind them.</p></div></header>
+    <div className="life-board" ref={boardRef}>
       <div className="life-board-label" aria-hidden="true">FIELD NOTES / PROFESSIONAL EXPERIENCE</div>
       <Threads boardRef={boardRef} />
       {entries.map((item, index) => <button type="button" key={item.id} className={`life-card life-card-${item.id}`} style={{ '--card-x': `${item.x}%`, '--card-y': `${item.y}%`, '--card-angle': `${item.rotation}deg`, '--card-order': index }} onClick={() => setSelected(index)}>
@@ -108,9 +102,8 @@ export default function DetectiveBoard() {
         <span className="life-open-hint">View details <ArrowUpRight size={14} /></span>
       </button>)}
       <aside className="life-handwritten"><span aria-hidden="true">↳</span> {experienceChapters.length} roles & milestones.<br /><strong>{boardProfile.era}</strong></aside>
-      <div className="life-light" aria-hidden="true" />
     </div>
-    <footer className="life-footer"><p><span aria-hidden="true">●</span> Experience grounded in real projects and systems.</p><a href="/#contact">Get in touch <ArrowUpRight size={17} /></a></footer>
+    <footer className="life-footer"><p><span aria-hidden="true">●</span> Full-stack engineering & technical leadership.</p><a href="/#contact">Get in touch <ArrowUpRight size={17} /></a></footer>
     {selected !== null && <Inspector selected={selected} onClose={() => setSelected(null)} onSelect={setSelected} />}
   </section>
 }

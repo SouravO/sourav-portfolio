@@ -138,3 +138,33 @@ PORT-021. Desktop leaves bend along the spine and compact leaves curl over the t
 ## 2026-11-21 — PORT-040
 - Corrected initial opening footprint: left side stays collapsed until cover passes spine, then unfolds with rotation in either scroll direction. Supersedes PORT-039 fill approach.
 - Shared cover-projected geometry drives backing and printed spread clipping. Lint/build and all 12 book tests pass; opening screenshot reviewed. No commit/deployment.
+
+
+## 2026-11-21 — PORT-041
+- Replaced archive card labels with Contribution / Technical focus across all four projects.
+- Lint/build pass; existing bundle advisory remains. No commit/deployment.
+
+
+## 2026-11-21 — PORT-042
+- Rewrote CYD build details with concise contribution, four action-led scope bullets and clearly planned automation.
+- Restored visible disc markers/spacing across archive scope lists. Lint/build and two responsive/accessibility archive tests pass; existing bundle advisory remains. No commit/deployment.
+
+
+## 2026-11-21 — PORT-043
+- Removed requested explanatory sentence below project cards and unused styling. Build passes; existing bundle advisory remains. No commit/deployment.
+
+
+## 2026-11-21 — PORT-044
+- Rewrote NOTWO/Versa descriptions and removed repeated CRM/concept notes beneath archive scope lists.
+- Kept status/proposed-workflow labels and CYD planned-next note. Lint/build and both archive tests pass; existing bundle advisory remains. No commit/deployment.
+
+
+## 2026-11-21 — PORT-045
+- Audited public-route actions; fixed repeat destination scrolling/focus, client-side CRM navigation from experience dialog, and detached board callback handling.
+- Added route/anchor and action regressions; refreshed stale CYD copy assertion. All 37 current browser cases pass across scoped runs, plus lint/build and 8 API tests. Both external project destinations return 200. Existing build advisory remains. No commit/deployment.
+
+
+## 2026-11-21 — PORT-046
+- Removed cinematic intro/music/replay from active website, plus ink mode and torch. Homepage loads directly.
+- Removed repeated artwork/process disclaimers; simplified archive/footer/CRM copy and corrected obsolete workspace SEO/social metadata. Comic identity and useful interactions preserved.
+- Replaced intro tests with direct-entry/no-clutter regressions; deleted obsolete cinema tests. Lint/build, 8 API tests and all 35 browser cases pass across scoped runs. Existing build advisory remains. No commit/deployment.

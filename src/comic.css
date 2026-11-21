@@ -38,13 +38,6 @@ a:hover { color:var(--accent); }
 .cover-picture::after { content:''; position:absolute; inset:0; background:linear-gradient(90deg,#f0e1bd38 0%,transparent 65%); }
 .cover-edition { position:absolute; top:15px; left:24px; right:24px; display:flex; justify-content:space-between; align-items:center; font-family:'Geist Mono Variable',monospace; font-size:10px; font-weight:650; letter-spacing:1px; z-index:5; }
 .cover-edition > span { background:var(--paper); border:1px solid var(--ink); padding:6px 9px; }
-.cover-edition-controls { display:flex; align-items:center; gap:8px; }
-.cover-edition button { background:var(--paper); border:1px solid var(--ink); padding:7px 10px; display:flex; align-items:center; gap:8px; min-height:32px; font-family:'Geist Mono Variable',monospace; font-size:10px; font-weight:700; cursor:pointer; }
-.cover-edition button span { color:var(--accent); }
-.cover-intro-pill { background:#e62429!important; color:#ffffff!important; border:1px solid var(--ink)!important; box-shadow:2px 2px 0 var(--ink); transition:transform .15s,box-shadow .15s; }
-.cover-intro-pill:hover { transform:translate(-1px,-1px); box-shadow:3px 3px 0 var(--ink); }
-.header-intro-pill { background:#e62429; color:#ffffff; border:2px solid var(--ink); box-shadow:2px 2px 0 var(--ink); font-family:var(--display); font-size:20px; letter-spacing:.04em; padding:4px 12px; cursor:pointer; display:inline-flex; align-items:center; gap:6px; margin-right:8px; }
-.header-intro-pill:hover { background:var(--accent); transform:translate(-1px,-1px); box-shadow:4px 4px 0 var(--ink); }
 .cover-title-wrap { position:absolute; top:12%; left:4%; width:60%; transform:rotate(-6deg); transform-origin:20% 50%; }
 .cover-kicker { display:inline-block; padding:6px 12px; font-size:16px; background:var(--yellow); margin-bottom:16px; }
 .cover-title-wrap h1 { font-size:clamp(70px,8.6vw,130px); line-height:.91; letter-spacing:.005em; text-transform:uppercase; }
@@ -56,7 +49,6 @@ a:hover { color:var(--accent); }
 .cover-intro .button:hover { transform:rotate(-2deg) translateY(-3px); }
 .cover-note { position:absolute; right:2.5%; bottom:4%; max-width:230px; background:var(--yellow); transform:rotate(2deg); font-size:21px; }
 .cover-credit { position:absolute; right:24px; top:58px; font-size:9px; font-family:'Geist Mono Variable',monospace; background:var(--paper); padding:4px 6px; }
-.ink-mode .cover-picture { filter:grayscale(1) contrast(1.1); }
 .chapter-strip { display:flex; align-items:center; justify-content:space-around; gap:20px; padding:22px 12px; border-bottom:3px solid var(--ink); font-family:var(--display); font-size:clamp(18px,2.2vw,29px); letter-spacing:.05em; }
 .chapter-strip svg { color:var(--accent); flex-shrink:0; }
 .section { padding:76px 22px 0; scroll-margin-top:25px; }

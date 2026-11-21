@@ -26,7 +26,7 @@ export default function ProjectsPage() {
             <p className="archive-art-caption">Different problems. The same curiosity.</p>
           </div>
         </div>
-        <p className="archive-printer-line">4 PROJECT STORIES <span>REAL BUILDS & CLEARLY LABELED CONCEPTS</span></p>
+        <p className="archive-printer-line">4 PROJECT STORIES <span>PRODUCTS & CONCEPTS</span></p>
       </header>
 
       <section id="collection" className="archive-collection" aria-labelledby="collection-title">
@@ -46,9 +46,9 @@ export default function ProjectsPage() {
             </div>
             <div className="archive-issue-copy">
               <h3>{p.name}</h3><p className="archive-tagline">{p.summary}</p><p className="archive-description">{p.description}</p>
-              <dl><div><dt>My part</dt><dd>{p.role || 'Product planning & technical architecture'}</dd></div><div><dt>{p.kind === 'concept' ? 'Exploring' : 'Working with'}</dt><dd>{p.stack.join(' / ')}</dd></div></dl>
+              <dl><div><dt>Contribution</dt><dd>{p.role || 'Product planning & technical architecture'}</dd></div><div><dt>Technical focus</dt><dd>{p.stack.join(' / ')}</dd></div></dl>
               <details className="archive-notes"><summary>{p.kind === 'concept' ? 'Inside the concept' : 'Inside the build'}<Plus size={18} aria-hidden="true" /></summary>
-                <div>{p.contribution && <p>{p.contribution}</p>}<p className="archive-notes-label">{p.kind === 'concept' ? 'Proposed workflow' : 'Built scope'}</p><ul>{(p.capabilities || p.flow).map(item => <li key={item}>{item}</li>)}</ul><p>{p.planned || p.perspectives.Engineering}</p></div>
+                <div>{p.contribution && <p>{p.contribution}</p>}<p className="archive-notes-label">{p.kind === 'concept' ? 'Proposed workflow' : 'Built scope'}</p><ul>{(p.capabilities || p.flow).map(item => <li key={item}>{item}</li>)}</ul>{p.kind === 'live' && p.planned && <p>{p.planned}</p>}</div>
               </details>
               <div className="archive-issue-links">
                 {p.slug && <Link to={`/work/${p.slug}`}>Read {p.short} case study</Link>}
@@ -57,7 +57,6 @@ export default function ProjectsPage() {
             </div>
           </article>)}
         </div>
-        <p className="archive-art-note">Illustrated project worlds, not product screenshots. Concept workflows describe proposed capabilities.</p>
       </section>
       <section className="archive-end" aria-labelledby="archive-end-title"><p className="eyebrow">ROOM FOR ANOTHER STORY</p><h2 id="archive-end-title">What should we build next?</h2><p>Hiring an engineer, growing a technical team, or shaping a product? Let’s talk about what you have in mind.</p><Link to="/#contact" className="button primary">Start a conversation</Link><Link to="/" className="archive-home">Back to Sourav’s story</Link></section>
     </div>

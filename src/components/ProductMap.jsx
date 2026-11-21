@@ -22,7 +22,7 @@ export default function ProductMap({ project, headingLevel = 4 }) {
   const Heading = `h${headingLevel}`
   return (
     <div className={`product-map product-map-${project.id}`} aria-label={`${project.name} interactive product map`}>
-      <div className="map-masthead"><span><Asterisk size={15} weight="bold" /> INSIDE THE PRODUCT</span><span>FLOW EXPLAINER</span></div>
+      <div className="map-masthead"><span><Asterisk size={15} weight="bold" /> INSIDE THE PRODUCT</span><span>WORKFLOW</span></div>
       <div className="map-controls" role="group" aria-label={`${project.name} product views`}>
         {views[project.id].map((item, index) => <button key={item.label} aria-pressed={selected === index} aria-controls={contentId} onClick={() => setSelected(index)}>{item.label}</button>)}
       </div>
@@ -31,7 +31,6 @@ export default function ProductMap({ project, headingLevel = 4 }) {
         <div className="map-nodes">{view.nodes.map((node, i) => <div className={i === 1 ? 'map-node map-node-center' : 'map-node'} key={node}><span>{node}</span>{i < 2 && <span className="map-wire" aria-hidden="true" />}</div>)}</div>
         <Heading>{view.title}</Heading><p>{view.text}</p>
       </div>
-      <p className="map-disclosure">Illustrated flow, not a product screenshot. {project.id === 'crm' ? 'Public-safe overview.' : 'Try the views above.'}</p>
     </div>
   )
 }

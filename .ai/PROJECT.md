@@ -50,3 +50,6 @@ PORT-020 completed. The compact project book uses a portrait spiral notebook wit
 
 
 2026-11-21 — PORT-037: Music and its details/controls belong only to the cinematic introduction. Landing and all portfolio pages have no persistent music player; intro exits stop audio. Existing header/hero intro replay retained.
+
+
+2026-11-21 — PORT-046: User requested removal of Marvel intro and unnecessary prompt-derived presentation content across the website. This supersedes prior requirements for automatic cinematic entry, intro music/replay, ink mode and torch. Homepage opens directly. Keep comic identity/book and useful project/experience/contact interactions; remove repetitive artwork/process disclaimers while retaining factual status and proposed-workflow labels. Metadata no longer advertises removed workspace.

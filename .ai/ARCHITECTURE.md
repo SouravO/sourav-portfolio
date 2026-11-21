@@ -90,3 +90,7 @@ MarvelIntro owns soundtrack lifecycle and renders ViceCityRadio inside its modal
 
 ## 2026-11-21 — PORT-038
 Book3D renders a memoized BookSurfaces subtree with stable keyed desktop story/art surfaces, compact leaves and all decorative five-strip turn surfaces. The frame loop owns surface hidden/inert/aria-hidden state, active classes and book data/style geometry; React scene state only updates chapter UI. Visibility changes only at scene boundaries and geometry updates each frame, preventing asynchronous content/angle mismatches. UseLayoutEffect initializes/rebinds surfaces and cancels animation work across layout/resize; chapter jumps cancel pending RAF. Frame-independent smoothing uses 25ms time constant, snaps >.12 progress jumps and sleeps at rest. Existing eager art and near-book decode warming retained. No dependencies, routes or APIs changed.
+
+
+## 2026-11-21 — PORT-046 current entry
+App directly renders site-shell/Header/Home with no cinematic entry state, inert gating, intro/audio imports or intro/radio CSS imports. AdventureHero has no replay or ink state; DetectiveBoard retains inspector/threads with no torch state/pointer tracking. MarvelIntro/ViceCityRadio/audio source and assets remain inactive historical artifacts, absent from runtime dependency graph. Removed obsolete cinema test suite and replaced opening tests with direct-entry/request/content regressions.

@@ -2,14 +2,13 @@ import { test, expect } from '@playwright/test'
 import AxeBuilder from '@axe-core/playwright'
 
 test.beforeEach(async ({ page }) => {
-  await page.addInitScript(() => sessionStorage.setItem('skip_intro_test', 'true'))
   await page.emulateMedia({ reducedMotion: 'reduce' })
 })
 
 test('experience entries support keyboard opening, native focus containment, navigation and restoration', async ({ page }) => {
   await page.goto('/#about')
   const opener = page.getByRole('button', { name: /Education/ })
-  await expect(page.getByRole('button', { name: 'Torch off', exact: true })).toHaveAttribute('aria-pressed', 'false')
+  await expect(page.locator('#about')).toBeFocused()
   await opener.focus()
   await page.keyboard.press('Enter')
   const dialog = page.getByRole('dialog')
@@ -25,8 +24,6 @@ test('experience entries support keyboard opening, native focus containment, nav
   await page.keyboard.press('Escape')
   await expect(dialog).toHaveCount(0)
   await expect(opener).toBeFocused()
-  await page.getByRole('button', { name: 'Torch off', exact: true }).click()
-  await expect(page.getByRole('button', { name: 'Torch on', exact: true })).toHaveAttribute('aria-pressed', 'true')
 })
 
 test('responsive experience boards keep portraits loaded, cards visible, pins attached and no horizontal overflow', async ({ page }) => {

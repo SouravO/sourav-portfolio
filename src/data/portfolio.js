@@ -26,15 +26,15 @@ export const projects = [
     problem:
       'Product offers are scattered across marketplaces. Check Your Deals brings discovery, category navigation, and affiliate links into one consumer experience.',
     contribution:
-      'My work spans the product experience, deal listings, search, product detail pages, affiliate integration, and the architecture for deal ingestion.',
+      'I built the shopping experience, integrated affiliate links, and designed the deal ingestion architecture.',
     capabilities: [
-      'Product discovery and deal listings',
-      'Search and category navigation',
-      'Product detail pages',
-      'E-commerce affiliate link integration',
+      'Browse products and deal listings',
+      'Find deals through search and categories',
+      'View individual product details',
+      'Follow affiliate links to marketplace offers',
     ],
     planned:
-      'Automation for product discovery, updates, and affiliate link generation is planned. The ingestion flow is explanatory, not a verified production schema.',
+      'Planned next: automate product discovery, deal updates, and affiliate link generation.',
     flow: [
       'Marketplace offers',
       'Deal ingestion',
@@ -47,7 +47,7 @@ export const projects = [
       Architecture:
         'Next.js and TypeScript support the web experience, with Supabase as the data platform. Deal ingestion connects marketplace information to discovery. Further automation is planned.',
       Engineering:
-        'The supplied implemented scope includes deal listings, search and category navigation, product detail pages, and affiliate links. The product is publicly deployed and actively evolving.',
+        'The product includes deal listings, search and category navigation, product detail pages, and affiliate links. The product is publicly deployed and actively evolving.',
     },
   },
   {
@@ -74,7 +74,7 @@ export const projects = [
       'Founder health scoring and team leaderboards',
     ],
     planned:
-      'Built and used internally. All diagrams are public-safe explanations based on the supplied module descriptions, not internal screenshots or production database diagrams. No private records or outcome metrics are disclosed.',
+      'Built and used internally at Day One Venture Studio to manage founder operations, team tasks, approvals, and weekly progress.',
     flow: [
       'Founder updates',
       'Venture manager',
@@ -85,7 +85,7 @@ export const projects = [
       Product:
         'Give founders, venture managers, and internal teams a shared view of execution. Connect assignments, approvals, and weekly progress instead of treating each as an isolated workflow.',
       Architecture:
-        'Role-based dashboards connect founder CRM, task routing, approvals, and progress reporting. Supabase is part of the supplied technology scope. This is a public-safe conceptual view.',
+        'Role-based dashboards connect founder CRM, task routing, approvals, and progress reporting. Supabase supports the data layer.',
       Engineering:
         'Built and used internally. Modules include founder CRM, internal tasks, role-based dashboards, weekly tracking, approvals, performance metrics, health scoring, and team leaderboards.',
     },
@@ -99,7 +99,7 @@ export const projects = [
     url: 'https://www.notwoskin.com',
     summary: 'Where skin science meets software.',
     description:
-      'Architecture and product planning for connected skin analysis, personalized recommendations, and retail experiences. These capabilities are proposed, not presented as shipped.',
+      'Product planning and MVP architecture for a skincare concept linking skin assessments, personalized recommendations, and retail.',
     stack: ['Device integration', 'API design', 'Personalization'],
     flow: [
       'Skin analysis concept',
@@ -124,7 +124,7 @@ export const projects = [
     kind: 'concept',
     summary: 'From purchase to a protected reading experience.',
     description:
-      'A digital and physical book commerce concept exploring purchase verification, reader access, and customer entitlements. Architecture and product concept only.',
+      'A book commerce concept connecting digital and physical purchases with verified access to an online reading experience.',
     stack: [
       'Shopify integration concept',
       'Access control',

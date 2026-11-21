@@ -1,10 +1,6 @@
 import { test, expect } from '@playwright/test'
 import AxeBuilder from '@axe-core/playwright'
 
-test.beforeEach(async ({ page }) => {
-  await page.addInitScript(() => sessionStorage.setItem('skip_intro_test', 'true'))
-})
-
 async function scrub(page, progress) {
   await page.locator('#work').evaluate((el, p) => {
     window.scrollTo({ top: el.getBoundingClientRect().top + scrollY + p * (el.offsetHeight - innerHeight), behavior: 'instant' })
@@ -35,7 +31,7 @@ test('book pins, opens, holds readable spreads, turns both ways and releases', a
   await expect(page.locator('.folio-left h3')).toHaveText('Check Your Deals')
   await page.getByRole('button', { name: '04 Founder Versa' }).click()
   await expect(page.locator('.folio-left h3')).toHaveText('Founder Versa')
-  await expect(page.locator('.folio-right')).toContainText('proposed, not shipped')
+  await expect(page.locator('.folio-right')).toContainText('The proposed direction')
   await page.getByRole('button', { name: 'Previous project' }).click()
   await expect(page.locator('.folio-left h3')).toHaveText('NOTWO')
   await scrub(page, 1)
@@ -149,7 +145,6 @@ test('mobile book opens, turns story/art leaves, reverses and navigates every pr
 test('phone touch controls open the book, turn a leaf and follow a case link', async ({ browser }) => {
   const context = await browser.newContext({ viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true })
   const page = await context.newPage()
-  await page.addInitScript(() => sessionStorage.setItem('skip_intro_test', 'true'))
   await page.goto('/#work')
   await page.getByRole('button', { name: '01 CYD' }).tap()
   await expect(page.locator('.folio-book')).toHaveAttribute('data-open', 'true')

@@ -27,7 +27,7 @@ function StoryPage({ project: p, index }) {
     <h3>{p.name}</h3>
     <p className="folio-quote">{p.summary}</p>
     <p className="folio-description">{p.description}</p>
-    <div className="folio-role"><span>My part in the story</span><p>{p.role || 'Product planning & technical architecture'}</p></div>
+    <div className="folio-role"><span>Contribution</span><p>{p.role || 'Product planning & technical architecture'}</p></div>
     <p className="folio-stack">{p.stack.join(' / ')}</p>
     <div className="folio-actions">
       {p.slug && <Link to={`/work/${p.slug}`} aria-label={`Read case study: ${p.name}`}>Read case study <ArrowRight size={17} weight="bold" /></Link>}
@@ -45,7 +45,6 @@ function ArtPage({ project: p, index }) {
       <div><span>{p.kind === 'concept' ? 'The concept' : 'The challenge'}</span><p>{p.flow[0]}</p></div>
       <div><span>{p.kind === 'concept' ? 'The proposed direction' : 'The connection'}</span><p>{p.flow.at(-1)}</p><ArrowRight size={26} weight="bold" aria-hidden="true" /></div>
     </div>
-    <p className="folio-art-note">{p.kind === 'concept' ? 'Planning & architecture only. These capabilities are proposed, not shipped.' : 'An illustrated explanation of the product — not a product screenshot.'}</p>
     <div className="folio-footer"><span>To the next chapter…</span><span>{index * 2 + 2}</span></div>
   </div>
 }
