@@ -17,6 +17,7 @@ test('book pins, opens, holds readable spreads, turns both ways and releases', a
   await expect(page.locator('.folio-book')).toHaveAttribute('data-open', 'true')
   const book = await page.locator('.folio-book').boundingBox()
   await expect(page.locator('.folio-left h3')).toHaveText('Check Your Deals')
+  await expect(page.locator('.folio-left')).toContainText('Cofounder')
   await scrub(page, .32)
   await expect(page.locator('.folio-turn')).toHaveCount(0)
   const held = await page.locator('.folio-book').boundingBox()

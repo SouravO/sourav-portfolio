@@ -3,9 +3,9 @@ import { MagnifyingGlass, Browsers, LinkSimple, UsersThree, ListChecks, ChartBar
 
 const views = {
   cyd: [
-    { label: 'Discover', icon: MagnifyingGlass, title: 'Find an offer worth opening.', text: 'Deal listings, search, and category navigation bring marketplace offers into one discovery experience.', nodes: ['Deal listings', 'Search', 'Categories'] },
-    { label: 'Explore', icon: Browsers, title: 'Give each product its own context.', text: 'Product detail pages let shoppers explore an offer before continuing to its marketplace destination.', nodes: ['Selected offer', 'Product details', 'Destination'] },
-    { label: 'Connect', icon: LinkSimple, title: 'Connect discovery to the marketplace.', text: 'Affiliate links connect the product experience with the destination store. Further discovery and update automation is planned.', nodes: ['Product page', 'Affiliate link', 'Marketplace'] },
+    { label: 'Discover', icon: MagnifyingGlass, title: 'Find an offer worth opening.', text: 'Checked deal listings, search, and category navigation bring authorized marketplace offers into one discovery experience.', nodes: ['Deal listings', 'Search', 'Categories'] },
+    { label: 'Explore', icon: Browsers, title: 'Give each product its own context.', text: 'Product detail pages show source-checked prices, when the price was last checked, and reference-price comparisons before shoppers continue.', nodes: ['Selected offer', 'Product details', 'Destination'] },
+    { label: 'Connect', icon: LinkSimple, title: 'Connect discovery to the marketplace.', text: 'Affiliate links connect the product experience to the partner store, which handles checkout and support. Further discovery and update automation is planned.', nodes: ['Product page', 'Affiliate link', 'Marketplace'] },
   ],
   crm: [
     { label: 'People', icon: UsersThree, title: 'One system, different responsibilities.', text: 'Role-based dashboards connect founders, venture managers, and execution teams around the work.', nodes: ['Founders', 'Venture managers', 'Execution teams'] },

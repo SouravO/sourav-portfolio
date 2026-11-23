@@ -22,6 +22,9 @@ test('homepage navigation, projects, and concept disclosures', async ({
   await expect(
     page.getByText(/Planned next: automate product discovery/),
   ).toBeAttached()
+  await expect(page.locator('.case-facts')).toContainText('Cofounder')
+  await expect(page.locator('#contribution')).toContainText('As cofounder')
+  await expect(page.locator('.case-cover')).toContainText('authorized sources')
   await page.goto('/work/day-one-crm')
   await expect(
     page.getByRole('heading', { name: 'Day One CRM', exact: true, level: 1 }),

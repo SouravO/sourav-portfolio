@@ -20,34 +20,34 @@ export const projects = [
     url: 'https://checkyourdeals.com',
     summary: 'Less searching. More discovering.',
     description:
-      'A deal discovery platform connecting shoppers with offers from major e-commerce marketplaces.',
-    role: 'Full-stack product development',
+      'A deal discovery platform helping shoppers in India compare checked offers from authorized sources before visiting a partner store.',
+    role: 'Cofounder & full-stack development',
     stack: ['Next.js', 'TypeScript', 'Tailwind CSS', 'Supabase'],
     problem:
-      'Product offers are scattered across marketplaces. Check Your Deals brings discovery, category navigation, and affiliate links into one consumer experience.',
+      'Offers are scattered across marketplaces, and it is hard to know which listings are current. Check Your Deals brings checked discovery, category navigation, and affiliate links into one consumer experience.',
     contribution:
-      'I built the shopping experience, integrated affiliate links, and designed the deal ingestion architecture.',
+      'As cofounder, I built the shopping experience, integrated affiliate links, and designed the deal ingestion architecture.',
     capabilities: [
-      'Browse products and deal listings',
-      'Find deals through search and categories',
-      'View individual product details',
-      'Follow affiliate links to marketplace offers',
+      'Browse and search checked offers by category',
+      'View product details with source-checked prices and last-checked times',
+      'Explore brand sales, trending deals, and price comparisons',
+      'Follow affiliate links to partner stores',
     ],
     planned:
       'Planned next: automate product discovery, deal updates, and affiliate link generation.',
     flow: [
-      'Marketplace offers',
-      'Deal ingestion',
+      'Scattered marketplace offers',
+      'Validation & freshness checks',
       'Search & discovery',
       'Affiliate destination',
     ],
     perspectives: {
       Product:
-        'Bring scattered offers into a focused discovery experience. Search, categories, and product detail pages help shoppers find their next deal.',
+        'A cofounder-led discovery experience: checked listings, categories, product details and brand sales help shoppers compare the details before visiting a partner store.',
       Architecture:
-        'Next.js and TypeScript support the web experience, with Supabase as the data platform. Deal ingestion connects marketplace information to discovery. Further automation is planned.',
+        'Next.js and TypeScript support the web experience, with Supabase as the data platform. Listings qualify only when the source is authorized, required details validate, and price data is within its source’s freshness limits. Further automation is planned.',
       Engineering:
-        'The product includes deal listings, search and category navigation, product detail pages, and affiliate links. The product is publicly deployed and actively evolving.',
+        'As cofounder, I built the shopping experience, integrated affiliate links, and designed deal ingestion. Listings show when a source last checked the price and distinguish source-supplied reference prices from recorded price observations; partner stores handle checkout and support. The product is publicly deployed and actively evolving.',
     },
   },
   {

@@ -121,3 +121,8 @@ PORT-020 completed. The compact project book uses a portrait spiral notebook wit
 ## 2026-11-21 — PORT-046
 - User requested removing Marvel intro and unnecessary prompt-like website content. Remove entire cinematic/audio entry/replay, ink mode and torch; keep the approved comic art/book and useful navigation. Supersedes previous cinematic/music/control requirements.
 - Remove redundant artwork/process disclaimers across active pages; preserve factual built/internal/concept/planned status. Clean stale workspace metadata. Retain unused historical intro source/assets rather than deleting unrelated artwork (experience profile reuses cinema portrait).
+
+## 2026-11-21 — PORT-047
+- User confirmed a cofounder role at Check Your Deals. Scope the wording to CYD content only (shared CYD data and derived case study/book/archive/AI grounding); do not change hero, profile, experience board or metadata identity wording.
+- Use the live public site (checkyourdeals.com and /about) as the factual source for CYD product copy now that it is reachable; keep only stable structural facts, never live prices, deal counts, timestamps, metrics or product screenshots.
+- Keep the "automation is planned" status verbatim: it remains the honest label and is covered by an existing test. No other project statuses change.

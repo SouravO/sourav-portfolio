@@ -6,6 +6,8 @@ test('project archive filters honest statuses and opens project evidence', async
   await expect(page).toHaveTitle('Projects · Sourav')
   await expect(page.locator('.marvel-intro')).toHaveCount(0)
   await expect(page.locator('.archive-issue')).toHaveCount(4)
+  await expect(page.locator('.archive-issue-cyd')).toContainText('Cofounder')
+  await expect(page.locator('.archive-issue-cyd')).toContainText('authorized sources')
   await page.getByRole('button', { name: 'Concepts', exact: true }).click()
   await expect(page.locator('.archive-issue')).toHaveCount(2)
   await expect(page.getByRole('status').filter({ hasText: 'stories on the shelf' })).toHaveText('2 stories on the shelf')

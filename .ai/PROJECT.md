@@ -9,14 +9,14 @@ Classic comic-book portfolio emphasizing personal reputation and technical credi
 Routes: homepage; Check Your Deals case study; Day One CRM case study. NOTWO and Founder Versa appear as expandable planning/concept entries. No invented metrics, testimonials, employment dates, social links, or repositories. No résumé until supplied.
 
 Project facts supplied by the user:
-- CYD: publicly deployed, actively developed affiliate/deal discovery product. Automation plans must stay labeled planned.
+- CYD: publicly deployed, actively developed affiliate/deal discovery product co-founded by the user. Automation plans must stay labeled planned. Public product facts verified from https://checkyourdeals.com/ and its /about page on 2026-11-21; no live prices, counts or timestamps are hardcoded.
 - Day One CRM: user confirmed built and used internally. Public-safe module descriptions and explanatory diagrams only.
 - NOTWO: product planning and MVP architecture, not shipped capabilities.
 - Founder Versa: architecture/product concept, not a shipped platform.
 
 Live OpenAI assistant and Vercel hosting selected by user. Default quotas: five requests per network identity per hour, 100 site-wide per UTC day. Service credentials have not been supplied; live service verification and production publication remain release setup work.
 
-Source of truth: src/data/portfolio.js, based on the user-supplied personal brief and subsequent answers. Supplied product websites were inaccessible to the browsing tool; no screenshots or additional public-site claims were inferred.
+Source of truth: src/data/portfolio.js, based on the user-supplied personal brief and subsequent answers. CYD's public site and /about page were reviewed on 2026-11-21 for stable product facts; other supplied product sites remain unverified and no screenshots or additional public-site claims were inferred.
 
 Scripts: npm run dev, build, lint, preview; npm test; npm run test:e2e.
 

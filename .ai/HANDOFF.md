@@ -1,21 +1,21 @@
 # Handoff
 
-Updated 2026-11-21 for PORT-046.
+Updated 2026-11-21 for PORT-047.
 
 ## Current state
-PORT-046 DONE: User requested removing Marvel intro and unnecessary prompt-derived website elements. App now opens directly without intro/audio/replay or entry gating; hero ink mode and experience torch removed. Cleaned art/process disclaimers across book/maps/inspector and verbose CRM context, archive banner and footer. SEO/social metadata no longer advertise retired workspace. Comic artwork/book and useful project/experience/contact functionality retained. Built/internal/concept/planned statuses stay factual. This supersedes historical intro/music requirements.
+PORT-047 DONE: User confirmed they are a cofounder of Check Your Deals and supplied https://checkyourdeals.com/. Scoped the cofounder credit to CYD content only (per user choice): shared CYD data now feeds the case study, comic book, /projects archive and server AI grounding with "Cofounder & full-stack development" and cofounder-led contribution copy. The live homepage and /about page were read; CYD description, problem, capabilities, flow, perspectives and the CYD ProductMap views now use verified public facts (authorized sources, detail validation, freshness limits, last-checked times, source reference prices vs observations, partner-store checkout, categories/sales/trending/price comparisons). Overall identity wording, hero, experience board, header/footer and metadata are unchanged. "Automation is planned" remains verbatim. PORT-046 direct entry/no intro remains the active runtime contract.
 
 ## Verification
-Lint/build and 8 API tests pass. All 35 browser cases pass across scoped runs: full run 34 passed; keyboard test needed explicit initial hash-focus wait after removed torch assertion, then all four experience cases passed. New direct-entry tests cover 320/390/1440, reload, no intro/audio module requests or controls; content audit covers all four active routes. Existing action/book/archive/case/responsive/axe checks pass. Phone direct-entry screenshot visually reviewed. diff check passes. JS ~502KB and CSS ~120KB (reduced from ~532KB/~134KB); existing >500KB advisory remains.
+Lint and production build pass (existing >500KB advisory; JS ~502KB, CSS ~120KB). npm test 8/8. Full Playwright suite 35/35 passed, including new cofounder assertions on the CYD case study, book story page and archive card, plus preserved planned-status, product-map-label, responsive and axe checks. git diff --check passes. No live prices, counts, timestamps or screenshots were added; live site was read-only.
 
 ## Files changed this task
-index.html; src/App.jsx; src/comic.css; src/components/{AdventureHero,Book3D,DetectiveBoard,ProductMap,ProjectsPage}.jsx; src/data/portfolio.js; tests/{actions,book,life-board,opening,portfolio}.spec.js; deleted obsolete tests/cinema.spec.js; all six .ai memory documents. Prior task edits preserved.
+src/data/portfolio.js (CYD entry only); src/components/ProductMap.jsx (cyd views); tests/{portfolio,book,projects}.spec.js; README.md; all six .ai memory documents. Prior PORT-046 changes preserved.
 
 ## Limitations and next exact action
-No requested work remains. Optional user visual review and Git checkpoint. Intro/audio source/assets remain inactive historical artifacts (no runtime imports/requests); do not delete all cinema art because experience profile reuses portrait.webp. No commit/deployment.
+No requested work remains. Optional user copy review at /work/check-your-deals, /#work and /projects, then Git checkpoint. Intro/audio source and assets remain inactive historical artifacts; do not delete all cinema art because experience profile reuses portrait.webp. No commit/deployment.
 
 ## Git state
-Startup HEAD 68c2b79 with prior PORT-041–045 uncommitted changes. Preserved and extended; no reset or unrelated deletions.
+Startup HEAD 68c2b79. An external commit ce49a09 ("edits") captured the prior PORT-041–046 working-tree changes during this session; those edits were preserved, not reset or discarded. PORT-047 changes remain uncommitted on top of ce49a09. No commit made by this task.
 
 ---
 ## Previous handoff (historical)

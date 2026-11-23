@@ -168,3 +168,9 @@ PORT-021. Desktop leaves bend along the spine and compact leaves curl over the t
 - Removed cinematic intro/music/replay from active website, plus ink mode and torch. Homepage loads directly.
 - Removed repeated artwork/process disclaimers; simplified archive/footer/CRM copy and corrected obsolete workspace SEO/social metadata. Comic identity and useful interactions preserved.
 - Replaced intro tests with direct-entry/no-clutter regressions; deleted obsolete cinema tests. Lint/build, 8 API tests and all 35 browser cases pass across scoped runs. Existing build advisory remains. No commit/deployment.
+
+
+## 2026-11-21 — PORT-047
+- Credited the user's confirmed CYD cofounder role in CYD-only content: shared data (case study, book, archive, AI grounding), with hero/profile/experience/metadata unchanged.
+- Refreshed CYD product copy from the live checkyourdeals.com homepage and /about page: authorized sources, validation and freshness limits, last-checked prices, reference-price vs observed-price distinction, partner-store checkout, categories/sales/trending/price comparisons; ProductMap CYD views updated without changing control labels.
+- Kept "automation is planned" wording and all existing status labels intact; added regression assertions for cofounder and verified facts. Lint/build, 8 API tests and all 35 browser cases pass; diff check passes. No commit/deployment.
