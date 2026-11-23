@@ -4,7 +4,7 @@ import { Books, Globe, Plus } from '@phosphor-icons/react'
 import { projects } from '../data/portfolio'
 import './ProjectsPage.css'
 
-const art = { cyd: 'deals', crm: 'crm', notwo: 'cover', versa: 'workshop' }
+const art = { cyd: 'deals', crm: 'crm', 'whatsapp-ai': 'whatsapp-ai', notwo: 'cover', versa: 'workshop' }
 const filters = [['all', 'All projects'], ['built', 'Built & live'], ['concept', 'Concepts']]
 
 export default function ProjectsPage() {
@@ -18,7 +18,7 @@ export default function ProjectsPage() {
           <div className="archive-cover-copy">
             <p className="eyebrow">FROM THE BUILDER’S DESK</p>
             <h1>Every project.<br /><span>A new world.</span></h1>
-            <p>Commerce, startup operations, skin technology, and publishing. Explore what I’ve built, the systems I’ve shaped, and the ideas still on the drawing board.</p>
+            <p>Commerce, startup operations, conversational AI, skin technology, and publishing. Explore what I’ve built, the systems I’ve shaped, and the ideas still on the drawing board.</p>
             <a href="#collection" className="archive-cover-link">Open the collection</a>
           </div>
           <div className="archive-cover-art">
@@ -26,7 +26,7 @@ export default function ProjectsPage() {
             <p className="archive-art-caption">Different problems. The same curiosity.</p>
           </div>
         </div>
-        <p className="archive-printer-line">4 PROJECT STORIES <span>PRODUCTS & CONCEPTS</span></p>
+        <p className="archive-printer-line">5 PROJECT STORIES <span>PRODUCTS & CONCEPTS</span></p>
       </header>
 
       <section id="collection" className="archive-collection" aria-labelledby="collection-title">

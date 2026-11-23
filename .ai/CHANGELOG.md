@@ -1,5 +1,17 @@
 # Changelog
 
+## 2026-11-23 — PORT-049
+- Added Microsoft Clarity analytics script (`zi20e6ts2s`) to the `<head>` of `index.html`.
+- Verified production build and linting.
+
+## 2026-11-23 — PORT-048
+- Added Sourav's new project, "AI WhatsApp Assistant", built with React and Go.
+- Added project entry to `src/data/portfolio.js` with 'Built · Live' status, 'Full-stack development & AI integration' role, and capabilities/perspectives.
+- Added 'Go' to Systems skills and 'whatsapp-ai' to AI sources.
+- Generated and added custom vintage comic illustration `whatsapp-ai.png` in `assets/illustrations/builders-adventures/` and optimized `public/illustrations/whatsapp-ai.webp`.
+- Updated `src/components/Book3D.jsx` and `src/components/ProjectsPage.jsx` with artwork mappings, 5-project chapter flow, and updated cover copy.
+- Updated Playwright test suites (`tests/book.spec.js`, `tests/projects.spec.js`, `tests/actions.spec.js`, `tests/portfolio.spec.js`) to test the 5-project shelf and dynamic turn intervals; all 35 tests pass.
+
 ## 2026-11-19
 - Initialized six persistent project memory documents under .ai per AGENTS.md.
 - Recorded the verified starter architecture and initial Git state. No application changes.

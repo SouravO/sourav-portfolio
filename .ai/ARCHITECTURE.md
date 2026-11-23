@@ -6,7 +6,7 @@ Updated 2026-11-19 for PORT-001.
 
 React 19 + Vite 8, JavaScript ES modules, React Router, Tailwind v4 Vite integration, and custom CSS. Shared public content in src/data/portfolio.js feeds the routes, curated perspectives, terminal, and server model context. Self-hosted Geist Sans/Mono via Fontsource; one Phosphor icon family. CSS tokens define palette and z-index layers.
 
-Routes: /, /work/check-your-deals, /work/day-one-crm, plus client not-found view. Route effects update title/description, scroll destinations, and anchor focus. Vercel rewrites /work paths to the SPA; the API and static assets retain their own paths.
+Routes: /, /work/check-your-deals, /work/day-one-crm, plus client not-found view and /projects archive. The homepage 3D book (Book3D) dynamically indexes projects from shared portfolio data (currently 5 projects: Check Your Deals, Day One CRM, AI WhatsApp Assistant, NOTWO, Founder Versa) with dynamic chapter navigation and scroll-driven page turning. Route effects update title/description, scroll destinations, and anchor focus. Vercel rewrites /work paths to the SPA; the API and static assets retain their own paths.
 
 Motion handles entry/reveal and scroll-driven geometric effects. The retired PORT-004 homepage imported ScrollStory: a native-scroll CSS-sticky stage, chapter-dependent text and system/project overlays, keyboard range scrubbing, pause control, ink mode, and a speech interaction. CharacterSequence maps progress to three alpha illustrated poses using discrete cuts, with ref-based DOM updates rather than continuous React state. Magnetic links and Tilt project artwork use Motion values/springs and respect reduced motion.
 

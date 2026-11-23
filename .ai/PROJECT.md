@@ -11,6 +11,7 @@ Routes: homepage; Check Your Deals case study; Day One CRM case study. NOTWO and
 Project facts supplied by the user:
 - CYD: publicly deployed, actively developed affiliate/deal discovery product co-founded by the user. Automation plans must stay labeled planned. Public product facts verified from https://checkyourdeals.com/ and its /about page on 2026-11-21; no live prices, counts or timestamps are hardcoded.
 - Day One CRM: user confirmed built and used internally. Public-safe module descriptions and explanatory diagrams only.
+- AI WhatsApp Assistant: conversational assistant built using React and Go, handling WhatsApp webhook pipelines, LLM reasoning, and dashboard controls.
 - NOTWO: product planning and MVP architecture, not shipped capabilities.
 - Founder Versa: architecture/product concept, not a shipped platform.
 

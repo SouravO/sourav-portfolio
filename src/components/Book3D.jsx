@@ -7,6 +7,7 @@ import '../book3d.css'
 
 const artwork = {
   cyd: '/illustrations/deals.webp', crm: '/illustrations/crm.webp',
+  'whatsapp-ai': '/illustrations/whatsapp-ai.webp',
   notwo: '/illustrations/cover.webp', versa: '/illustrations/workshop.webp',
 }
 const clamp = (n) => Math.max(0, Math.min(1, n))
@@ -55,7 +56,7 @@ function Cover() {
     <h3>The builder’s<br /><em>adventures</em></h3>
     <img src="/illustrations/workshop.webp" alt="" width="1024" height="1024" />
     <p className="folio-cover-burst">Ideas.<br />Code.<br />Action!</p>
-    <p className="folio-cover-bottom">Four project stories. One curious builder.</p>
+    <p className="folio-cover-bottom">Five project stories. One curious builder.</p>
   </div>
 }
 
@@ -239,9 +240,11 @@ export default function Book3D() {
 
   useEffect(() => {
     if (hash !== '#concepts' || window.matchMedia('(max-height: 500px), (prefers-reduced-motion: reduce)').matches) return
+    const notwoIndex = Math.max(0, projects.findIndex(p => p.id === 'notwo'))
+    const targetPage = compact ? notwoIndex * 2 : notwoIndex
     const frame = requestAnimationFrame(() => {
       const section = sectionRef.current
-      if (section) window.scrollTo({ top: section.getBoundingClientRect().top + window.scrollY + pagePosition(compact ? 4 : 2, count) * (section.offsetHeight - innerHeight), behavior: 'instant' })
+      if (section) window.scrollTo({ top: section.getBoundingClientRect().top + window.scrollY + pagePosition(targetPage, count) * (section.offsetHeight - innerHeight), behavior: 'instant' })
     })
     return () => cancelAnimationFrame(frame)
   }, [hash, compact, count])

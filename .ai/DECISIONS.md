@@ -2,6 +2,13 @@
 
 2026-11-19: No new architectural or product decisions made. Existing starter technology is recorded in ARCHITECTURE.md as observed state, not as a newly approved decision.
 
+## 2026-11-23 — PORT-048
+- Integrated Sourav's new project "AI WhatsApp Assistant" (React & Go).
+- Sourced technical stack ('Go', 'React', 'WhatsApp API', 'LLMs', 'PostgreSQL') and added Go to Systems skills.
+- Implemented dedicated vintage comic illustration (`whatsapp-ai.png` master, `whatsapp-ai.webp` WebP derivative) following the established Builder's Adventures art direction.
+- Upgraded Book3D.jsx to dynamically calculate `#concepts` anchor targeting based on the index of NOTWO, allowing dynamic project insertion without brittle hardcoded chapter indices.
+- Preserved all existing routes, tests, and honest project statuses.
+
 ## 2026-11-19 — PORT-001
 
 - The user's detailed brief supersedes the earlier bright mood choice: dark-first near-black/off-white with one lime accent, expressive 2D motion and a reactive 3D core.

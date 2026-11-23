@@ -43,7 +43,7 @@ test('archive disclosures, filters, contact and home actions work on a phone', a
     await details.locator('summary').click()
     await expect(details).not.toHaveAttribute('open')
   }
-  for (const [label, count] of [['Concepts', 2], ['Built & live', 2], ['All projects', 4]]) {
+  for (const [label, count] of [['Concepts', 2], ['Built & live', 3], ['All projects', 5]]) {
     await page.getByRole('button', { name: label, exact: true }).click()
     await expect(page.locator('.archive-issue')).toHaveCount(count)
   }

@@ -91,6 +91,45 @@ export const projects = [
     },
   },
   {
+    id: 'whatsapp-ai',
+    name: 'AI WhatsApp Assistant',
+    short: 'WHATSAPP AI',
+    category: 'Conversational automation',
+    status: 'Built · Live',
+    kind: 'built',
+    summary: 'Intelligent conversational automation on WhatsApp.',
+    description:
+      'A conversational assistant connecting WhatsApp messaging with high-throughput Go webhook pipelines, intelligent LLM reasoning, and a React control dashboard.',
+    role: 'Full-stack development & AI integration',
+    stack: ['Go', 'React', 'WhatsApp API', 'LLMs', 'PostgreSQL'],
+    problem:
+      'Handling high-volume customer and user inquiries over WhatsApp requires low latency, dependable webhook ingestion, context-aware AI reasoning, and clear administrative oversight.',
+    contribution:
+      'I built the end-to-end system: a concurrent Go backend to handle webhooks and orchestrate LLM context, integrated the WhatsApp messaging pipeline, and created a responsive React dashboard for monitoring and configuration.',
+    capabilities: [
+      'Concurrent Go webhook ingestion and message routing',
+      'Context-aware conversational responses via LLM reasoning',
+      'React management dashboard for conversation monitoring and control',
+      'Session memory, message queuing, and state persistence with PostgreSQL',
+    ],
+    planned:
+      'Built and operational, with ongoing work on multi-agent tool execution and expanded analytics.',
+    flow: [
+      'WhatsApp message',
+      'Go webhook pipeline',
+      'LLM context & reasoning',
+      'Automated response & React dashboard',
+    ],
+    perspectives: {
+      Product:
+        'Deliver reliable, human-grade conversational support and automated workflows directly inside WhatsApp, backed by an intuitive control dashboard.',
+      Architecture:
+        'A Go backend provides high concurrency for incoming WhatsApp webhooks and communicates with LLM providers. PostgreSQL persists conversations and user state. A React frontend provides administration, monitoring, and analytics.',
+      Engineering:
+        'Engineered for performance and reliability: non-blocking webhook processing in Go, structured prompt engineering and context retrieval for AI answers, and a clean React interface for operational oversight.',
+    },
+  },
+  {
     id: 'notwo',
     name: 'NOTWO',
     category: 'Beauty technology',
@@ -164,6 +203,7 @@ export const skills = [
     name: 'Systems',
     description: 'The structure behind the screen.',
     items: [
+      'Go',
       'Node.js',
       'Express',
       'REST APIs',
@@ -217,6 +257,7 @@ export const sources = [
     href: '/work/check-your-deals',
   },
   { id: 'crm', label: 'Day One CRM case study', href: '/work/day-one-crm' },
+  { id: 'whatsapp-ai', label: 'AI WhatsApp Assistant', href: '/#work' },
   { id: 'notwo', label: 'NOTWO concept', href: '/#concepts' },
   { id: 'versa', label: 'Founder Versa concept', href: '/#concepts' },
   { id: 'contact', label: 'Contact', href: '/#contact' },

@@ -1,5 +1,62 @@
 # Handoff
 
+Updated 2026-11-23 for PORT-049.
+
+## Current state
+PORT-049 DONE: Added Microsoft Clarity tracking snippet (`zi20e6ts2s`) to `index.html` inside `<head>`.
+- Preserved existing preloads, metadata, and scripts.
+
+## Verification
+- `npm run lint`: PASS (0 errors, 0 warnings).
+- `npm run build`: PASS (clean production build, JS ~504KB, CSS ~120KB).
+- `npm test`: 8/8 API unit tests PASS.
+- `git diff --check`: PASS (clean whitespace).
+
+## Files changed this task
+`index.html`, `.ai/TASKS.md`, `.ai/HANDOFF.md`, `.ai/CHANGELOG.md`.
+
+## Limitations and next exact action
+No requested work remains. Clarity will start reporting sessions once deployed to production. No automatic commit or deployment.
+
+## Git state
+Startup HEAD 68c2b79 + uncommitted PORT-047, PORT-048, and PORT-049 changes. All prior changes preserved.
+
+---
+## Previous handoff (historical)
+
+# Handoff
+
+Updated 2026-11-23 for PORT-048.
+
+## Current state
+PORT-048 DONE: Integrated Sourav's new project, "AI WhatsApp Assistant", built with React and Golang.
+- Defined the project in `src/data/portfolio.js` with status "Built · Live", kind "built", full-stack development and AI integration role, and stack ['Go', 'React', 'WhatsApp API', 'LLMs', 'PostgreSQL']. Added 'Go' to systems skills and 'whatsapp-ai' to sources.
+- Generated custom comic-style master artwork (`assets/illustrations/builders-adventures/whatsapp-ai.png`) and optimized derivative (`public/illustrations/whatsapp-ai.webp`, 244 KB) matching the Builder's Adventures aesthetic (brush inking, Ben Day halftone dots, aged newsprint texture, no text).
+- Updated `src/components/Book3D.jsx` to map `whatsapp-ai` artwork, update cover text to "Five project stories", and dynamically resolve concept deep-link offsets.
+- Updated `src/components/ProjectsPage.jsx` to map artwork, update shelf counter to "5 PROJECT STORIES", and include conversational AI in the header description.
+- Updated test suites across `tests/book.spec.js`, `tests/projects.spec.js`, `tests/actions.spec.js`, and `tests/portfolio.spec.js` for 5-project shelves and dynamic scroll intervals.
+
+## Verification
+- `npm run lint`: PASS (0 errors, 0 warnings).
+- `npm run build`: PASS (clean production build, JS ~504KB, CSS ~120KB).
+- `npm test`: 8/8 API unit tests PASS.
+- `npx playwright test`: 35/35 browser tests PASS across all suites (book, projects, actions, portfolio, life-board, opening).
+- `git diff --check`: PASS (clean whitespace).
+
+## Files changed this task
+`src/data/portfolio.js`, `src/components/Book3D.jsx`, `src/components/ProjectsPage.jsx`, `assets/illustrations/builders-adventures/whatsapp-ai.png`, `public/illustrations/whatsapp-ai.webp`, `tests/{book,projects,actions,portfolio}.spec.js`, and all `.ai` memory documents.
+
+## Limitations and next exact action
+No requested work remains. Optional user visual review of the 3D book at `http://localhost:5173/#work` and projects archive at `http://localhost:5173/projects`. No automatic commit or deployment.
+
+## Git state
+Startup HEAD 68c2b79 + uncommitted PORT-047 changes + PORT-048 changes. All prior changes preserved.
+
+---
+## Previous handoff (historical)
+
+# Handoff
+
 Updated 2026-11-21 for PORT-047.
 
 ## Current state

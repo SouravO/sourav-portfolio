@@ -18,19 +18,19 @@ test('book pins, opens, holds readable spreads, turns both ways and releases', a
   const book = await page.locator('.folio-book').boundingBox()
   await expect(page.locator('.folio-left h3')).toHaveText('Check Your Deals')
   await expect(page.locator('.folio-left')).toContainText('Cofounder')
-  await scrub(page, .32)
+  await scrub(page, .28)
   await expect(page.locator('.folio-turn')).toHaveCount(0)
   const held = await page.locator('.folio-book').boundingBox()
   expect(Math.abs(held.y - book.y)).toBeLessThan(2)
-  await scrub(page, .375)
+  await scrub(page, .33)
   await expect(page.locator('.folio-turn')).toBeVisible()
   await page.screenshot({ path: 'test-results/book-turn.png' })
-  await scrub(page, .44)
+  await scrub(page, .40)
   await expect(page.locator('.folio-left h3')).toHaveText('Day One CRM')
   await expect(page.locator('.folio-left')).toContainText('Built · Used internally')
   await scrub(page, .24)
   await expect(page.locator('.folio-left h3')).toHaveText('Check Your Deals')
-  await page.getByRole('button', { name: '04 Founder Versa' }).click()
+  await page.getByRole('button', { name: '05 Founder Versa' }).click()
   await expect(page.locator('.folio-left h3')).toHaveText('Founder Versa')
   await expect(page.locator('.folio-right')).toContainText('The proposed direction')
   await page.getByRole('button', { name: 'Previous project' }).click()
@@ -44,7 +44,7 @@ test('every project fits a laptop spread and project links remain usable', async
   await page.setViewportSize({ width: 1280, height: 720 })
   await page.goto('/#work')
   const nav = page.getByRole('navigation', { name: 'Project book chapters' })
-  for (const chapter of ['01 CYD', '02 DAY ONE', '03 NOTWO', '04 Founder Versa']) {
+  for (const chapter of ['01 CYD', '02 DAY ONE', '03 WHATSAPP AI', '04 NOTWO', '05 Founder Versa']) {
     await nav.getByRole('button', { name: chapter }).click()
     await expect(nav.getByRole('button', { name: chapter })).toHaveAttribute('aria-current', 'step')
     const fits = await page.locator('.folio-spread .folio-page').evaluateAll(pages => pages.every(p => p.scrollHeight <= p.clientHeight + 1))
@@ -65,7 +65,7 @@ test('phone and reduced-motion reading layouts expose all projects without overf
     await page.goto('/#work')
     await expect(page.locator('.folio-reading')).toBeVisible()
     await expect(page.locator('.folio-desktop')).toBeHidden()
-    await expect(page.locator('.folio-reading h3')).toHaveCount(4)
+    await expect(page.locator('.folio-reading h3')).toHaveCount(5)
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBeTruthy()
     const results = await new AxeBuilder({ page }).include('#work').analyze()
     expect(results.violations).toEqual([])
@@ -120,11 +120,11 @@ test('mobile book opens, turns story/art leaves, reverses and navigates every pr
     await expect(page.locator('.folio-mobile-sheet img')).toBeVisible()
     await page.getByRole('button', { name: 'Previous page', exact: true }).click()
     await expect(book).toHaveAttribute('data-page', '0')
-    await scrub(page, .28)
+    await scrub(page, .265)
     await expect(page.locator('.folio-turn')).toBeVisible()
-    await scrub(page, .32)
+    await scrub(page, .29)
     await expect(book).toHaveAttribute('data-page', '1')
-    for (const [name, title] of [['01 CYD', 'Check Your Deals'], ['02 DAY ONE', 'Day One CRM'], ['03 NOTWO', 'NOTWO'], ['04 Founder Versa', 'Founder Versa']]) {
+    for (const [name, title] of [['01 CYD', 'Check Your Deals'], ['02 DAY ONE', 'Day One CRM'], ['03 WHATSAPP AI', 'AI WhatsApp Assistant'], ['04 NOTWO', 'NOTWO'], ['05 Founder Versa', 'Founder Versa']]) {
       await page.getByRole('button', { name }).click()
       await expect(page.locator('.folio-mobile-sheet h3')).toHaveText(title)
       const fit = await page.locator('.folio-mobile-sheet > .folio-page').evaluate(el => el.scrollHeight <= el.clientHeight + 1)
@@ -166,7 +166,7 @@ for (const width of [1440, 390]) {
       await Promise.all([...book.querySelectorAll('img')].map(img => img.decode().catch(() => {})))
     })
     const artworkRequests = []
-    page.on('request', request => { if (/\/illustrations\/(deals|crm|cover|workshop)\.webp(?:\?|$)/.test(request.url())) artworkRequests.push(request.url()) })
+    page.on('request', request => { if (/\/illustrations\/(deals|crm|whatsapp-ai|cover|workshop)\.webp(?:\?|$)/.test(request.url())) artworkRequests.push(request.url()) })
     const result = await page.locator('.folio-book').evaluate(async book => {
       const surfaces = [...book.querySelectorAll('[data-story], [data-art], [data-leaf], [data-turn]')]
       let rebuilt = 0

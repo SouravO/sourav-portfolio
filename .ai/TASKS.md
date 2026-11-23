@@ -657,3 +657,30 @@ Acceptance criteria:
 Completed: Fetched and reviewed the live checkyourdeals.com homepage and /about page. Updated only the CYD entry in src/data/portfolio.js: role is now "Cofounder & full-stack development", contribution opens with cofounder framing, description/problem/capabilities/flow/perspectives use verified public facts (authorized sources, detail validation, freshness limits, last-checked prices, source-supplied reference prices versus recorded observations, partner-store checkout, categories/sales/trending/price comparisons). Preserved the exact "deal discovery platform" and "Planned next: automate product discovery" strings. Refreshed only the cyd views in ProductMap.jsx while keeping Discover / Explore / Connect labels. Added cofounder/verified-fact assertions to tests/portfolio.spec.js, tests/book.spec.js and tests/projects.spec.js. Updated the CYD paragraph in README.md. Hero, profile, experience board, header/footer, metadata and all non-CYD project data remain unchanged.
 Verification: npm run lint PASS; npm run build PASS (existing >500KB chunk advisory, JS ~502KB / CSS ~120KB); npm test 8/8 PASS; npx playwright test full suite 35/35 PASS, including new cofounder assertions in case study, book and archive plus all existing status/planned/map-label checks; git diff --check PASS. Live site content was read only; no prices, deal counts, timestamps, metrics or screenshots were hardcoded.
 Remaining: None for this request. Prior PORT-046 changes were preserved and externally committed as ce49a09 ("edits") during this session; PORT-047 changes remain uncommitted. No commit/deployment by this task. Optional user copy review on /work/check-your-deals, /#work and /projects.
+
+## PORT-048 — Add AI WhatsApp Assistant (React & Go)
+Status: DONE
+Date: 2026-11-23
+Objective: Add Sourav's new AI WhatsApp Assistant project (built with React and Go) into portfolio data, homepage 3D book (#work), and the /projects archive, with aligned test suites.
+Acceptance criteria:
+- Project defined in src/data/portfolio.js with honest role, status ('Built · Live'), kind ('built'), and full technical stack (Go, React, WhatsApp API, LLMs, PostgreSQL).
+- Systems skills in src/data/portfolio.js includes Go.
+- Homepage 3D book (Book3D.jsx) and archive (ProjectsPage.jsx) updated with artwork mapping and 5-project count/chapter progression.
+- Responsive reading layouts and chapter navigation work across phone, tablet, and desktop viewports.
+- All Playwright, unit, and lint tests pass with updated counts and assertions.
+- Memory synchronized.
+Completed: Added 'whatsapp-ai' project to src/data/portfolio.js with 'Built · Live' status, role 'Full-stack development & AI integration', stack ['Go', 'React', 'WhatsApp API', 'LLMs', 'PostgreSQL'], and clear capabilities/perspectives. Added 'Go' to systems skills and 'whatsapp-ai' to sources. Generated custom vintage comic artwork matching the Builder's Adventures style, saved master PNG to assets/illustrations/builders-adventures/whatsapp-ai.png and optimized WebP to public/illustrations/whatsapp-ai.webp. Updated Book3D.jsx with artwork mapping, 'Five project stories' cover copy, and dynamic concept deep link indexing. Updated ProjectsPage.jsx with artwork mapping and '5 PROJECT STORIES'. Aligned Playwright tests across book.spec.js, projects.spec.js, actions.spec.js, and portfolio.spec.js for the 5-project shelf and updated turn scrub timings.
+Verification: npm run lint PASS; npm run build PASS (existing >500KB advisory, JS ~504KB / CSS ~120KB); npm test 8/8 PASS; npx playwright test full 35-case suite across book, projects, actions, portfolio, life-board, and opening PASS; git diff --check PASS.
+Remaining: None for this request. Prior PORT-047 changes preserved. No commit/deployment performed. Optional visual review on /#work and /projects.
+
+## PORT-049 — Add Microsoft Clarity tracking snippet
+Status: DONE
+Date: 2026-11-23
+Objective: Add Microsoft Clarity analytics tracking code (`zi20e6ts2s`) into index.html `<head>`.
+Acceptance criteria:
+- Clarity script snippet correctly integrated in `<head>` of index.html.
+- Lint and production build pass.
+- Project memory synchronized.
+Completed: Added Microsoft Clarity async script tag with project id `zi20e6ts2s` inside `<head>` of `index.html`.
+Verification: `npm run lint` PASS, `npm run build` PASS, `npm test` PASS.
+Remaining: None. No automatic commit or deployment.

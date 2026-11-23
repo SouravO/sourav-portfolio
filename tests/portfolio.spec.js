@@ -34,6 +34,7 @@ test('homepage navigation, projects, and concept disclosures', async ({
   ).toBeAttached()
   // Concepts are now flipbook pages — verify section exists and contains them
   await page.goto('/#work')
+  await expect(page.locator('#work')).toContainText('AI WhatsApp Assistant')
   await expect(page.locator('#work')).toContainText('NOTWO')
   await expect(page.locator('#work')).toContainText('Founder Versa')
   await expect(page.locator('#concepts .folio-description')).toBeAttached()
