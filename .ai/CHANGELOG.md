@@ -186,3 +186,19 @@ PORT-021. Desktop leaves bend along the spine and compact leaves curl over the t
 - Credited the user's confirmed CYD cofounder role in CYD-only content: shared data (case study, book, archive, AI grounding), with hero/profile/experience/metadata unchanged.
 - Refreshed CYD product copy from the live checkyourdeals.com homepage and /about page: authorized sources, validation and freshness limits, last-checked prices, reference-price vs observed-price distinction, partner-store checkout, categories/sales/trending/price comparisons; ProductMap CYD views updated without changing control labels.
 - Kept "automation is planned" wording and all existing status labels intact; added regression assertions for cofounder and verified facts. Lint/build, 8 API tests and all 35 browser cases pass; diff check passes. No commit/deployment.
+
+## 2026-11-23 — PORT-050
+- Re-enabled the Marvel Studios-inspired comic intro on initial homepage load (`/`) with Esc skip controls and Vice City audio engine integration.
+- Updated `src/App.jsx`, restored `tests/opening.spec.js`, and added test isolation hooks for full suite stability.
+- Lint, production build, and all 36 Playwright browser tests pass. No automatic commit/deployment.
+
+## 2026-11-24 — PORT-052
+- Fixed hero cover image framing: removed accidental global `object-position: 50% 100%` in `src/comic.css` that anchored the illustration to the bottom edge, pushing the character's head/face off-screen on desktop viewports; set desktop framing to `object-position: 50% 20%`.
+- Elaborated CYD case-study challenge text in `src/data/portfolio.js` to detail consumer and market deal fragmentation without self-referential project explanations.
+- Lint, build, and Playwright regressions pass. No automatic commit/deployment.
+
+## 2026-11-23 — PORT-051
+- Replaced Check Your Deals description, contribution, built scope and roadmap with the user's exact copy in `src/data/portfolio.js`; kept role and technical focus unchanged.
+- Aligned CYD `ProductMap` text and `README.md`, and updated CYD regression assertions in `tests/portfolio.spec.js`.
+- Tightened short-phone story margins in `src/book3d.css` so the longer CYD copy fits a 320x568 notebook leaf.
+- Lint, build, 8 unit tests, 36 browser tests and diff check pass; prior uncommitted work preserved. No commit/deployment.

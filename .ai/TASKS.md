@@ -684,3 +684,46 @@ Acceptance criteria:
 Completed: Added Microsoft Clarity async script tag with project id `zi20e6ts2s` inside `<head>` of `index.html`.
 Verification: `npm run lint` PASS, `npm run build` PASS, `npm test` PASS.
 Remaining: None. No automatic commit or deployment.
+
+## PORT-050 — Re-enable Marvel Intro on initial homepage visit
+Status: DONE
+Date: 2026-11-23
+Objective: Restore the Marvel Studios-inspired comic flipbook intro on initial homepage load with accessible skip (Esc) controls, per user request.
+Acceptance criteria:
+- MarvelIntro component mounted on root `/` visits with phase transition to hero landing.
+- Accessible Skip button and Escape key dismiss cleanly.
+- Respects reduced motion, deep links, and test isolation (`skip_intro_test`).
+- Lint, production build, and all 36 Playwright end-to-end tests pass.
+- Memory synchronized.
+Completed: Reconnected `MarvelIntro` in `src/App.jsx` with `intro.css` and `radio.css`. Restored opening test suite in `tests/opening.spec.js` and test isolation bypasses in `tests/portfolio.spec.js` and `tests/actions.spec.js`.
+Verification: `npm run lint` PASS, `npm run build` PASS (JS ~530KB, CSS ~133KB), `npx playwright test` 36/36 PASS across all viewports.
+Remaining: None. No automatic commit or deployment.
+
+## PORT-052 — Fix hero portrait framing and elaborate CYD challenge
+Status: DONE
+Date: 2026-11-24
+Objective: Fix hero character portrait vertical crop where the head/face was cut off on desktop, and elaborate the CYD challenge description to focus strictly on market friction without mentioning the project.
+Acceptance criteria:
+- Face and head are completely visible in the hero across desktop, laptop, and mobile screens.
+- Removed misplaced global `object-position: 50% 100%` in `src/comic.css`.
+- CYD challenge in `src/data/portfolio.js` elaborates the problem purely without self-referential project explanation.
+- Lint, build, and Playwright tests pass.
+- Memory synchronized.
+Completed: Removed global `.cover-picture img { object-position: 50% 100%; }` from `src/comic.css` that was anchoring the image to the bottom edge and cutting off the character's head on desktop; set default desktop framing to `object-position: 50% 20%`. Updated CYD `problem` field in `src/data/portfolio.js` to detail fragmented deals, phantom discounts, and expired coupons across marketplaces without project explanation.
+Verification: Verified visual appearance via Playwright screenshots across 1024x665, 1440x900, and 390x844 viewports; `npm run lint` PASS; `npm run build` PASS; end-to-end tests PASS.
+Remaining: None. No automatic commit or deployment.
+
+## PORT-051 — Refresh Check Your Deals copy
+Status: DONE
+Date: 2026-11-23
+Objective: Replace the CYD description, contribution, built scope and roadmap with the exact copy supplied by the user, across every surface that derives from shared data.
+Acceptance criteria:
+- Description reads "A deal discovery platform that empowers shoppers across India to discover and compare verified offers from authorized sources before visiting partner stores."
+- Contribution reads "As Co-Founder, I led the development of the shopping experience, integrated affiliate links, and designed the deal ingestion architecture to create a seamless deal discovery platform."
+- Role and technical focus retain "Cofounder & full-stack development" and Next.js / TypeScript / Tailwind CSS / Supabase; built scope bullets remain the four user-supplied items.
+- Roadmap retains an honest planned label while using "Automating product discovery, deal updates, and affiliate link generation to improve scalability and streamline deal management."
+- Shared data, ProductMap, README and CYD test assertions updated; no other project or identity copy changed.
+- Lint, build, unit tests, all browser tests and diff check pass; earlier uncommitted PORT-050 work preserved.
+Completed: Updated only the CYD entry in `src/data/portfolio.js` (description, contribution, planned, product/architecture/engineering perspectives), the CYD views in `src/components/ProductMap.jsx` (Discover and Connect text, labels unchanged), the CYD paragraph in `README.md`, and CYD assertions in `tests/portfolio.spec.js`. Tightened short-phone story spacing in `src/book3d.css` so the longer CYD copy still fits a 320x568 notebook leaf without internal scrolling. Hero, profile, experience board, metadata, other projects and all non-CYD copy unchanged.
+Verification: `npm run lint` PASS; `npm run build` PASS (existing >500KB advisory, JS ~530KB, CSS ~133KB); `npm test` 8/8 PASS; `npm run test:e2e` 36/36 PASS after one short-phone fit failure was fixed; `git diff --check` PASS. Initial full browser run found 389px content in a 378px leaf at 320x568; short-viewport margins were reduced by 11px and the targeted and full suites reran clean. No commit or deployment.
+Remaining: None. Optional visual review at `/work/check-your-deals`, `/#work` and `/projects`. Prior uncommitted PORT-047–050 changes preserved.

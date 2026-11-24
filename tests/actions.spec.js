@@ -1,5 +1,9 @@
 import { test, expect } from '@playwright/test'
 
+test.beforeEach(async ({ page }) => {
+  await page.addInitScript(() => sessionStorage.setItem('skip_intro_test', 'true'))
+})
+
 test('repeated logo and section navigation returns to its destination', async ({ page }) => {
   await page.goto('/')
   await page.locator('#contact').scrollIntoViewIfNeeded()

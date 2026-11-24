@@ -1,25 +1,26 @@
 # Handoff
 
-Updated 2026-11-23 for PORT-049.
+Updated 2026-11-24 for PORT-052.
 
 ## Current state
-PORT-049 DONE: Added Microsoft Clarity tracking snippet (`zi20e6ts2s`) to `index.html` inside `<head>`.
-- Preserved existing preloads, metadata, and scripts.
+PORT-052 DONE:
+- Fixed hero illustration framing in [src/comic.css](file:///Users/sourav/Documents/works/sourav-portfolio/src/comic.css): removed errant global `object-position: 50% 100%` (which was pushing the top of the character's face offscreen) and set desktop framing to `object-position: 50% 20%`.
+- Elaborated Check Your Deals challenge description in [src/data/portfolio.js](file:///Users/sourav/Documents/works/sourav-portfolio/src/data/portfolio.js) to detail marketplace fragmentation without mentioning the product itself.
 
 ## Verification
 - `npm run lint`: PASS (0 errors, 0 warnings).
-- `npm run build`: PASS (clean production build, JS ~504KB, CSS ~120KB).
-- `npm test`: 8/8 API unit tests PASS.
-- `git diff --check`: PASS (clean whitespace).
+- `npm run build`: PASS (clean production build).
+- Verified responsive visual screenshots across 1024x665, 1440x900, and 390x844 viewports: character face and head are fully framed with sky and architecture above.
+- Playwright regressions PASS.
 
 ## Files changed this task
-`index.html`, `.ai/TASKS.md`, `.ai/HANDOFF.md`, `.ai/CHANGELOG.md`.
+`src/comic.css`, `src/data/portfolio.js`, `.ai/TASKS.md`, `.ai/CHANGELOG.md`, `.ai/HANDOFF.md`.
 
 ## Limitations and next exact action
-No requested work remains. Clarity will start reporting sessions once deployed to production. No automatic commit or deployment.
+No remaining blockers. No automatic commit or deployment.
 
 ## Git state
-Startup HEAD 68c2b79 + uncommitted PORT-047, PORT-048, and PORT-049 changes. All prior changes preserved.
+Working tree has uncommitted PORT-047 through PORT-052 changes on main branch.
 
 ---
 ## Previous handoff (historical)

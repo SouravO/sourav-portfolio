@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import {
   BrowserRouter,
   Link,
@@ -23,11 +23,14 @@ import AdventureHero from './components/AdventureHero'
 import Book3D from './components/Book3D'
 import ProductMap from './components/ProductMap'
 import Reveal from './components/Reveal'
+import MarvelIntro from './components/MarvelIntro'
 import DetectiveBoard from './components/DetectiveBoard'
 import ProjectsPage from './components/ProjectsPage'
 import './App.css'
 import './comic.css'
 import './work.css'
+import './intro.css'
+import './radio.css'
 import './book3d.css'
 
 function RouteEffects() {
@@ -236,15 +239,31 @@ function NotFound() {
 }
 
 export default function App() {
+  const [playIntro, setPlayIntro] = useState(() => {
+    if (typeof window === 'undefined') return false
+    if (window.location.hash || (window.location.pathname && window.location.pathname !== '/')) return false
+    if (window.sessionStorage?.getItem('skip_intro_test')) return false
+    return !window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches
+  })
+  const [entryRevealed, setEntryRevealed] = useState(false)
+
+  const handleIntroComplete = useCallback(() => {
+    setPlayIntro(false)
+    setEntryRevealed(true)
+  }, [])
+
   return (
     <BrowserRouter>
       <MotionConfig reducedMotion="user">
         <RouteEffects />
+        {playIntro && (
+          <MarvelIntro onComplete={handleIntroComplete} />
+        )}
         <div id="top" />
         <a href="#main" className="skip-link">
           Skip to content
         </a>
-        <div className="site-shell">
+        <div className={`site-shell ${playIntro ? 'entry-pending' : ''} ${entryRevealed ? 'entry-revealed' : ''}`} inert={playIntro ? true : undefined}>
           <Header />
           <main id="main">
             <Routes>

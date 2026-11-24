@@ -1,5 +1,10 @@
+// General feature checks bypass the automatic opening; opening.spec.js tests real entry.
 import { test, expect } from '@playwright/test'
 import AxeBuilder from '@axe-core/playwright'
+
+test.beforeEach(async ({ page }) => {
+  await page.addInitScript(() => sessionStorage.setItem('skip_intro_test', 'true'))
+})
 
 test('homepage navigation, projects, and concept disclosures', async ({
   page,
@@ -20,10 +25,12 @@ test('homepage navigation, projects, and concept disclosures', async ({
     }),
   ).toBeVisible()
   await expect(
-    page.getByText(/Planned next: automate product discovery/),
+    page.getByText(/Planned next: Automating product discovery/),
   ).toBeAttached()
   await expect(page.locator('.case-facts')).toContainText('Cofounder')
-  await expect(page.locator('#contribution')).toContainText('As cofounder')
+  await expect(page.locator('#contribution')).toContainText('As Co-Founder')
+  await expect(page.locator('#contribution')).toContainText('seamless deal discovery platform')
+  await expect(page.locator('.case-cover')).toContainText('empowers shoppers across India to discover and compare verified offers')
   await expect(page.locator('.case-cover')).toContainText('authorized sources')
   await page.goto('/work/day-one-crm')
   await expect(
