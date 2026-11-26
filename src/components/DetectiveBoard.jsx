@@ -89,7 +89,7 @@ export default function DetectiveBoard() {
   const [selected, setSelected] = useState(null)
   const boardRef = useRef(null)
   return <section id="about" className="life-section" aria-labelledby="life-heading">
-    <header className="life-header"><div><p className="life-eyebrow"><Briefcase size={16} /> EXPERIENCE · CAREER JOURNEY</p><h2 id="life-heading">Work experience,<br /><span>chapter by chapter.</span></h2></div><div className="life-header-note"><p>Education, roles, and<br />the work behind them.</p></div></header>
+    <header className="life-header"><div><p className="life-eyebrow"><Briefcase size={16} /> EXPERIENCE · CAREER JOURNEY</p><h2 id="life-heading">The Journey<br /><span>So Far.</span></h2></div><div className="life-header-note"><p>India · 4+ Years of<br />Building & Learning.</p></div></header>
     <div className="life-board" ref={boardRef}>
       <div className="life-board-label" aria-hidden="true">FIELD NOTES / PROFESSIONAL EXPERIENCE</div>
       <Threads boardRef={boardRef} />
@@ -101,7 +101,7 @@ export default function DetectiveBoard() {
         <span className="life-card-caption">{item.caption}</span>
         <span className="life-open-hint">View details <ArrowUpRight size={14} /></span>
       </button>)}
-      <aside className="life-handwritten"><span aria-hidden="true">↳</span> {experienceChapters.length} roles & milestones.<br /><strong>{boardProfile.era}</strong></aside>
+      <aside className="life-handwritten">The Journey So Far<br /><strong>{boardProfile.era}</strong></aside>
     </div>
     <footer className="life-footer"><p><span aria-hidden="true">●</span> Full-stack engineering & technical leadership.</p><a href="/#contact">Get in touch <ArrowUpRight size={17} /></a></footer>
     {selected !== null && <Inspector selected={selected} onClose={() => setSelected(null)} onSelect={setSelected} />}

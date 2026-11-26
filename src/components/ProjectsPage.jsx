@@ -18,7 +18,7 @@ export default function ProjectsPage() {
           <div className="archive-cover-copy">
             <p className="eyebrow">FROM THE BUILDER’S DESK</p>
             <h1>Every project.<br /><span>A new world.</span></h1>
-            <p>Commerce, startup operations, conversational AI, skin technology, and publishing. Explore what I’ve built, the systems I’ve shaped, and the ideas still on the drawing board.</p>
+            <p>From commerce and startup operations to conversational AI, skin technology, and publishing — explore what I've built, the systems I've shaped, and the ideas I'm bringing to life.</p>
             <a href="#collection" className="archive-cover-link">Open the collection</a>
           </div>
           <div className="archive-cover-art">

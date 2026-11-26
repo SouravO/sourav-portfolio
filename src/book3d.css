@@ -217,6 +217,10 @@
   .folio-nav { margin-top:6px; }
   .folio-instruction { font-size:10px; margin-top:4px; }
 }
+@media (max-width:360px) and (min-height:501px) and (max-height:620px) {
+  .folio-page { padding:8px 10px 6px; }
+  .folio-description { font-size:12px; line-height:1.2; margin-bottom:5px; }
+}
 
 /* A pocket notebook hinges across its crown. The wire stays attached as
    the cover and each illustrated sheet rise around the punched edge. */

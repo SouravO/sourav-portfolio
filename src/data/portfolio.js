@@ -4,8 +4,8 @@ export const profile = {
   email: 'o.sourav5@gmail.com',
   location: 'India',
   experience: '4+ years',
-  bio: 'I build digital products from the first idea to the working application. My work connects software architecture, thoughtful interfaces, and the business behind them.',
-  education: 'B.Tech, MES College of Engineering, Kuttippuram (2018–2022)',
+  bio: 'I build digital products from the first idea to fully functional applications. My work brings together thoughtful software architecture, intuitive user experiences, and business-focused thinking to turn ideas into products that work.',
+  education: 'B.Tech in Computer Science and Engineering, MES College of Engineering, Kuttippuram (2018–2022).',
 }
 
 export const projects = [
@@ -21,12 +21,17 @@ export const projects = [
     summary: 'Less searching. More discovering.',
     description:
       'A deal discovery platform that empowers shoppers across India to discover and compare verified offers from authorized sources before visiting partner stores.',
-    role: 'Cofounder & full-stack development',
+    role: 'Co-Founder & Full-Stack Development',
     stack: ['Next.js', 'TypeScript', 'Tailwind CSS', 'Supabase'],
+    problemHeadline: 'Too many deals. Not enough reliable discovery.',
     problem:
-      'Product offers, seasonal sales, and discount codes are fragmented across dozens of competing marketplaces and merchant channels. Online shoppers are forced to jump through endless tabs and deal feeds, constantly running into expired promotions, phantom markdowns, and unverified seller listings with no quick, reliable way to know if an offer is currently live and authentic.',
+      'Online offers are scattered across multiple marketplaces, making it difficult for shoppers to find relevant deals, compare prices, and verify whether listings are still valid. Shoppers often have to navigate multiple platforms just to find an offer worth considering.',
+    solutionHeadline: 'One place to discover. Compare. Shop.',
+    solution:
+      'Check Your Deals brings offers from authorized marketplace sources into a centralized discovery platform. With category-based browsing, source-checked pricing, trending deals, and direct affiliate links, shoppers can explore offers and make informed decisions before visiting partner stores.',
+    contributionHeadline: 'From product architecture to the shopping experience.',
     contribution:
-      'As Co-Founder, I led the development of the shopping experience, integrated affiliate links, and designed the deal ingestion architecture to create a seamless deal discovery platform.',
+      'As Co-Founder, I led the development of the consumer-facing shopping experience, integrated affiliate links, and designed the deal ingestion architecture to support structured offer discovery.',
     capabilities: [
       'Browse and search checked offers by category',
       'View product details with source-checked prices and last-checked times',
@@ -34,7 +39,12 @@ export const projects = [
       'Follow affiliate links to partner stores',
     ],
     planned:
-      'Planned next: Automating product discovery, deal updates, and affiliate link generation to improve scalability and streamline deal management.',
+      'Planned next: Automated product discovery. Automated deal monitoring and price updates. Automated affiliate link generation.',
+    plannedList: [
+      'Automated product discovery.',
+      'Automated deal monitoring and price updates.',
+      'Automated affiliate link generation.',
+    ],
     flow: [
       'Scattered marketplace offers',
       'Validation & freshness checks',
@@ -45,9 +55,9 @@ export const projects = [
       Product:
         'A cofounder-led discovery experience: verified offers from authorized sources, categories, product details and brand sales help shoppers across India compare before visiting partner stores.',
       Architecture:
-        'Next.js and TypeScript support the web experience, with Supabase as the data platform. Listings qualify only when the source is authorized, required details validate, and price data is within its source’s freshness limits. Automating product discovery, deal updates, and affiliate link generation is planned.',
+        'Next.js and TypeScript support the web experience, with Supabase as the data platform. Listings qualify only when the source is authorized, required details validate, and price data is within its source’s freshness limits. Automated product discovery, deal monitoring and price updates, and affiliate link generation are planned.',
       Engineering:
-        'As Co-Founder, I led the development of the shopping experience, integrated affiliate links, and designed the deal ingestion architecture to create a seamless deal discovery platform. Listings show when a source last checked the price and distinguish source-supplied reference prices from recorded price observations; partner stores handle checkout and support. The product is publicly deployed and actively evolving.',
+        'As Co-Founder, I led the development of the consumer-facing shopping experience, integrated affiliate links, and designed the deal ingestion architecture to support structured offer discovery. Listings show when a source last checked the price and distinguish source-supplied reference prices from recorded price observations; partner stores handle checkout and support. The product is publicly deployed and actively evolving.',
     },
   },
   {
@@ -60,21 +70,27 @@ export const projects = [
     kind: 'internal',
     summary: 'Complex operations. One shared system.',
     description:
-      'An internal startup management ecosystem connecting founders, venture managers, and execution teams.',
-    role: 'Technical leadership & platform architecture',
-    stack: ['Supabase', 'Web architecture', 'Dashboards', 'Analytics'],
+      'An internal startup management ecosystem designed to connect founders, venture managers, and execution teams through a unified platform for collaboration, performance tracking, and operational management.',
+    role: 'Technical Leadership & Platform Architecture',
+    stack: ['Supabase', 'Web Architecture', 'Dashboards', 'Analytics'],
+    problemHeadline: 'Multiple teams. Fragmented operations.',
     problem:
-      'Startup support involves founders, managers, and execution teams. Assignments, approvals, and progress need to stay connected across those roles.',
+      'Managing startup operations involves coordinating founders, venture managers, and execution teams. When tasks, approvals, responsibilities, and progress updates are spread across different workflows, maintaining visibility and accountability becomes difficult.',
+    solutionHeadline: 'One platform. Connected startup operations.',
+    solution:
+      'An internal startup management ecosystem that brings founders, venture managers, and execution teams together through a centralized CRM. It connects task management, approval workflows, founder progress, and performance tracking in one shared platform.',
+    contributionHeadline: 'Shaping the technology behind startup operations.',
     contribution:
-      'At Day One Venture Studio, I held a CTO/technical leadership role and worked across startup projects and internal systems. This CRM turns operational workflows into a shared software platform.',
+      'At Day One Venture Studio, I held a CTO and technical leadership role, working across startup projects and internal systems. I contributed to the platform architecture and development of a centralized CRM that transforms operational processes into structured, trackable digital workflows.',
     capabilities: [
       'Founder CRM and role-based dashboards',
       'Task management, assignment, and approvals',
       'Weekly progress and performance metrics',
       'Founder health scoring and team leaderboards',
     ],
+    contextHeadline: 'Built for real startup operations.',
     planned:
-      'Built and used internally at Day One Venture Studio to manage founder operations, team tasks, approvals, and weekly progress.',
+      'Developed and used internally at Day One Venture Studio to manage founder operations, coordinate team responsibilities, streamline approvals, and track weekly progress.',
     flow: [
       'Founder updates',
       'Venture manager',
@@ -99,13 +115,13 @@ export const projects = [
     kind: 'built',
     summary: 'Intelligent conversational automation on WhatsApp.',
     description:
-      'A conversational assistant connecting WhatsApp messaging with high-throughput Go webhook pipelines, intelligent LLM reasoning, and a React control dashboard.',
-    role: 'Full-stack development & AI integration',
+      'A conversational AI assistant that integrates WhatsApp messaging with high-throughput Go webhook pipelines, context-aware LLM processing, and a responsive React-based management dashboard.',
+    role: 'Full-Stack Development & AI Integration',
     stack: ['Go', 'React', 'WhatsApp API', 'LLMs', 'PostgreSQL'],
     problem:
       'Handling high-volume customer and user inquiries over WhatsApp requires low latency, dependable webhook ingestion, context-aware AI reasoning, and clear administrative oversight.',
     contribution:
-      'I built the end-to-end system: a concurrent Go backend to handle webhooks and orchestrate LLM context, integrated the WhatsApp messaging pipeline, and created a responsive React dashboard for monitoring and configuration.',
+      'I developed the end-to-end platform, building a concurrent Go backend to handle webhook ingestion, message routing, and LLM context orchestration. I integrated the WhatsApp messaging pipeline and designed a responsive React dashboard for real-time conversation monitoring, management, and configuration.',
     capabilities: [
       'Concurrent Go webhook ingestion and message routing',
       'Context-aware conversational responses via LLM reasoning',
@@ -138,8 +154,11 @@ export const projects = [
     url: 'https://www.notwoskin.com',
     summary: 'Where skin science meets software.',
     description:
-      'Product planning and MVP architecture for a skincare concept linking skin assessments, personalized recommendations, and retail.',
-    stack: ['Device integration', 'API design', 'Personalization'],
+      'A personalized skincare platform connecting skin assessments, tailored product recommendations, and retail experiences through an integrated digital ecosystem.',
+    role: 'Product Planning & Technical Architecture',
+    contribution:
+      'I worked on product planning and MVP architecture for a skincare concept, defining the proposed user journey and technical foundation connecting skin analysis, personalized recommendations, and retail. The focus was on translating the concept into a structured, scalable digital experience.',
+    stack: ['Device Integration', 'API Design', 'Personalization'],
     flow: [
       'Skin analysis concept',
       'Assessment session',
@@ -163,11 +182,14 @@ export const projects = [
     kind: 'concept',
     summary: 'From purchase to a protected reading experience.',
     description:
-      'A book commerce concept connecting digital and physical purchases with verified access to an online reading experience.',
+      'A book commerce platform concept connecting physical and digital book purchases with verified access to a seamless online reading experience.',
+    role: 'Product Planning & Technical Architecture',
+    contribution:
+      'I worked on product planning and technical architecture for a book commerce concept, designing a proposed workflow that connects purchases with secure digital reading access. The focus was on bridging traditional book commerce with a protected online reading experience.',
     stack: [
-      'Shopify integration concept',
-      'Access control',
-      'Content delivery',
+      'Shopify Integration Concept',
+      'Access Control',
+      'Content Delivery',
     ],
     flow: [
       'Commerce concept',
@@ -235,17 +257,20 @@ export const journey = [
   {
     title: 'Learn by building.',
     label: 'Full-stack development',
-    text: 'Started with Angular, Node.js, and MongoDB. Built a foundation across interfaces, APIs, and databases.',
+    text:
+      'My development journey began with Angular, Node.js, and MongoDB, where I built a strong foundation in frontend development, backend APIs, and database management. This experience shaped my understanding of how modern web applications are designed and built.',
   },
   {
     title: 'Think beyond the code.',
     label: 'Technical leadership',
-    text: 'CTO/technical leadership at Day One Venture Studio, working across product planning, architecture, startup projects, and internal systems.',
+    text:
+      'Held a CTO and technical leadership role at Day One Venture Studio, contributing to product planning, software architecture, startup initiatives, and internal systems. Led the technical development of Day One CRM, an internally deployed platform connecting founder operations, task management, approval workflows, and progress tracking.',
   },
   {
     title: 'Keep exploring.',
     label: 'Product & agentic workflows',
-    text: 'Building with React, Next.js, and React Native. Experimenting with Codex, OpenCode, automation, and how coding agents can collaborate.',
+    text:
+      'Building digital products with React, Next.js, and React Native. Experimenting with Codex, OpenCode, automation, and collaborative coding agents.',
   },
 ]
 

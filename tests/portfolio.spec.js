@@ -25,11 +25,11 @@ test('homepage navigation, projects, and concept disclosures', async ({
     }),
   ).toBeVisible()
   await expect(
-    page.getByText(/Planned next: Automating product discovery/),
+    page.getByText(/Automated product discovery/),
   ).toBeAttached()
-  await expect(page.locator('.case-facts')).toContainText('Cofounder')
+  await expect(page.locator('.case-facts')).toContainText(/Co-?founder/i)
   await expect(page.locator('#contribution')).toContainText('As Co-Founder')
-  await expect(page.locator('#contribution')).toContainText('seamless deal discovery platform')
+  await expect(page.locator('#contribution')).toContainText('structured offer discovery')
   await expect(page.locator('.case-cover')).toContainText('empowers shoppers across India to discover and compare verified offers')
   await expect(page.locator('.case-cover')).toContainText('authorized sources')
   await page.goto('/work/day-one-crm')
@@ -37,7 +37,7 @@ test('homepage navigation, projects, and concept disclosures', async ({
     page.getByRole('heading', { name: 'Day One CRM', exact: true, level: 1 }),
   ).toBeVisible()
   await expect(
-    page.getByText(/Built and used internally at Day One Venture Studio/),
+    page.getByText(/used internally at Day One Venture Studio/),
   ).toBeAttached()
   // Concepts are now flipbook pages — verify section exists and contains them
   await page.goto('/#work')
@@ -142,7 +142,7 @@ test('tablet and small-phone layouts keep artwork and controls inside the viewpo
     await page.goto('/')
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBeTruthy()
     await page.goto('/#about')
-    await expect(page.getByRole('heading', { name: /Work experience/i })).toBeVisible()
+    await expect(page.getByRole('heading', { name: /The Journey So Far|Work experience/i })).toBeVisible()
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBeTruthy()
     await page.goto('/#contact')
     await expect(page.locator('.contact-cta')).toBeVisible()

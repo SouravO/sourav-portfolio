@@ -1,26 +1,43 @@
 # Handoff
 
-Updated 2026-11-24 for PORT-052.
+Updated 2026-11-26 for PORT-061 (The Journey So Far & experience era update).
 
 ## Current state
-PORT-052 DONE:
-- Fixed hero illustration framing in [src/comic.css](file:///Users/sourav/Documents/works/sourav-portfolio/src/comic.css): removed errant global `object-position: 50% 100%` (which was pushing the top of the character's face offscreen) and set desktop framing to `object-position: 50% 20%`.
-- Elaborated Check Your Deals challenge description in [src/data/portfolio.js](file:///Users/sourav/Documents/works/sourav-portfolio/src/data/portfolio.js) to detail marketplace fragmentation without mentioning the product itself.
+PORT-061 DONE: Updated the experience section heading and central card profile metadata in [src/components/DetectiveBoard.jsx](file:///Users/sourav/Documents/works/sourav-portfolio/src/components/DetectiveBoard.jsx) and [src/data/lifeBoard.js](file:///Users/sourav/Documents/works/sourav-portfolio/src/data/lifeBoard.js):
+- **Section Heading**: *"The Journey So Far."*
+- **Header Note**: *"India · 4+ Years of Building & Learning."*
+- **Central Board Profile Card**:
+  - Era / Meta: *"India · 4+ Years of Building & Learning"*
+  - Label: *"The Journey So Far"*
 
 ## Verification
 - `npm run lint`: PASS (0 errors, 0 warnings).
-- `npm run build`: PASS (clean production build).
-- Verified responsive visual screenshots across 1024x665, 1440x900, and 390x844 viewports: character face and head are fully framed with sky and architecture above.
-- Playwright regressions PASS.
+- `npm test`: 8/8 PASS.
+- `npm run build`: PASS.
+- `npx playwright test tests/life-board.spec.js tests/portfolio.spec.js`: 12/12 PASS.
+- `git diff --check`: PASS. No commit or deployment.
 
 ## Files changed this task
-`src/comic.css`, `src/data/portfolio.js`, `.ai/TASKS.md`, `.ai/CHANGELOG.md`, `.ai/HANDOFF.md`.
+[src/components/DetectiveBoard.jsx](file:///Users/sourav/Documents/works/sourav-portfolio/src/components/DetectiveBoard.jsx), [src/data/lifeBoard.js](file:///Users/sourav/Documents/works/sourav-portfolio/src/data/lifeBoard.js), [tests/portfolio.spec.js](file:///Users/sourav/Documents/works/sourav-portfolio/tests/portfolio.spec.js), [.ai/TASKS.md](file:///Users/sourav/Documents/works/sourav-portfolio/.ai/TASKS.md), [.ai/HANDOFF.md](file:///Users/sourav/Documents/works/sourav-portfolio/.ai/HANDOFF.md).
 
 ## Limitations and next exact action
-No remaining blockers. No automatic commit or deployment.
+No remaining blockers. Visual review available on homepage at `#about`.
 
 ## Git state
-Working tree has uncommitted PORT-047 through PORT-052 changes on main branch.
+Working tree has uncommitted PORT-061 changes on main branch, alongside earlier uncommitted work.
+- `npm test`: 8/8 PASS.
+- `npm run build`: PASS.
+- `npx playwright test`: 36/36 PASS across all suites including all chapter clicks and anchor focus checks.
+- `git diff --check`: PASS. No commit or deployment.
+
+## Files changed this task
+[src/App.jsx](file:///Users/sourav/Documents/works/sourav-portfolio/src/App.jsx), [src/data/portfolio.js](file:///Users/sourav/Documents/works/sourav-portfolio/src/data/portfolio.js), [tests/portfolio.spec.js](file:///Users/sourav/Documents/works/sourav-portfolio/tests/portfolio.spec.js), [.ai/TASKS.md](file:///Users/sourav/Documents/works/sourav-portfolio/.ai/TASKS.md), [.ai/HANDOFF.md](file:///Users/sourav/Documents/works/sourav-portfolio/.ai/HANDOFF.md).
+
+## Limitations and next exact action
+No remaining blockers. Visual review available at `/work/day-one-crm`.
+
+## Git state
+Working tree has uncommitted PORT-055 changes on main branch, alongside earlier uncommitted work.
 
 ---
 ## Previous handoff (historical)

@@ -200,7 +200,22 @@ function Home() {
 function CaseStudy({ id }) {
   const p = projects.find((project) => project.id === id)
   const next = projects.find((project) => project.slug && project.id !== id)
-  const chapters = [['challenge', 'The challenge'], ['contribution', 'My contribution'], ['system', 'Inside the product'], ['scope', 'Built scope'], ['context', 'Status & context']]
+  const chapters = p.solution
+    ? [
+        ['problem', 'The problem'],
+        ['solution', 'The solution'],
+        ['contribution', 'My contribution'],
+        ['system', 'Inside the product'],
+        ['scope', 'Built scope'],
+        ['context', 'Status & context'],
+      ]
+    : [
+        ['challenge', 'The challenge'],
+        ['contribution', 'My contribution'],
+        ['system', 'Inside the product'],
+        ['scope', 'Built scope'],
+        ['context', 'Status & context'],
+      ]
   return (
     <article className={`case-study case-editorial case-editorial-${id}`}>
       <Link className="case-back" to="/#work">Back to selected work</Link>
@@ -213,11 +228,45 @@ function CaseStudy({ id }) {
       <div className="case-reading-layout">
         <nav className="case-index" aria-label="Case study sections"><p>IN THIS STORY</p>{chapters.map(([anchor, label]) => <a key={anchor} href={`#${anchor}`}>{label}</a>)}<Link to="/#contact" className="case-index-contact">Discuss a similar build <EnvelopeSimple size={16} /></Link></nav>
         <div className="case-body">
-          <section id="challenge" className="case-chapter"><p className="eyebrow">THE CHALLENGE</p><h2>{id === 'cyd' ? 'Offers everywhere. A fragmented search.' : 'Many roles. One connected workflow.'}</h2><p>{p.problem}</p></section>
-          <section id="contribution" className="case-chapter"><p className="eyebrow">MY CONTRIBUTION</p><h2>{id === 'cyd' ? 'From discovery to the destination.' : 'Connecting the people and the platform.'}</h2><p>{p.contribution}</p><div className="case-role-note"><Code size={22} /><span>{p.role}</span></div></section>
+          {p.solution ? (
+            <>
+              <section id="problem" className="case-chapter">
+                <p className="eyebrow">THE PROBLEM</p>
+                <h2>{p.problemHeadline || 'Too many deals. Not enough reliable discovery.'}</h2>
+                <p>{p.problem}</p>
+              </section>
+              <section id="solution" className="case-chapter">
+                <p className="eyebrow">THE SOLUTION</p>
+                <h2>{p.solutionHeadline || 'One place to discover. Compare. Shop.'}</h2>
+                <p>{p.solution}</p>
+              </section>
+            </>
+          ) : (
+            <section id="challenge" className="case-chapter">
+              <p className="eyebrow">THE CHALLENGE</p>
+              <h2>{id === 'cyd' ? 'Offers everywhere. A fragmented search.' : 'Many roles. One connected workflow.'}</h2>
+              <p>{p.problem}</p>
+            </section>
+          )}
+          <section id="contribution" className="case-chapter"><p className="eyebrow">MY CONTRIBUTION</p><h2>{p.contributionHeadline || (id === 'cyd' ? 'From product architecture to the shopping experience.' : 'Connecting the people and the platform.')}</h2><p>{p.contribution}</p><div className="case-role-note"><Code size={22} /><span>{p.role}</span></div></section>
           <section id="system" className="case-chapter case-system"><p className="eyebrow">INSIDE THE PRODUCT</p><h2>See how the pieces connect.</h2><p>Choose a view to explore the product’s key workflows.</p><ProductMap project={p} headingLevel={3} /></section>
           <section id="scope" className="case-chapter"><p className="eyebrow">BUILT SCOPE</p><h2>What’s in the product.</h2><ul className="case-capabilities">{p.capabilities.map(item => <li key={item}><Check size={19} /><span>{item}</span></li>)}</ul></section>
-          <section id="context" className="case-chapter case-context"><p className="eyebrow">STATUS & CONTEXT</p><h2>{id === 'cyd' ? 'Live, with more on the drawing board.' : 'Built for startup operations.'}</h2><p>{p.planned}</p></section>
+          <section id="context" className="case-chapter case-context">
+            <p className="eyebrow">STATUS & CONTEXT</p>
+            <h2>{p.contextHeadline || (id === 'cyd' ? 'Live, with more on the drawing board.' : 'Built for real startup operations.')}</h2>
+            {p.plannedList ? (
+              <div className="case-planned-block">
+                <p className="case-planned-label">PLANNED NEXT</p>
+                <ul className="case-planned-list">
+                  {p.plannedList.map((item) => (
+                    <li key={item}><span>{item}</span></li>
+                  ))}
+                </ul>
+              </div>
+            ) : (
+              <p>{p.planned}</p>
+            )}
+          </section>
           <div className="case-end"><span>THE NEXT STORY</span><Link to={`/work/${next.slug}`}><strong>{next.name}</strong><Plus size={28} /></Link><Link className="case-back" to="/#work">All selected work</Link></div>
         </div>
       </div>
